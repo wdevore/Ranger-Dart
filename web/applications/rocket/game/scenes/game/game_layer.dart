@@ -143,7 +143,7 @@ class GameLayer extends Ranger.BackgroundLayer {
     double hHeight = size.height / 2.0;
     
     _listTag = _loadImage("resources/list.svg", 32, 32,
-        hWdith - (hWdith * .7), hHeight - (hHeight * .1), true);
+        hWdith - (hWdith * .7), hHeight - (hHeight * .1), false);
   }
   
   void _configOverlay() {
