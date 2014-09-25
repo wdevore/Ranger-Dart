@@ -466,7 +466,6 @@ class GameLayer extends Ranger.BackgroundLayer {
   
   @override
   void onEnter() {
-    print("GameLayer.onEnter tag:$tag");
     enableKeyboard = true;
     super.onEnter();
 
@@ -479,7 +478,6 @@ class GameLayer extends Ranger.BackgroundLayer {
   
   @override
   void onExit() {
-    print("GameLayer.onExit tag:$tag");
     super.onExit();
     Ranger.Application app = Ranger.Application.instance;
     app.animations.stop(_listSprite, Ranger.TweenAnimation.ROTATE);

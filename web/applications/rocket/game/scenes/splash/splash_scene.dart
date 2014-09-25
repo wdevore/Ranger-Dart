@@ -24,16 +24,13 @@ class SplashScene extends Ranger.AnchoredScene {
   
   @override
   void onEnter() {
-    print("SplashScene.onEnter: $tag, pauseFor:$pauseFor");
     super.onEnter();
     
     GameManager.instance.bootInit().then(
       (_) {
-        print("SplashScene.onEnter anonymous running. $tag");
         SplashLayer splashLayer = new SplashLayer.withColor(Ranger.color4IFromHex("#aa8888"), true);
         initWithPrimary(splashLayer);
         
-        print("SplashScene.onEnter replacment scene: ${_replacementScene.tag}");
         Ranger.TransitionScene transition = new Ranger.TransitionMoveInFrom.initWithDurationAndScene(0.5, _replacementScene, Ranger.TransitionMoveInFrom.FROM_LEFT);
         transition.pauseFor = pauseFor;
         transition.tag = 9090;

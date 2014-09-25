@@ -29,7 +29,6 @@ class SplashLayer extends Ranger.BackgroundLayer {
 
   @override
   bool init([int width, int height]) {
-    print("SplashLayer.init $tag");
     super.init(width, height);
     
     //---------------------------------------------------------------
@@ -59,7 +58,6 @@ class SplashLayer extends Ranger.BackgroundLayer {
   @override
   void onExit() {
     super.onExit();
-    print("SplashLayer.onExit tag:$tag");
     Ranger.Application app = Ranger.Application.instance;
 
     // Stop previous animation so relative motion doesn't add up causing
