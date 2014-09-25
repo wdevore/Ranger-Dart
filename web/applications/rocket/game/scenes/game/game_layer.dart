@@ -66,8 +66,6 @@ class GameLayer extends Ranger.BackgroundLayer {
 
   @override
   bool init([int width, int height]) {
-    print("GameLayer.init $tag");
-    
     if (super.init(width, height)) {
       
       Ranger.Application app = Ranger.Application.instance;

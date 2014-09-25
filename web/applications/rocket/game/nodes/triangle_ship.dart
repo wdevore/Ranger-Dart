@@ -63,7 +63,6 @@ class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior {
 
   @override
   bool init() {
-    print("TriangleShip.init $tag");
     super.init();
     
     return true;
@@ -274,7 +273,6 @@ class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior {
 
   @override
   void onEnter() {
-    print("TriangleShip.onEnter $tag");
     super.onEnter();
     
 
@@ -286,7 +284,6 @@ class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior {
   @override
   void onExit() {
     super.onExit();
-    print("TriangleShip.onExit tag:$tag");
     unScheduleUpdate();
   }
 

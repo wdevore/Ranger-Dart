@@ -47,7 +47,6 @@ class HudLayer extends Ranger.BackgroundLayer {
 
   @override
   void onEnter() {
-    print("HudLayer.onEnter tag:$tag");
     enableKeyboard = false;
     enableTouch = false;
     

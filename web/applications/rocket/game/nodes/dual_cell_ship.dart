@@ -81,7 +81,6 @@ class DualCellShip extends Ranger.Node with Ranger.GroupingBehavior {
 
   @override
   bool init() {
-    print("DualCellShip.init $tag");
     if (super.init()) {
       initGroupingBehavior(this);
     }
@@ -387,7 +386,6 @@ class DualCellShip extends Ranger.Node with Ranger.GroupingBehavior {
 
   @override
   void onEnter() {
-    print("DualCellShip.onEnter $tag");
     super.onEnter();
 
     // Because the ship needs to "watch" for state changes and has a particle
@@ -398,7 +396,6 @@ class DualCellShip extends Ranger.Node with Ranger.GroupingBehavior {
   @override
   void onExit() {
     super.onExit();
-    print("DualCellShip.onExit tag:$tag");
     unScheduleUpdate();
   }
 
