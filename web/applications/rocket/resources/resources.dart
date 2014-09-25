@@ -107,7 +107,6 @@ class Resources {
   void _checkForCompleteness() {
     if (isBaseLoaded) {
       _baseInitialized = true;
-      print("Resources: resources loaded.");
       _baseWorker.complete();
     }
   }
@@ -115,7 +114,6 @@ class Resources {
   void _checkBootCompleteness() {
     if (isBootLoaded) {
       _bootInitialized = true;
-      print("Resources: boot resources loaded.");
       _bootWorker.complete();
     }
   }
