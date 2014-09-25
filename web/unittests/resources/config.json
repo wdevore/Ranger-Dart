@@ -1,0 +1,9 @@
+{
+  "DebugLevel" : 2,
+  "Box2DEnabled" : false,
+  "ShowFPS" : true,
+  "Framerate" : 60,
+  "RenderContext" : "RENDERMODE_CANVAS_ONLY",
+  "SurfaceTag" : "gameSurface",
+  "BaseCoordSystem" : false
+}

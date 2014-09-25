@@ -1,0 +1,13 @@
+name: ranger
+description: A pub package
+dependencies:
+  browser: any
+  color_slider_control:
+    git: git://github.com/wdevore/color_slider_control.git
+  event_bus: any
+  gradient_colorstops_control:
+    git: git://github.com/wdevore/gradient_colorstops_control.git
+  lawndart: any
+  tweenengine: any
+  unittest: any
+  vector_math: any

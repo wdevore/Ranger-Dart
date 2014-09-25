@@ -1,0 +1,78 @@
+------------ Working on ---------------------
+  
+Json file loading (for particle systems)
+Commit to GitHub
+
+------------ Needs Testing ---------------------
+Test Rectangle booleans and visually display.
+
+------------ TODO ---------------------
+Culling:
+Initial version is simple viewport culling.
+Advanced Quadtree visibility culling.
+
+AssetManagement: See http://pub.dartlang.org/packages/asset_pack
+
+Fullscreen
+
+App Control: applicationDidBecomeActive etc...
+Textures
+Opacity cascading
+Space mapping for UIKit to OpenGL and back
+  convertToUI
+  convertToLocationInView
+
+Transitions:
+Complete transition system, notebly webgl.
+
+Physics:
+  Rocket
+  Tracking
+
+Effects:
+ 
+Zones: Zone zooming from Uuchukichi code.
+  Circle, Square
+
+------------ Skipping ---------------------
+Components: Probably skip, not really needed yet.
+https://github.com/cocos2d/cocos2d-js/issues/64
+
+
+------------ Stable/Done ---------------------
+Object pools:
+https://github.com/denniskaselow/dartemis
+http://pub.dartlang.org/packages/handle_system
+http://pub.dartlang.org/packages/free_list
+
+Sprite/Textures.
+
+-- DONE Use a StreamController to build a publish/subscribe framework similar
+to Cocos2D's. Create as a Mixin perhaps.
+Here is an example:
+https://pub.dartlang.org/packages/event_bus    <---- USED THIS
+https://www.dartlang.org/docs/tutorials/streams/
+https://www.dartlang.org/articles/creating-streams/
+https://www.dartlang.org/articles/broadcast-streams/
+http://blog.dartwatch.com/2013/03/filling-stream-with-data.html
+http://japhr.blogspot.com/2013/10/keyevents-are-for-unit-tests.html
+
+
+------------ XCode ---------------------
+Uchuukichi:
+/Documents/Development/cocos2d-2.02/samples/HelloCpp/Uchuukichi.mac
+Shadows:
+/Documents/Development/cocos2d-x-2.1.4/template/multi-platform-cpp/proj.mac
+
+------------ Concepts ---------------------
+  mixin for Canvas2D behaviors and WebGL behaviors
+  For example, drawLine is different for each renderer.
+
+------------ Game concepts ---------------------
+--- Tumbler Game:
+The idea is to have a player running and jumping over boulders
+tumbling down a hill.
+The game could use sprites for the boulders with different sprites
+for different directions.
+Social aspect is players competing live with each other.
+

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RangerParticles</title>
+    <link rel="stylesheet" href="rangerparticles.css">
+    <link rel="stylesheet" href="dropdown_menu.css">
+    <link rel="stylesheet" href="localstorage/dialog.css">
+    <link rel="stylesheet" href="dialogs/modal_dialogs.css">
+    <link rel="stylesheet" href="controls/controls.css">
+    <link rel="stylesheet" href="colorpicker.css">
+    <link rel="stylesheet" href="gradientpicker.css">
+    <link href='http://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>  </head>
+    <link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+  <body>
+    <!-- Menu bar -->
+    <div class="menubar">
+      <div class="ioButtons">
+        <ul>
+          <li>
+            Load from
+            <ul>
+              <li><input class="menuButton" id="btnLoadLocalStorage" type="button" title="LocalStorage" value="LocalStorage"/></li>
+              <li><input class="menuButton" id="btnGDrive" type="button" title="GDrive" value="GDrive"/></li>
+              <li><input class="menuButton" id="btnDesktopLoad" type="button" title="Desktop" value="Desktop"/></li>
+            </ul>
+          </li>
+          <li>
+            Save to
+            <ul>
+              <li><input class="menuButton" id="btnSaveAsLocalStorage" type="button" title="LocalStorage as JSON" value="LocalStorage as JSON"/></li>
+              <li><input class="menuButton" id="btnSaveAsJSON" type="button" title="GDrive as JSON" value="GDrive as JSON"/></li>
+              <li><input class="menuButton" id="btnSaveAsZip" type="button" title="GDrive as Zip" value="GDrive as Zip"/></li>
+            </ul>
+          </li>
+        </ul>
+        <input type="file" id="fileElem" style="display: none;" multiple>
+        <div id="activeEmitterTitleId" class="active_emitter_title">
+          <span id="activeEmitterDirtyIconId"></span>
+          <label id="activeEmitterTitleNameId" class="active_emitter_title_name"></label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="app_container">
+      <!-- Live preview -->
+      <div class="particle_preview_container">
+        <div class="particle_preview">
+          <Div id="gameSurface" width="400" height="600"></Div>
+        </div>
+      </div>
+
+      <!-- Stats and control -->
+      <div class="stats_container">
+        <div class="stats">
+          <div class="animationEnabled" >
+            <input id="chkAnimationEnabled" type="checkbox" name="Animation Enabled" /><span id="animeEnabled" class="chkBoxLabel">Animation disabled</span>
+          </div>
+          <div class="statsItem">
+            Frames per second: <select id="frameRateId">
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="60" selected="selected">60</option>
+            </select>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Control properties -->
+      <div class="control_properties_container">
+        <div class="tab_header">
+          <div id="emittersId" class="tab_item" style="width: 75px; padding-left: 25px;">
+          Emitters
+          </div>
+          <div id="emitterPropertiesId" class="tab_item" style="width: 135px; height: 20px; font-size: 10px;">
+          Emitter properties
+          </div>
+        </div>
+        <div id="emittersTabId" class="emitters_tab" style="display: block;">
+          <div id="emittersLoadedId" class="control_properties_odd emitters_loaded_container">
+            <!-- NOTE: There CAN'T be a \r or \n inbetween the DIV tag! -->
+            <div id="emittersLoadedPanel" class="emitters_loaded_panel"></div>
+          </div>
+          <div class="control_properties_even">
+          </div>
+        </div>
+        <div id="emittersPropertiesTabId" class="emitter_properties_tab" style="display: none;">
+          <div id="emitterControlPanel" class="panel_container">
+            <div class="panel_title_bar">
+              Emitter control
+              <div class="panel_refresh_icon">
+                <img id="panelEmitterRefresh" class="animation_rotation" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div class="panel_controls">
+              <div class="panel_control_text">
+                <span class="panel_label">Emission type:</span>
+                <select id="emissionType">
+                  <option value="0" selected="selected">Uni Directional</option>
+                  <option value="1">Omni directional (i.e. sparkler)</option>
+                  <option value="2">Drifting directional (i.e. water hose)</option>
+                  <option value="3">Fixed Range directional (i.e. engine exhaust)</option>
+                  <option value="4">Radial sweep ping-pong</option>
+                  <option value="5">Radial sweep 360</option>
+                </select>
+              </div>
+              <br/>
+              <div class="panel_control_text">
+                <span class="panel_label">Variance:</span>
+                <input class="panel_input_text" id="emitterControlVariance" title="In degrees" type="text" value="10.0"/>
+              </div>
+              <div class="panel_control_text">
+                <span class="panel_label">Angle:</span>
+                <input class="panel_input_text" id="emitterControlAngle" title="In degrees" type="text" value="-90.0"/>
+              </div>
+              <div class="panel_control_text">
+                <span class="panel_label">Sweep rate:</span>
+                <input class="panel_input_text" id="radialSweepRate" title="Degrees per FPS" type="text" value="1.0"/>
+              </div>
+            </div>
+          </div>
+          <div id="emissionRatePanel" class="panel_container">
+            <div class="panel_title_bar">
+              Emission Rate (Particles per frame)<img id="panelEmissionRateHelp" alt="Refresh" title="Help/Info" src="resources/help.svg" width="15px" height="15px">
+              <div class="panel_refresh_icon">
+                <img id="panelEmissionRateRefresh" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div class="panel_controls">
+              <div class="panel_control_text">
+                <span class="panel_label">Min:</span>
+                <input class="panel_input_text" id="emissionRateMin" type="text" value="0.1"/>
+              </div>
+              <input id="emissionRateMeanSliderId" type="range" min="0" max="100" value="50" title="Distribution epic center between Min and Max. Fully left means Min + variance etc..."/>
+              <div class="panel_control_text">
+                <span class="panel_label">Max:</span>
+                <input class="panel_input_text" id="emissionRateMax" type="text" value="1.0"/>
+              </div>
+              <div class="panel_control_text">
+                <span class="panel_label">Variance:</span>
+                <input class="panel_input_text" id="emissionRateVariance" type="text" value="0.5"/>
+              </div>
+            </div>
+          </div>
+          <div id="durationPanel" class="panel_container">
+            <div class="panel_title_bar">
+              Duration (in milliseconds)<img id="panelDurationHelp" alt="Refresh" title="Help/Info" src="resources/help.svg" width="15px" height="15px">
+              <div class="panel_refresh_icon">
+                <img id="panelDurationRefresh" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div class="panel_controls">
+            <div id="durationContainerId" class="duration_container">
+            </div>
+            </div>
+          </div>
+          <div id="lifePanel" class="panel_container">
+            <div class="panel_title_bar">
+              Life<img id="panelLifeHelp" alt="Refresh" title="Help/Info" src="resources/help.svg" width="15px" height="15px">
+              <div class="panel_refresh_icon">
+                <img id="panelLifeRefresh" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div class="panel_controls">
+              <div class="panel_control_text">
+                <span class="panel_label">Min:</span>
+                <input class="panel_input_text" id="lifeMin" type="text" value="0.1"/>
+              </div>
+              <input id="lifeMeanSliderId" type="range" min="0" max="100" value="50" title="Distribution epic center between Min and Max. Fully left means Min + variance etc..."/>
+              <div class="panel_control_text">
+                <span class="panel_label">Max:</span>
+                <input class="panel_input_text" id="lifeMax" type="text" value="1.0"/>
+              </div>
+              <div class="panel_control_text">
+                <span class="panel_label">Variance:</span>
+                <input class="panel_input_text" id="lifeVariance" type="text" value="0.5"/>
+              </div>
+            </div>
+          </div>
+          <div id="speedPanel" class="panel_container">
+            <div class="panel_title_bar">
+              Speed<img id="panelSpeedHelp" alt="Refresh" title="Help/Info" src="resources/help.svg" width="15px" height="15px">
+              <div class="panel_refresh_icon">
+                <img id="panelSpeedRefresh" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div class="panel_controls">
+              <div class="panel_control_text">
+                <span class="panel_label">Min:</span>
+                <input class="panel_input_text" id="speedMin" type="text" value="0.1"/>
+              </div>
+              <input id="speedMeanSliderId" type="range" min="0" max="100" value="50" title="Distribution epic center between Min and Max. Fully left means Min + variance etc..."/>
+              <div class="panel_control_text">
+                <span class="panel_label">Max:</span>
+                <input class="panel_input_text" id="speedMax" type="text" value="1.0"/>
+              </div>
+              <div class="panel_control_text">
+                <span class="panel_label">Variance:</span>
+                <input class="panel_input_text" id="speedVariance" type="text" value="0.5"/>
+              </div>
+            </div>
+          </div>
+          <div id="accelerationPanel" class="panel_container">
+            <div class="panel_title_bar">
+              Acceleration<img id="panelAccelerationHelp" alt="Refresh" title="Help/Info" src="resources/help.svg" width="15px" height="15px">
+              <div class="panel_refresh_icon">
+                <img id="panelAccelerationRefresh" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div class="panel_controls">
+              <div class="panel_control_text">
+                <span class="panel_label">Min:</span>
+                <input class="panel_input_text" id="accelerationMin" type="text" value="0.1"/>
+              </div>
+              <input id="accelerationMeanSliderId" type="range" min="0" max="100" value="50" title="Distribution epic center between Min and Max. Fully left means Min + variance etc..."/>
+              <div class="panel_control_text">
+                <span class="panel_label">Max:</span>
+                <input class="panel_input_text" id="accelerationMax" type="text" value="1.0"/>
+              </div>
+              <div class="panel_control_text">
+                <span class="panel_label">Variance:</span>
+                <input class="panel_input_text" id="accelerationVariance" type="text" value="0.5"/>
+              </div>
+            </div>
+          </div>
+          <div id="startScalePanel" class="panel_container">
+            <div class="panel_title_bar">
+              Start Scale<img id="panelStartScaleHelp" alt="Refresh" title="Help/Info" src="resources/help.svg" width="15px" height="15px">
+              <div class="panel_refresh_icon">
+                <img id="panelStartScaleRefresh" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div class="panel_controls">
+              <div class="panel_control_text">
+                <span class="panel_label">Min:</span>
+                <input class="panel_input_text" id="startScaleMin" type="text" value="0.1"/>
+              </div>
+              <input id="startScaleMeanSliderId" type="range" min="0" max="100" value="50" title="Distribution epic center between Min and Max. Fully left means Min + variance etc..."/>
+              <div class="panel_control_text">
+                <span class="panel_label">Max:</span>
+                <input class="panel_input_text" id="startScaleMax" type="text" value="1.0"/>
+              </div>
+              <div class="panel_control_text">
+                <span class="panel_label">Variance:</span>
+                <input class="panel_input_text" id="startScaleVariance" type="text" value="0.5"/>
+              </div>
+            </div>
+          </div>
+          <div id="endScalePanel" class="panel_container">
+            <div class="panel_title_bar">
+              End Scale<img id="panelEndScaleHelp" alt="Refresh" title="Help/Info" src="resources/help.svg" width="15px" height="15px">
+              <div class="panel_refresh_icon">
+                <img id="panelEndScaleRefresh" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div class="panel_controls">
+              <div class="panel_control_text">
+                <span class="panel_label">Min:</span>
+                <input class="panel_input_text" id="endScaleMin" type="text" value="0.1"/>
+              </div>
+              <input id="endScaleMeanSliderId" type="range" min="0" max="100" value="50" title="Distribution epic center between Min and Max. Fully left means Min + variance etc..."/>
+              <div class="panel_control_text">
+                <span class="panel_label">Max:</span>
+                <input class="panel_input_text" id="endScaleMax" type="text" value="1.0"/>
+              </div>
+              <div class="panel_control_text">
+                <span class="panel_label">Variance:</span>
+                <input class="panel_input_text" id="endScaleVariance" type="text" value="0.5"/>
+              </div>
+            </div>
+          </div>
+          <div id="rotationPanel" class="panel_container">
+            <div class="panel_title_bar">
+              Rotation Rate<img id="panelRotationRateHelp" alt="Refresh" title="Help/Info" src="resources/help.svg" width="15px" height="15px">
+              <div class="panel_refresh_icon">
+                <img id="panelRotationRateRefresh" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div class="panel_controls">
+              <div class="panel_control_text">
+                <span class="panel_label">Min:</span>
+                <input class="panel_input_text" id="rotationRateMin" type="text" value="0.1"/>
+              </div>
+              <input id="rotationRateMeanSliderId" type="range" min="0" max="100" value="50" title="Distribution epic center between Min and Max. Fully left means Min + variance etc..."/>
+              <div class="panel_control_text">
+                <span class="panel_label">Max:</span>
+                <input class="panel_input_text" id="rotationRateMax" type="text" value="1.0"/>
+              </div>
+              <div class="panel_control_text">
+                <span class="panel_label">Variance:</span>
+                <input class="panel_input_text" id="rotationRateVariance" type="text" value="0.5"/>
+              </div>
+            </div>
+          </div>
+          <div id="delayPanel" class="panel_container">
+            <div class="panel_title_bar">
+              Delay (in milliseconds)<img id="panelDelayHelp" alt="Refresh" title="Help/Info" src="resources/help.svg" width="15px" height="15px">
+              <div class="panel_refresh_icon">
+                <img id="panelDelayRefresh" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div class="panel_controls">
+              <div class="panel_control_text">
+                <span class="panel_label">Min:</span>
+                <input class="panel_input_text" id="delayMin" type="text" value="0.1"/>
+              </div>
+              <input id="delayMeanSliderId" type="range" min="0" max="100" value="50" title="Distribution epic center between Min and Max. Fully left means Min + variance etc..."/>
+              <div class="panel_control_text">
+                <span class="panel_label">Max:</span>
+                <input class="panel_input_text" id="delayMax" type="text" value="1.0"/>
+              </div>
+              <div class="panel_control_text">
+                <span class="panel_label">Variance:</span>
+                <input class="panel_input_text" id="delayVariance" type="text" value="0.5"/>
+              </div>
+            </div>
+          </div>
+          <div id="tintPanel" class="panel_container">
+            <div class="panel_title_bar">
+              Tint<img id="panelTintHelp" alt="Refresh" title="Help/Info" src="resources/help.svg" width="15px" height="15px">
+              <div class="panel_refresh_icon">
+                <img id="panelTintRefresh" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div id="generalPanel" class="panel_container">
+              <div id="tintPanelId">
+                <div id="gradient_pickerId"></div>
+                <div id="color_pickerId"></div>
+              </div>
+            </div>
+          </div>
+          <div id="generalPanel" class="panel_container">
+            <div class="panel_title_bar">
+              General settings<img id="panelGeneralHelp" alt="Refresh" title="Help/Info" src="resources/help.svg" width="15px" height="15px">
+              <div class="panel_refresh_icon">
+                <img id="panelGeneralRefresh" alt="Refresh" title="Refresh" src="resources/refresh.svg" width="25px" height="25px">
+              </div>
+            </div>
+            <div class="panel_general_checkboxes">
+              <div id="generalCheckboxesId"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script type="application/dart" src="rangerparticles.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>

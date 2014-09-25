@@ -1,0 +1,128 @@
+{
+  "Life" : {
+    "Min" : 1,
+    "Max" : 5,
+    "Variance" : 0.5,
+    "Mean" : 3
+  },
+  "Speed" : {
+    "Min" : 1,
+    "Max" : 5,
+    "Variance" : 0,
+    "Mean" : 50
+  },
+  "RotationRate" : {
+    "Min" : -0.1,
+    "Max" : 0.1,
+    "Variance" : 0.2,
+    "Mean" : 50
+  },
+  "Direction" : {
+    "Type" : "Directional",
+    "Types" : "Notes: Omni, Directional",
+    "Vector" : {
+      "x" : 0,
+      "y" : 1
+    },
+    "Degrees" : 0
+  },
+  "StartScale" : {
+    "Min" : 1,
+    "Max" : 5,
+    "Variance" : 3,
+    "Mean" : 50
+  },
+  "EmissionRate" : {
+    "Notes" : "Values are in [particles per frame]. Default is 1 particle per frame = 60 particles per second.",
+    "Min" : 1,
+    "Max" : 20,
+    "Variance" : 0,
+    "Mean" : 0,
+    "Rate" : 3
+  },
+  "EmitterControl" : {
+    "Type" : "FixedDirectional",
+    "Types:" : "UniDirectional, OmniDirectional, DriftDirectional, FixedDirectional, RangeSweepPingPong, FullRadialSweep",
+    "SweepRate" : 1,
+    "Variance" : 20,
+    "Angle" : 90
+  },
+  "General" : {
+    "MaxParticles" : 1000,
+    "EnableParticleDelay" : false,
+    "SpeedToScale" : false
+  },
+  "PerParticleDelay" : {
+    "Min" : 0,
+    "Max" : 1000,
+    "Variance" : 10,
+    "Mean" : 0,
+    "Notes" : "Values are in milliseconds"
+  },
+  "Duration" : {
+    "ContinuousEnabled" : true,
+    "DurationEnabled" : false,
+    "Duration" : 3000,
+    "PauseFor" : 1000
+  },
+  "Tints" : [
+    {
+      "Color" : {
+        "Red" : 253,
+        "Green" : 255,
+        "Blue" : 0,
+        "Alpha" : 255
+      },
+      "Darkness" : {
+        "Red" : 255,
+        "Green" : 255,
+        "Blue" : 255,
+        "Alpha" : 255
+      },
+      "Brightness" : {
+        "Red" : 0,
+        "Green" : 0,
+        "Blue" : 0,
+        "Alpha" : 0
+      },
+      "GradientLocation" : 0,
+      "ColorLocation" : 0.168181818181818,
+      "EndStop" : true
+    },
+    {
+      "Color" : {
+        "Red" : 255,
+        "Green" : 0,
+        "Blue" : 0,
+        "Alpha" : 255
+      },
+      "Darkness" : {
+        "Red" : 255,
+        "Green" : 255,
+        "Blue" : 255,
+        "Alpha" : 255
+      },
+      "Brightness" : {
+        "Red" : 0,
+        "Green" : 0,
+        "Blue" : 0,
+        "Alpha" : 0
+      },
+      "GradientLocation" : 1,
+      "ColorLocation" : 0,
+      "EndStop" : true
+    }
+  ],
+  "Acceleration" : {
+    "Min" : 0.001,
+    "Max" : 0.005,
+    "Variance" : 0.003,
+    "Mean" : 50
+  },
+  "EndScale" : {
+    "Min" : 10,
+    "Max" : 15,
+    "Variance" : 5,
+    "Mean" : 50
+  }
+}

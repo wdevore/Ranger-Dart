@@ -1,0 +1,51 @@
+
+body {
+  background-color: #dad2cc;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2em;
+  margin: 0px;
+}
+
+h1, p {
+  color: #333;
+}
+
+#controls {
+  margin: 5px;
+}
+
+#gameSurface {
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+#stats {
+  width: 25%;
+  background-color: #fff2dd;
+  border: thin dashed black;
+  padding: 5px;
+}
+
+#dimensions {
+  width: 25%;
+  background-color: #abd2dd;
+  border: thin dashed black;
+  padding: 5px;
+}
+
+#sceneSelectionTd {
+  width: 25%;
+  background-color: #abccaa;
+  border: thin dashed black;
+  padding: 5px;
+}
+
+#misc {
+  width: 25%;
+  background-color: #abcc44;
+  border: thin dashed black;
+  padding: 5px;
+}

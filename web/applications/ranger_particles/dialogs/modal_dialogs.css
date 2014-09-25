@@ -1,0 +1,52 @@
+/*
+  --------------------------------------------------- 
+  New emitter name dialog
+  ---------------------------------------------------
+ */
+.modal_white_content {
+  display: block;
+  position: absolute;
+  top: 15%;
+  left: 25%;
+  width: 50%;
+  height: 10%;
+  padding: 10px;
+  border: 2px solid orange;
+  background-color: #00aaff;
+  z-index: 1202;
+  font-size: x-large;
+  text-align: center;
+}
+
+.modal_black_overlay {
+  display: block;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  z-index: 1201;
+  opacity:.80;
+  filter: alpha(opacity=80);
+}
+
+.modal_dialog_title {
+  padding: 10px;
+  color: white; 
+}
+
+.modal_dialog_input {
+  width: 95%;
+  padding: 5px;
+  font-size: large;
+}
+
+.modal_dialog_button_group {
+  margin: 5px;
+}
+
+.modal_dialog_button {
+  padding: 10px;
+  font-size: large;
+}

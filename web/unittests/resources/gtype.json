@@ -1,0 +1,15 @@
+{
+  "spriteTitle" : "gtype.png",
+  "CoordSystem" : false,
+  "sheetWidth" : 320,
+  "sheetHeight" : 448,
+  "cellWidth" : 64,
+  "cellHeight" : 64,
+  "startFrame" : 1,
+  "endFrame" : 31,
+  "frameRate" : 5,
+  "columns" : 5,
+  "rows" : 7,
+  "playDirection" : true,
+  "frameCount" : 31
+}

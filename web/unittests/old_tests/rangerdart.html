@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Ranger Dart Engine</title>
+    <link rel="stylesheet" href="rangerdart.css">
+  </head>
+  <body>
+    <Div id="gameSurface" width="720" height="700"></Div>
+    <div id="controls">
+      <hr>
+      <table>
+        <tr>
+          <td id="stats">
+            Average FPS: <span id="fps"></span><br>
+            Frames FPS: <span id="ufps"></span><br>
+            Total Frame Count: <span id="frameCount"></span><br>
+            <input id="stepEnabled" type="checkbox" name="Enable Step" /> Enable Step
+            <input id="step" type="button" title="Step" value="Step"/>
+            <br>
+            <input id="shutDown" type="button" title="Shutdown" value="Shutdown"/>
+          </td>
+          <td id="dimensions">
+            Window dimensions: <span id="windowInfo">0,0</span>
+            <br>
+            Mouse view-space: <span id="viewMouse">0,0</span>
+            <br>
+            Design-space: <span id="designPos">0,0</span>
+            <br>
+            World-space: <span id="worldPos">0,0</span>
+            <br>
+            Node-space: <span id="nodePos">0,0</span>
+            <br>
+            Local-space: <span id="localPos">0,0</span>
+          </td>
+          <td id='sceneSelectionTd'>
+            Scenes:
+            <select id="sceneGroups">
+              <option value="5">Particle systems</option>
+              <option value="6">AABBox visibility</option>
+              <option value="2">Transitions</option>
+              <option value="1">Animations</option>
+              <option value="3">Space mapping</option>
+              <option value="4">Anchored Transitions</option>
+            </select>
+            <br>
+            Node Tag:<input id="nodeTag" type="text" title="NodeTage" value="101"/>
+            <br>
+            <input id="debugAction1" type="button" title="PopScene" value="Pop Scene"/>
+            <br>
+            <input id="debugAction2" type="button" title="ReplaceScene" value="Replace Scene"/>
+          </td>
+          <td id="misc">
+            Animations:
+            <select id="animations">
+              <option value="5">MoveBy 25 world units</option>
+              <option value="8">RotateBy 10 degrees</option>
+              <option value="1005">Swirly</option>
+              <option value="1004">Shake</option>
+              <option value="1003">Complex Sequence</option>
+              <option value="1002">Tween scale: 0.5 to 2.0</option>
+              <option value="1001">Parallel Rotate-Move</option>
+              <option value="1000">Sequence Rotate-Move</option>
+              <option value="1">Blink</option>
+              <option value="2">ColorTo</option>
+              <option value="3">Fade In</option>
+              <option value="130">Fade Out</option>
+              <option value="4">FadeTo 50%</option>
+              <option value="6">MoveTo 300,300</option>
+              <option value="7">RotateTo 45 degrees</option>
+              <option value="80">RotateTo Angle</option>
+              <option value="9">ScaleTo 2x</option>
+              <option value="10">ScaleBy 1.5x</option>
+              <option value="11">TintTo Red</option>
+              <option value="12">TintTo Green</option>
+              <option value="13">TintTo Blue</option>
+              <option value="14">Hide</option>
+              <option value="15">Show</option>
+              <option value="16">Place</option>
+              <option value="17">Toggle Hide/Show</option>
+              <option value="18">Ease in</option>
+              <option value="181">Ease out</option>
+              <option value="182">Ease in/out</option>
+              <option value="19">Ease Back in</option>
+              <option value="20">Ease Back out</option>
+              <option value="21">Ease Back in/out</option>
+              <option value="22">Ease Bounce in</option>
+              <option value="23">Ease Bounce out</option>
+              <option value="24">Ease Bounce in/out</option>
+              <option value="25">Ease Elastic in</option>
+              <option value="26">Ease Elastic out</option>
+              <option value="27">Ease Elastic in/out</option>
+              <option value="28">Ease Exponential in</option>
+              <option value="29">Ease Exponential out</option>
+              <option value="30">Ease Exponential in/out</option>
+              <option value="31">Ease Sine in</option>
+              <option value="32">Ease Sine out</option>
+              <option value="33">Ease Sine in/out</option>
+            </select>
+            <br>
+            <input id="applyAnimation" type="button" title="ApplyAnimation" value="Apply Animation"/>
+            Angle:<input id="angleSlider" type="range" min="0" max="360" value="0" />&nbsp;<span id="angle">0</span>
+            <br><br>
+            Transitions:
+            <select id="sceneTransitions">
+              <option value="0">Select</option>
+              <option value="1">Move in from Left</option>
+              <option value="2">Move in from Right</option>
+              <option value="3">Move in from Bottom</option>
+              <option value="4">Move in from Top</option>
+              <option value="5">Slide in from Left</option>
+              <option value="6">Slide in from Right</option>
+              <option value="7">Slide in from Bottom</option>
+              <option value="8">Slide in from Top</option>
+              <option value="9">Shrink Grow Diagonal</option>
+              <option value="10">Fan in - Fan out</option>
+              <option value="11">Scale/Rotate into center.</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td id="misc">
+            Objects drawn: <span id="objectsDrawn"></span><br>
+            <input id="loadJson" type="button" title="loadjson" value="Load JSON"/>
+            <br>
+            Zoom:<input id="zoomSlider" type="range" min="10" max="1000" value="100" />&nbsp;<span id="zoomValue">1.0</span>
+          </td>
+          <td id="misc">
+            Sprite frame:<input id="spriteFrame" type="text" title="SpriteFrame" value="0"/>
+            <br>
+            Sprite frame rate (fps):
+            <select id="spriteFrameRate">
+              <option value="0">disabled</option>
+              <option value="1">1</option>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="30">30</option>
+              <option value="60">60</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <script type="application/dart" src="rangerdart.dart"></script>
+    <script src="packages/browser/dart.js"></script>
+  </body>
+</html>

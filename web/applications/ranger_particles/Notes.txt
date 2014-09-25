@@ -1,0 +1,96 @@
+Working: ------------------------------------------------
+Add pulsing to Variance such that a variance acts for a certain period
+of time.
+
+Motion blur can be obtained from clearing the background with an
+alpha value (0,0,0, 0.2)
+
+Add max particles field.
+  
+
+Howto to control infinity:
+  We need a boolean system that drives a set of Functions.
+  The downside is that the combinations become unweldy.
+  
+  For ex: if a user enables Rotation, Scale then we switch to the
+  RotationScale Function driver. 1) init driver 2) run driver.  
+  
+Save and load to local storage...
+When the app exits it checks to see what maps haven't been saved anywhere.
+
+emit towards mouse location
+
+implement fps control
+
+- Be able to control distribution of variance. does it lean towards the
+max or min?
+
+Basic particle system...
+  Most properties have a variance that accompanies them. For example
+  Lifetime +- a variance. The variance has a scaler to control the
+  magnitude of the variance from.
+  Some variances operate once during the intial emission.
+  Some variance can operate during the lifetime. For example, scale could
+  vary over the lifetime.
+
+Live preview area:
+Has overlays that can be turned on/off:
+  A direction stick with a handle can be dragged.
+  A rectangle can be drawn out.
+A grid in background
+A checkered background pattern
+The particle system can be dragged. 
+Checkbox to control if particles die when exiting canvas.
+
+Emitters tab
+  Stored in local-storage including most recently active.
+  
+Emitter properties tab
+
+Requirements: -------------------------------------------
+Load (Local/GDrive):
+  - load json
+  - load zip
+  - load images (visual, influence map)
+Save (GDrive):
+  - save json
+  - save zip
+
+embed images into json (base64 encoding)
+Templates/Presets
+Shapes (SVG or Image or Paths)
+Particles spawning sub-particles.
+
+GUI:
+  Live Canvas display
+  Background color picker (popup or color grid)
+  FPS, Living count
+  Independent (particles are children or independent)
+  Continous or 1-shot
+  Image alignment (images rotates or is axis aligned)
+  Drag particle system (constrained to div)
+  
+Rendering:
+  Composites (add, subtract etc...)
+    
+Attributes: ---------------------------------------------
+Almost all attributes include a variance sub-attribute.
+Vector Forces:
+  Gravity
+  Wind
+  Velocity
+  Accleration
+Duration
+Lifetime
+EmissionRate
+Angle
+Color
+Transparency
+Size
+Rotation
+Emitter area and shape
+
+References: ---------------------------------------------
+https://github.com/libgdx/libgdx/wiki/Particle-editor
+https://code.google.com/p/cosmographia/source/browse/trunk/examples/particles.json?r=566
+http://particle2dx.com/

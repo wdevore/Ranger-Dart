@@ -1,0 +1,414 @@
+
+body {
+  background-color: #F8F8F8;
+  font-family: 'Poiret One', cursive;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.2em;
+  margin-top: 50px;
+  margin-left: 10px;
+}
+
+#gameSurface {
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.menubar {
+  width: 1040px;
+  height: 40px;
+  position: absolute;
+  top: 0;
+  padding-top: 10px;
+  padding-left: 10px;
+  border: 1px solid #ccc;
+  z-index: 1000;
+  background-color: #ffcc88;
+}
+
+.app_container {
+  width: 1050px;
+  height: 1100px;
+  position: relative;
+  border: 1px solid #ccc;
+  background-color: #aaaaaa;
+}
+
+/*
+  --------------------------------------------------- 
+  Particle preview
+  ---------------------------------------------------
+ */
+.particle_preview_container {
+  width: 400px;
+  height: 600px;
+  top: 5px;
+  left: 5px;
+  position: absolute;
+  border: 2px solid white;
+  background-color: #ddaa00;
+}
+
+.particle_preview {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #222222;
+}
+
+/*
+  --------------------------------------------------- 
+  Control section
+  ---------------------------------------------------
+ */
+.control_properties_container {
+  width: 625px;
+  height: 1085px;
+  position: absolute;
+  left: 415px;
+  top: 5px;
+  border: 2px solid #ccc;
+  background-color: #00aaff;
+  overflow: scroll;
+}
+
+/*
+  --------------------------------------------------- 
+  Tabs
+  ---------------------------------------------------
+ */
+.tab_header {
+  width: 625px;
+  height: 35px;
+  position: absolute;
+  background-color: #ffcc88;
+}
+
+.tab_item {
+  font: 14px/18px verdana;
+  cursor: pointer;  
+  height: 25px;
+  display: inline-block;
+  position: relative;
+  color: white;
+  padding-top: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: #aaaaaa;
+}
+
+/*
+.tab_item:hover {
+  background: #555;
+  color: #fff;
+}
+*/
+.emitter_properties_tab {
+  width: 625px;
+  height: 1085px;
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 35px;
+  background-color: #00aaff;
+  overflow: scroll;
+}
+
+.emitters_tab {
+  width: 625px;
+  height: 1085px;
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 35px;
+  background-color: #00aaff;
+  overflow: scroll;
+}
+
+/*
+  --------------------------------------------------- 
+  Control sub sections.
+  ---------------------------------------------------
+ */
+.control_properties_odd {
+  width: 100%;
+  height: 128px;
+  position: relative;
+  background-color: #555555;
+  overflow: scroll;
+}
+
+.control_properties_even {
+  width: 100%;
+  height: 128px;
+  position: relative;
+  background-color: #666666;
+}
+
+/*
+  --------------------------------------------------- 
+  Stats and controls
+  ---------------------------------------------------
+ */
+.stats_container {
+  width: 400px;
+  height: 300px;
+  top: 650px;
+  left: 5px;
+  position: absolute;
+  border: 2px solid #00aaff;
+  background-color: #aa77aa;
+}
+
+.stats {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #555555;
+}
+
+.statsItem {
+  position: relative;
+  padding: 0px;
+  top: 10px;
+  left: 10px;
+  color: white;
+}
+
+.animationEnabled {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  color: darkblue;
+  font-size: 14px;
+  font-family: 'Poiret One', cursive;
+}
+
+.spanAniEnabled {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: white;
+  font-size: 14px;
+}
+
+.fireParticle {
+  position: inherit;
+  top: 10px;
+  left: 170px;
+  color: darkblue;
+  font-size: 12px;
+  font-family: 'Poiret One', cursive;
+}
+
+.constantFire {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  color: darkblue;
+  font-size: 12px;
+  font-family: 'Poiret One', cursive;
+}
+
+.chkBoxLabel {
+  color: white;
+  display: inline-block;
+  position: relative;
+  padding: 5px;
+  top: 0px;
+  left: 5px;
+}
+
+/*
+  --------------------------------------------------- 
+  Emitters loaded
+  ---------------------------------------------------
+ */
+.emitters_loaded_panel {
+  color: #ffffff;
+  position: relative;
+}
+
+.emitters_loaded_container {
+  height: 256px;
+}
+
+.emitter_row_item {
+  display: block;
+  position: relative;
+  padding-left: 10px;
+}
+
+.emitter_checkbox {
+  padding-left: 10px;
+  margin-top: 7px;
+}
+
+.emitter_name {
+  display: inline;
+  position: relative;
+  width: 90%;
+  padding-left: 5px;
+  margin-top: 5px;
+  font-size: 12pt;
+}
+
+.emitter_svg_icon {
+  vertical-align: middle;
+  padding-left: 10px;
+}
+
+.checkbox_svg_icon {
+  vertical-align: middle;
+}
+
+/*
+  --------------------------------------------------- 
+  Panels
+  ---------------------------------------------------
+ */
+.panel_container {
+  width: 100%;
+  position: relative;
+  background-color: #bbbbbb;
+  overflow: scroll;
+}
+ 
+.panel_title_bar {
+  position: relative;
+  width: 100%;
+  height: 25px;
+  background-color: #aaaa99;
+  border-bottom: 1px solid #cccccc;
+  border-top: 1px solid #cccccc;
+  text-align: center;
+  padding-top: 3px;
+  color: darkblue;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Comfortaa', cursive;
+}
+
+.panel_refresh_icon {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+}
+
+.animation_rotation {
+  -webkit-animation: RefreshRotate 1s infinite linear;
+}
+
+@-webkit-keyframes RefreshRotate {
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+
+.panel_controls {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-left: 5px;
+  background-color: #bbbbbb;
+}
+
+.panel_control_text {
+  display: inline-block;
+  padding: 5px;
+  font-family: 'Comfortaa', cursive;
+  font-size: large;
+}
+
+.panel_label {
+  color: darkblue;
+}
+
+.panel_input_text {
+  font-size: medium;
+  width: 5em;
+}
+
+/*
+  --------------------------------------------------- 
+  Life panel
+  ---------------------------------------------------
+ */
+#lifePanel {
+  height: 100px;
+  background-color: #bbbbbb;
+  overflow: scroll;
+}
+
+/*
+  --------------------------------------------------- 
+  Emitter control panel
+  ---------------------------------------------------
+ */
+.emissionType {
+  padding: 0px;
+  top: 0px;
+  left: 10px;
+  color: white;
+}
+
+#emitterControlPanel {
+  height: 100px;
+  background-color: #bbbbbb;
+  overflow: scroll;
+}
+
+/*
+  --------------------------------------------------- 
+  General control panel
+  ---------------------------------------------------
+ */
+.general_row_item {
+  position: relative;
+  padding: 5px;
+}
+
+.general_name {
+  position: absolute;
+  width: 90%;
+  padding-left: 10px;
+  color: darkblue;
+  font-size: 16pt;
+  font-weight: bold;
+}
+
+/*
+  --------------------------------------------------- 
+  Active emitter title area
+  ---------------------------------------------------
+ */
+.active_emitter_title {
+  display: inline-block;
+  padding-left: 20px;
+  font-family: 'Comfortaa', cursive;
+  font-size: large;
+}
+
+.panel_general_checkboxes {
+  height: 100px;
+}
+
+/*
+  --------------------------------------------------- 
+  Duration panel
+  ---------------------------------------------------
+ */
+.duration_container {
+  height: 100px;
+}
+
+/*
+  --------------------------------------------------- 
+  Tint panel
+  ---------------------------------------------------
+ */
+#tintPanelId {
+  height: 130px;
+}
