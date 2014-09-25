@@ -41,7 +41,6 @@ class GameLayer extends Ranger.BackgroundLayer {
 
   @override
   bool init([int width, int height]) {
-    print("GameLayer.init lvl 5");
     if (super.init(width, height)) {
       _testsPanel = new TestsDialog.withHideCallback(null);
     }
@@ -51,7 +50,6 @@ class GameLayer extends Ranger.BackgroundLayer {
   
   @override
   void onEnter() {
-    print("GameLayer.onEnter lvl 5");
     Ranger.Application app = Ranger.Application.instance;
 
     // We need to register the a few classes so that the
@@ -67,7 +65,6 @@ class GameLayer extends Ranger.BackgroundLayer {
 
   @override
   void onExit() {
-    print("GameLayer.onExit lvl 5");
     super.onExit();
     
     Ranger.Application app = Ranger.Application.instance;

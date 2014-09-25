@@ -36,7 +36,6 @@ class GameScene extends Ranger.AnchoredScene {
   
   @override
   void onEnter() {
-    print("GameScene.onEnter tag:$tag");
     super.onEnter();
 
     // We set the position because a transition may have changed it during

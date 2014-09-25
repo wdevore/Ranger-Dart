@@ -87,8 +87,8 @@ class TestsDialog extends BaseModalDialog implements UTE.Tweenable {
           content.style.visibility = "hidden";
         }
         break;
-      default:
-        print('DEFAULT CALLBACK CAUGHT ; type = ' + type.toString());
+      //default:
+        //print('DEFAULT CALLBACK CAUGHT ; type = ' + type.toString());
     }
   }
   

@@ -13,5 +13,4 @@ dependencies:
     git: git://github.com/wdevore/gradient_colorstops_control.git
   lawndart: any
   tweenengine: any
-  unittest: any
   vector_math: any

@@ -50,7 +50,6 @@ class GameLayer extends Ranger.BackgroundLayer {
 
   @override
   bool init([int width, int height]) {
-    print("GameLayer.init lvl 4");
     if (super.init(width, height)) {
     }
     
@@ -59,7 +58,6 @@ class GameLayer extends Ranger.BackgroundLayer {
   
   @override
   void onEnter() {
-    print("GameLayer.onEnter lvl 4");
     enableMouse = true;
 
     Ranger.Application app = Ranger.Application.instance;
@@ -78,7 +76,6 @@ class GameLayer extends Ranger.BackgroundLayer {
 
   @override
   void onExit() {
-    print("GameLayer.onExit lvl 4");
     super.onExit();
     
     Ranger.Application app = Ranger.Application.instance;
@@ -120,7 +117,6 @@ class GameLayer extends Ranger.BackgroundLayer {
   void _rotationComplete(int type, UTE.BaseTween source) {
     switch(type) {
       case UTE.TweenCallback.COMPLETE:
-        print("RotateAnimationAccessor.tweenCallbackHandler COMPLETE");
         _transition(Ranger.TransitionSlideIn.FROM_TOP);
         break;
     }
