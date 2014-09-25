@@ -2,12 +2,12 @@ Ranger-Dart - v0.1.0
 ===========
 
 ##Contents:
-- [About][1]
+- [About](#about-dart)
 - [So what is Ranger today][2]
 - [Getting started][3]
 
-[1]:1
-##About
+##[About](#about-dart)
+##About Dart
 **Ranger-Dart** (Ranger for short) is a game engine written in [Dart](https://www.dartlang.org/) and slightly modeled after an older version of [Cocos2d-js 1.x](http://www.cocos2d-x.org/products#cocos2dx-js).
 
 Initially **Ranger**'s code base was structured similar to Cocos2d. However, after using Dart design patterns and libraries (aka Pubs) the code base diverged and has changed considerably. The only *concepts* remaining are Scenes, Layers and Scheduler.
