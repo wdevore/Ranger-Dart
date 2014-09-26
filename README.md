@@ -8,10 +8,18 @@ Ranger-Dart - v0.1.0
 - [Templates, Applications and Unit tests](#templates)
 - [Libraries (Pubs)](#libraries)
 - [Folder layout](#folders)
+- [Documentation](#documentation)
 - [Google Blog](#blog)
+- [Author](#author)
+- [License](#license)
+- [RoadMap](#roadmap)
+- [TODOs](#todos)
+- [Further reading](#readings)
+- [Showcases](#showcases)
+- [Contributing](#contributing)
 
 ###[About](#about-dart)
-**Ranger-Dart** (Ranger for short) is a game engine written in [Dart](https://www.dartlang.org/) and slightly modeled after an older version of [Cocos2d-js 1.x](http://www.cocos2d-x.org/products#cocos2dx-js).
+**Ranger-Dart** (Ranger for short) is a game engine written in [Dart](https://www.dartlang.org/) and slightly modeled after an older version of [Cocos2d-js 1.x](http://www.cocos2d-x.org/products#cocos2dx-js). If you have ever worked with Cocos2Dx then you will recognize a fair amount of the examples. However, several things have changed, most notebly Animations and Messaging.
 
 Initially **Ranger**'s code base was structured similar to Cocos2d. However, after using Dart design patterns and libraries (aka Pubs) the code base diverged and has changed considerably. The only *concepts* remaining are Scenes, Layers and Scheduler.
 
@@ -134,26 +142,51 @@ Basically there are 4 critical folders that matter when developing a game: *anim
 
 The optional folders simply provide examples on how to build Nodes, and they are used mostly for the unit tests and templates.
 
-Docs section
+###[Documentation](#documentation)
+[Page 2](docs/Page2.md)
 
 ###[Google Blog](#blog)
+**Ranger** has a [Blog](https://plus.google.com/u/0/b/109136453872758385259/109136453872758385259/posts) where I periodically post statues.
 
-Author section
-Team and Contacts
-License
-Roadmap
-    WebGL
-    Color Cascading
-Known issues TODOs
-Further reading
+###[Author](#author)
+Hello, I [Will DeVore](https://plus.google.com/u/0/b/104513085420089025698/104513085420089025698/posts) the current developer of **Ranger**. I find it a pleasure working with the [Dart](https://www.dartlang.org/) language. Its integration with HTML/CSS/Canvas/WebGL is solid and functional.
+
+###[License](#license)
+See [MIT license](LICENSE)
+
+###[TODOs](#todos)
+**Ranger**'s code is still sprinkled with TODOs. Most are minor in nature. Some of the top areas are:
+- Performance. Things like String conversions in places where code runs in tight loops.
+- Pause/Resume. I need to add the pause/resume code when Scenes are transitioning. An early version was present but once I replaced the old dispatch code with Dart's Streams that code became obsolete.
+- Visibility of browser/tabs. When a tab or the whole browser focus is lost the engine needs to recognize this and pause.
+- Accelerometer code.
+- Several pieces of code should be optimized to check for dirty flag on transformations. I have slacked off is a few areas.
+- A better more full proof way of handling Infinite animations. At the moment the developer needs to track the Infinite animations. If they are not "killed" then cycles are wasted as the animation continues to animate objects that may be gone or invisible.
+
+###[RoadMap](#roadmap)
+There are still manys things that need to be done in **Ranger**. It will probably never really be complete, nonetheless, I have a list of things that I would like to add as time permits in no particular order.
+
+- Color/Alpha Cascading. Color cascading was low on my list but I really need to add it otherwise fading in and out of entire Scenes and Layers is on the onus of the user.
+- [WebGL](https://www.khronos.org/registry/webgl/specs/latest/). **Ranger** has preliminary polymophic support to accomodate WebGL. It is quite possible that an underlying library will be used; perhaps the [Three.dart Pub](https://pub.dartlang.org/packages/three) may be a viable candidate. Worst case is to follow something similar to Cocos2dx-3.x.
+- Quad tree culling
+- Physics with [Box2D Pub](https://pub.dartlang.org/packages/box2d)
+- Fullscreen support
+- Textures. Assuming WebGL is added.
+- Additional transition effects.
+- Create a "Ranger-sack" github repo. This repo would hold extensions to **Ranger**. For example, collision, zooming, zones, tracking etc.
+- Components.
+
+###[Further reading](#readings)
+- [Dart language](https://www.dartlang.org/)
+- [WebGL](https://www.khronos.org/webgl/)
+- [Html Canvas](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial)
+- [Core Html5 Canvas](http://www.amazon.com/Core-HTML5-Canvas-Animation-Development/dp/0132761610/ref=sr_1_2?ie=UTF8&qid=1411696766&sr=8-2&keywords=html5+canvas)
+- [Cocos2D 3.0](http://www.amazon.com/Learning-iPhone-Game-Development-Cocos2D-ebook/dp/B00LB6DJ0U/ref=sr_1_1?ie=UTF8&qid=1411696840&sr=8-1&keywords=cocos2d)
+- [Learning Cocos2D](http://www.amazon.com/Learning-Cocos2D-Hands--Building-Chipmunk-ebook/dp/B005BOMFIU/ref=sr_1_4?ie=UTF8&qid=1411696840&sr=8-4&keywords=cocos2d)
+
+###[Showcases](#showcases)
 Showcases
+
+###[Contributing](#contributing)
 Contributing
     rules ...
-    
-Source structure
-```
-src/                    - blab
-    core/               - blab
-```
-
-[Page 2](docs/Page2.md)
