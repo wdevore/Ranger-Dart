@@ -27,7 +27,7 @@ Initially **Ranger**'s code base was structured similar to Cocos2d. However, aft
 **Ranger** is a game engine currently centric around an HTML5-Canvas and a [Scene graph](http://en.wikipedia.org/wiki/Scene_graph). Rendering of the scene graph is rendered to a Context of type [CanvasRenderingContext2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D). In the future the [WebGLRenderingContext](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext) will be supported.
 
 ###[Screen shots](#shots)
-[Screen shots](docs/Screenshots.md)
+**Ranger** in action: [ScreenShots and videos](docs/Screenshots.md)
 
 ###[Features](#features)
 - Scene graph (heirarchical spatial organization) including space mappings.
