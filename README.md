@@ -45,7 +45,7 @@ Where to start? Easy, just follow these steps:
 3. Launch the [Dart Editor](https://www.dartlang.org/tools/editor/) that came with the SDK.
 4. In the editor navigate to the file menu and choose *Open Existing Folder*.
  * Navigate to the location of either the uncompressed Zip or
- * The local Git repository after you cloned.
+ * The local Git repository that you cloned to your "desktop".
 5. With the project open, run one of the *Templates* called "level0"
  * Navigate into the "level0" template folder located under:
 ```
@@ -56,12 +56,12 @@ web/
 ```
 6. Right-click on **level0.html** and choose *Run in Dartium*.
 
-Once [Dartium](https://www.dartlang.org/tools/dartium/) (which comes with the SDK) has launched it will autmatically navigate to "http://localhost:8080/applications/templates/level0/level0.html" and start running. First you will see a splash scene for 3 seconds and then instanously transition to a GameLayer with dark blue text displaying "*Ranger GameLayer*" on a dark grey background.
+Once [Dartium](https://www.dartlang.org/tools/dartium/) (which comes with the SDK) has launched it will automatically navigate to "http://localhost:8080/applications/templates/level0/level0.html" and start running. First you will see a splash scene for 3 seconds and then instaneously transition to a GameLayer with dark blue text displaying "*Ranger GameLayer*" on a dark grey background.
 ![GameLayer](docs/template0_gamelayer.png)
 7. Congratulations. You have successfully installed and ran **Ranger**!
 
 ###[Templates, Applications and Unit tests](#templates)
-**Ranger** comes with a suite of Templates, Applications and Unit tests. Each serves as a *howto* for starting a project or during project development. When starting a new project you will copy one of the Templates and begin coding from there. The Applications and Unit tests are more for later, after you have a project underway and want to know how to do something.
+**Ranger** comes with a suite of Templates, Applications and Unit tests. Each serves as a *howto* for starting a project or referencing during project development. When starting a new project you will copy one of the Templates and begin coding from there. The Applications and Unit tests are for later, after you have a project underway and want to know how to do something.
 
 #### Templates
 There are currently 7 Templates located under the *web* folder.
@@ -138,18 +138,18 @@ lib/
         sprites/        -- Includes Canvas implementations
         utilities/      -- Misc
 ```
-Basically there are 4 critical folders that matter when developing a game: *animation*, *core*, *mixins* and *nodes*. Other than that you are not required to anything else. *geometry*, *particles*, *physics* and even *sprites* are not required.
+Basically there are 4 critical folders that matter when developing a game: *animation*, *core*, *mixins* and *nodes*. Other than that you are not required to use anything else. *geometry*, *particles*, *physics* and even *sprites* are not required.
 
 The optional folders simply provide examples on how to build Nodes, and they are used mostly for the unit tests and templates.
 
 ###[Documentation](#documentation)
-[Page 2](docs/Page2.md)
+In progress... I hope to have several Google Docs prepared that guide you through setting up a simple framework exactly like Templates.
 
 ###[Google Blog](#blog)
 **Ranger** has a [Blog](https://plus.google.com/u/0/b/109136453872758385259/109136453872758385259/posts) where I periodically post statues.
 
 ###[Author](#author)
-Hello, I [Will DeVore](https://plus.google.com/u/0/b/104513085420089025698/104513085420089025698/posts) the current developer of **Ranger**. I find it a pleasure working with the [Dart](https://www.dartlang.org/) language. Its integration with HTML/CSS/Canvas/WebGL is solid and functional.
+Hello, I am [Will DeVore](https://plus.google.com/u/0/b/104513085420089025698/104513085420089025698/posts) the current developer of **Ranger**. I find it a pleasure working with the [Dart](https://www.dartlang.org/) language. Its integration with HTML/CSS/Canvas/WebGL is solid and functional.
 
 ###[License](#license)
 See [MIT license](LICENSE)
