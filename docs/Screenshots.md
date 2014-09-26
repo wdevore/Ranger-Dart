@@ -2,7 +2,7 @@ Screen shots and videos
 ==============
 Videos:
 Ranger Rocket
-<img src="https://lh6.googleusercontent.com/-W5nlsD8caFQ/VCLkmpfRqBI/AAAAAAAAATU/OlX9-QKf0pw/w294-h245-p-o/Ranger_rocket.mov" class="Bea" style="width: 235px; height: 196px; margin-top: 0px; margin-left: 0px;" alt="Photo">
+<img class="HAa Eha" src="//lh4.googleusercontent.com/-W5nlsD8caFQ/VCLkmpfRqBI/AAAAAAAAATU/OlX9-QKf0pw/w653-h450-no/Ranger_rocket.mov" style="width: 522px; height: 398px; display: none;">
 
 Template 4
 <img src="https://lh6.googleusercontent.com/-oyFSZStmZ7o/VB3QAuNOoLI/AAAAAAAAASY/FC5WNgdNn-E/w294-h245-p-o/Ranger_template2.mov" class="Bea" style="width: 235px; height: 196px; margin-top: 0px; margin-left: 0px;" alt="Photo">
