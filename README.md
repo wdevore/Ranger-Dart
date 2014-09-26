@@ -43,6 +43,8 @@ Initially **Ranger**'s code base was structured similar to Cocos2d. However, aft
 - Optional Updates-per-second for slower devices.
 - Examples, starter templates and Unit tests.
 
+> Note: if you are interested in an Entity System approach to game development consider Dartemis. It is based off the concept of Data Oriented Design (DOD). **Ranger** has the ability to add "systems" and feed timing to them so you can effectively code in a hybrid design where some of your code is hierarchical through a scene graph and other portions are more "linear-ish" through DOD. For further reference [Aertemis](http://gamadu.com/artemis/).
+
 ###[Getting started](#getting-started)
 Where to start? Easy, just follow these steps:
 
