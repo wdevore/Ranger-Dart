@@ -1,6 +1,6 @@
 Ranger-Dart - v0.1.0
-![Logo](docs/RangerDart_logo.png)
 ===========
+![Logo](docs/RangerDart_logo.png)
 
 ##Contents:
 - [About](#about-dart)
