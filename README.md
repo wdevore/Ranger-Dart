@@ -32,8 +32,9 @@ Initially **Ranger**'s code base was structured similar to Cocos2d. However, aft
 
 ###[Features](#features)
 - Scene graph (heirarchical spatial organization) including space mappings.
-- Animations using [Universal Tween Engine](https://pub.dartlang.org/packages/tweenengine) pub.
-- Message system using [EventBus](https://pub.dartlang.org/packages/event_bus) pub.
+- Animations using [Universal Tween Engine](https://pub.dartlang.org/packages/tweenengine) Pub by Xavier Guzman.
+- Message system using [EventBus](https://pub.dartlang.org/packages/event_bus) Pub by Marco Jakob.
+- Pooling ported from [Dartemis: Entity System Framework](https://pub.dartlang.org/packages/dartemis) Pub by Dennis Kaselow.
 - Sprites and sprite sheets. (PNG, SVG etc...)
 - Particle systems.
 - Html5 Canvas rendering.
