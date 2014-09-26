@@ -41,7 +41,7 @@ Initially **Ranger**'s code base was structured similar to Cocos2d. However, aft
 Where to start? Easy, just follow these steps:
 
 1. Download the [Dart SDK](https://www.dartlang.org/) and install it. If you are on a Mac then it is as easy as installing the .dmg.
-2. Go to GitHub and download [Ranger-Dart](https://github.com/wdevore/Ranger-Dart). Then choose to either *Clone in Desktop* or *Download ZIP*. If choose the Zip option then uncompress it to a location of your choosing. You should now have a folder called "Ranger-Dart".
+2. Go to GitHub and download [Ranger-Dart](https://github.com/wdevore/Ranger-Dart). To do that choose to either *Clone in Desktop* or *Download ZIP*. If choose the Zip option then uncompress it to a location of your choosing. You should now have a folder called "Ranger-Dart".
 3. Launch the [Dart Editor](https://www.dartlang.org/tools/editor/) that came with the SDK.
 4. In the editor navigate to the file menu and choose *Open Existing Folder*.
  * Navigate to the location of either the uncompressed Zip or
@@ -185,8 +185,9 @@ There are still manys things that need to be done in **Ranger**. It will probabl
 - [Learning Cocos2D](http://www.amazon.com/Learning-Cocos2D-Hands--Building-Chipmunk-ebook/dp/B005BOMFIU/ref=sr_1_4?ie=UTF8&qid=1411696840&sr=8-4&keywords=cocos2d)
 
 ###[Showcases](#showcases)
-Showcases
+None at the moment.
 
 ###[Contributing](#contributing)
-Contributing
-    rules ...
+There is still a fair amount of stuff to do to make **Ranger** feature complete. Contributing to **Ranger** would be helpful as the spirit of **Ranger** is maintained.
+
+End.
