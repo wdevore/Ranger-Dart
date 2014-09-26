@@ -181,8 +181,12 @@ There are still manys things that need to be done in **Ranger**. It will probabl
 - Fullscreen support
 - Textures. Assuming WebGL is added.
 - Additional transition effects.
-- Create a "Ranger-sack" github repo. This repo would hold extensions to **Ranger**. For example, collision, zooming, zones, tracking etc.
+- Create a "Ranger-sack" github repo. This repo would hold extensions to **Ranger**. For example, collision, zooming, zones, tracking, UX-kit etc.
 - Components.
+
+> Note: The idea was brought up about UX design. **Ranger** doesn't enforce any particular approach, but at the same time it would be convenient to have a sample UX-kit that may provide a launching point for coding GUIs in their games.
+**Ranger**'s Unit tests and Applications (RangerParticles, RangerRocket) use a hybrid approach at the moment. Some icons (of SVG type) use hit testing while pop out panels use HTML. **Ranger**'s goal isn't to be an enforcer but enabler. Every game developer has an idea of what their UX should be and so there is no way a game engine could meet those expectations. Nonetheless, a sample UX-kit would provide ideas on howto wire things up and what options are possible.
+
 
 ###[Further reading](#readings)
 - [Dart language](https://www.dartlang.org/)
