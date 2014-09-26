@@ -3,6 +3,7 @@ Ranger-Dart - v0.1.0
 
 ##Contents:
 - [About](#about-dart)
+- [Screen shots](#shots)
 - [Features](#features)
 - [Getting started](#getting-started)
 - [Templates, Applications and Unit tests](#templates)
@@ -24,6 +25,9 @@ Ranger-Dart - v0.1.0
 Initially **Ranger**'s code base was structured similar to Cocos2d. However, after using Dart design patterns and libraries (aka Pubs) the code base diverged and has changed considerably. The only *concepts* remaining are Scenes, Layers and Scheduler.
 
 **Ranger** is a game engine currently centric around an HTML5-Canvas and a [Scene graph](http://en.wikipedia.org/wiki/Scene_graph). Rendering of the scene graph is rendered to a Context of type [CanvasRenderingContext2D](https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D). In the future the [WebGLRenderingContext](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext) will be supported.
+
+###[Screen shots](#shots)
+[Screen shots](docs/Screenshots.md)
 
 ###[Features](#features)
 - Scene graph (heirarchical spatial organization) including space mappings.

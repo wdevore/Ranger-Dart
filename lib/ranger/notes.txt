@@ -1,7 +1,6 @@
 ------------ Working on ---------------------
   
 Json file loading (for particle systems)
-Commit to GitHub
 
 ------------ Needs Testing ---------------------
 Test Rectangle booleans and visually display.
