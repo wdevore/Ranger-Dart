@@ -1,6 +1,5 @@
 part of unittests;
 
-
 /**
  * This test shows how to properly dispose of [Node]s once they are no
  * longer relevant. In this example as each [TextNode]'s animation is
