@@ -294,11 +294,6 @@ class GameLayer extends Ranger.BackgroundLayer {
         pw.moveToPool();
         nodeP.moveToPool();
 
-        // To check the square we need to map the bullet's position from
-        // local-space to the local-space of the square. This is better than
-        // mapping all the vertices of the square into the space of the
-        // bullet (aka 4 vertex mappings verse 1).
-        // The bullet/particle's local-space origin is of course 0,0
         pw = p.node.convertToWorldSpace(_localOrigin);
         nodeP = _trianglePolyNode.convertWorldToNodeSpace(pw.v);
 
