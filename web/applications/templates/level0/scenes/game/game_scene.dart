@@ -13,11 +13,6 @@ class GameScene extends Ranger.AnchoredScene {
     this.tag = tag;
   }
   
-  GameScene.withPrimary(Ranger.Node primary, [Ranger.Scene replacementScene, Function completeVisit]) {
-    initWithPrimary(primary);
-    _replacementScene = replacementScene;
-  }
-  
   @override
   bool init([int width, int height]) {
     if (super.init()) {
