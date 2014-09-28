@@ -1,12 +1,16 @@
+library template0;
+
 import 'dart:html';
 
 import 'package:ranger/ranger.dart' as Ranger;
 
 // The main game scene where the fun happens.
-import '../level0/scenes/game/game_scene.dart';
+part '../level0/scenes/game/game_scene.dart';
+part '../level0/scenes/game/game_layer.dart';
 
 // The splash scene is where resources are loaded.
-import 'scenes/splash/splash_scene.dart';
+part 'scenes/splash/splash_scene.dart';
+part 'scenes/splash/splash_layer.dart';
 
 // Ranger application access
 Ranger.Application _app;

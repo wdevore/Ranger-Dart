@@ -1,8 +1,4 @@
-library game_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-
-import 'game_layer.dart';
+part of template4;
 
 class GameScene extends Ranger.AnchoredScene {
   Ranger.Scene _replacementScene;

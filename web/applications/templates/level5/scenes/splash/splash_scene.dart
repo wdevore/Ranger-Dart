@@ -1,8 +1,4 @@
-library splash_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-
-import 'splash_layer.dart';
+part of template5;
 
 class SplashScene extends Ranger.AnchoredScene {
   /**

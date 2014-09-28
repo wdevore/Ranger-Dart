@@ -1,12 +1,22 @@
+library template1;
+
 import 'dart:html';
+import 'dart:async';
+
 
 import 'package:ranger/ranger.dart' as Ranger;
+import 'package:tweenengine/tweenengine.dart' as UTE;
+
+part 'resources/resources.dart';
+part 'game_manager.dart';
 
 // The main game scene where the fun happens.
-import '../level1/scenes/game/game_scene.dart';
+part 'scenes/game/game_scene.dart';
+part 'scenes/game/game_layer.dart';
 
 // The splash scene is where resources are loaded.
-import 'scenes/splash/splash_scene.dart';
+part 'scenes/splash/splash_scene.dart';
+part 'scenes/splash/splash_layer.dart';
 
 // Ranger application access
 Ranger.Application _app;

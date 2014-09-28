@@ -1,6 +1,4 @@
-library circle_particle_node;
-
-import 'package:ranger/ranger.dart' as Ranger;
+part of template6;
 
 class CircleParticleNode extends Ranger.Node with Ranger.Color4Mixin {
   // ----------------------------------------------------------

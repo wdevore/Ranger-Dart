@@ -1,6 +1,4 @@
-library game_layer;
-
-import 'package:ranger/ranger.dart' as Ranger;
+part of template0;
 
 /**
  * A super simple layer.

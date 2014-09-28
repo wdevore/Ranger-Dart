@@ -1,15 +1,4 @@
-library game_layer;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-
-import '../../game_manager.dart';
-import '../../resources/resources.dart';
-import 'rotate_tween_accessor.dart';
-
-import 'game_scene.dart';
+part of template4;
 
 /**
  * A simple layer that demonstrates transitioning to another scene.

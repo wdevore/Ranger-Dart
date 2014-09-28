@@ -1,7 +1,4 @@
-library rotate_tween_accessor;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
+part of template4;
 
 /**
  * A very simple Tween accessor.

@@ -1,6 +1,4 @@
-library splash_layer;
-
-import 'package:ranger/ranger.dart' as Ranger;
+part of template2;
 
 /**
  * Show Ranger-Dart logo
