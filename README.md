@@ -151,7 +151,7 @@ Basically there are 4 critical folders that matter when developing a game: *anim
 The optional folders simply provide examples on how to build Nodes, and they are used mostly for the unit tests and templates.
 
 ###[Documentation](#documentation)
-In progress... I hope to have several Google Docs prepared that guide you through setting up a simple framework exactly like Templates.
+- [Getting started](https://docs.google.com/document/d/1k_vyVV9duqlMcCM4nZYc8B2BhyC_j4RXHg6WN6KSRPE/pub)
 
 ###[Google Blog](#blog)
 **Ranger** has a [Blog](https://plus.google.com/u/0/b/109136453872758385259/109136453872758385259/posts) where I periodically post statues.
