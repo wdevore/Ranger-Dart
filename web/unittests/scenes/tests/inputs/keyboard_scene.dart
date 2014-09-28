@@ -1,7 +1,4 @@
-library keyboard_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'keyboard_layer.dart';
+part of unittests;
 
 class KeyboardScene extends Ranger.AnchoredScene {
   double pauseFor = 0.0;

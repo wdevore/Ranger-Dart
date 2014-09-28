@@ -1,7 +1,4 @@
-library square_particle_node;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:vector_math/vector_math.dart';
+part of unittests;
 
 class SquareParticleNode extends Ranger.Node with Ranger.Color4Mixin {
   /** 

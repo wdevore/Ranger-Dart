@@ -1,7 +1,4 @@
-library touch_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'touch_layer.dart';
+part of unittests;
 
 class TouchScene extends Ranger.AnchoredScene {
   double pauseFor = 0.0;

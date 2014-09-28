@@ -1,7 +1,4 @@
-library rectangle_node;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:vector_math/vector_math.dart';
+part of unittests;
 
 class RectangleNode extends Ranger.Node {
   String drawColor;

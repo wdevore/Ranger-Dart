@@ -1,7 +1,4 @@
-library grid_node;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:vector_math/vector_math.dart';
+part of unittests;
 
 class GridNode extends Ranger.Node {
   double width;

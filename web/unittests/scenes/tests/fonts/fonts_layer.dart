@@ -1,10 +1,4 @@
-library movein_layer;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-import '../../game/game_manager.dart';
+part of unittests;
 
 /**
  * Layer has 4 arrow buttons for transitioning in 4 directions.

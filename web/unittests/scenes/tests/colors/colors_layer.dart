@@ -1,13 +1,4 @@
-library rotations_layer;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-import '../../game/game_manager.dart';
-
-import '../../nodes/point_color_4i.dart';
-import '../../nodes/point_color_tween.dart';
+part of unittests;
 
 /**
  * This test shows how to properly change transition colors.

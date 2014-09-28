@@ -1,6 +1,4 @@
-library hud_layer;
-
-import 'package:ranger/ranger.dart' as Ranger;
+part of unittests;
 
 /// Overlay layer.
 class HudLayer extends Ranger.BackgroundLayer {

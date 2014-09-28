@@ -1,15 +1,63 @@
+library unittests;
+
 import 'dart:html';
 import 'dart:async';
 
 import 'package:ranger/ranger.dart' as Ranger;
+import 'package:tweenengine/tweenengine.dart' as UTE;
+import 'package:vector_math/vector_math.dart';
 
-import 'scenes/game/game_manager.dart';
+part 'dialogs/base_modal_dialog.dart';
+part 'dialogs/tests_dialog.dart';
+
+part 'resources/resources.dart';
 
 // The main game scene where the fun happens.
-import 'scenes/game/game_scene.dart';
+part 'scenes/game/game_scene.dart';
+part 'scenes/game/game_manager.dart';
+part 'scenes/game/game_layer.dart';
+part 'scenes/game/hud_layer.dart';
+
+part 'scenes/nodes/circle_particle_node.dart';
+part 'scenes/nodes/grid_node.dart';
+part 'scenes/nodes/point_color.dart';
+part 'scenes/nodes/point_color_4i.dart';
+part 'scenes/nodes/point_color_tween.dart';
+part 'scenes/nodes/rectangle_node.dart';
+part 'scenes/nodes/square_particle_node.dart';
 
 // The splash scene is where resources are loaded.
-import 'scenes/splash/splash_scene.dart';
+part 'scenes/splash/splash_scene.dart';
+part 'scenes/splash/splash_layer.dart';
+
+part 'scenes/tests/transitions/movein_scene.dart';
+part 'scenes/tests/transitions/movein_layer.dart';
+part 'scenes/tests/transitions/slidein_scene.dart';
+part 'scenes/tests/transitions/slidein_layer.dart';
+part 'scenes/tests/transitions/misc_in_transitions_scene.dart';
+part 'scenes/tests/transitions/misc_in_transitions_layer.dart';
+part 'scenes/tests/transitions/misc_transitions_scene.dart';
+part 'scenes/tests/transitions/misc_transitions_layer.dart';
+part 'scenes/tests/inputs/keyboard_scene.dart';
+part 'scenes/tests/inputs/keyboard_layer.dart';
+part 'scenes/tests/inputs/mouse_scene.dart';
+part 'scenes/tests/inputs/mouse_layer.dart';
+part 'scenes/tests/inputs/touch_scene.dart';
+part 'scenes/tests/inputs/touch_layer.dart';
+part 'scenes/tests/transforms/transforms_scene.dart';
+part 'scenes/tests/transforms/transforms_layer.dart';
+part 'scenes/tests/colors/colors_scene.dart';
+part 'scenes/tests/colors/colors_layer.dart';
+part 'scenes/tests/particlesystems/particlesystems_scene.dart';
+part 'scenes/tests/particlesystems/particlesystems_layer.dart';
+part 'scenes/tests/particlesystems/particlesystems2_scene.dart';
+part 'scenes/tests/particlesystems/particlesystems2_layer.dart';
+part 'scenes/tests/fonts/fonts_scene.dart';
+part 'scenes/tests/fonts/fonts_layer.dart';
+part 'scenes/tests/sprites/sprites_scene.dart';
+part 'scenes/tests/sprites/sprites_layer.dart';
+part 'scenes/tests/spaces/spaces_scene.dart';
+part 'scenes/tests/spaces/spaces_layer.dart';
 
 // The Ranger application access
 Ranger.Application _app;

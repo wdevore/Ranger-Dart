@@ -1,12 +1,4 @@
-library story_dialog;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-import '../scenes/game/game_manager.dart';
-
-import 'base_modal_dialog.dart';
+part of unittests;
 
 typedef Function SelectCallback(String title);
 

@@ -1,7 +1,4 @@
-library misc_transitions_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'misc_in_transitions_layer.dart';
+part of unittests;
 
 class MiscInTransitionsScene extends Ranger.AnchoredScene {
   double pauseFor = 0.0;

@@ -1,6 +1,4 @@
-library point_color_4i_node;
-
-import 'package:ranger/ranger.dart' as Ranger;
+part of unittests;
 
 /**
  * This node is an example of using the [Color4Mixin] mixin so that

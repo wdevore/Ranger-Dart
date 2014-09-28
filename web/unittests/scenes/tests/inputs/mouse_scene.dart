@@ -1,7 +1,4 @@
-library mouse_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'mouse_layer.dart';
+part of unittests;
 
 class MouseScene extends Ranger.AnchoredScene {
   double pauseFor = 0.0;

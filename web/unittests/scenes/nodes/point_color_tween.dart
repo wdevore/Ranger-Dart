@@ -1,7 +1,4 @@
-library point_color_tween_node;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
+part of unittests;
 
 /**
  * This [Node] is an example of implementing a [Tweenable] directly.

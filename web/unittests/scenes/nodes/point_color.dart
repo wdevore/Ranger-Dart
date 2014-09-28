@@ -1,6 +1,4 @@
-library point_color_node;
-
-import 'package:ranger/ranger.dart' as Ranger;
+part of unittests;
 
 class PointColor extends Ranger.Node {
   String outlineColor;

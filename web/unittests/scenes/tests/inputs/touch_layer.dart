@@ -1,10 +1,4 @@
-library touch_layer;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-import '../../game/game_manager.dart';
+part of unittests;
 
 /**
  * NOT COMPLETE YET!

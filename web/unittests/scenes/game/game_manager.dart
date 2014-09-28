@@ -1,8 +1,4 @@
-library game_manager;
-
-import 'dart:async';
-
-import '../../resources/resources.dart';
+part of unittests;
 
 class GameManager {
   static final GameManager _instance = new GameManager._internal();

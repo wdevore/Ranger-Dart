@@ -1,11 +1,4 @@
-library misc_transitions_layer;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-import 'misc_in_transitions_scene.dart';
-import '../../game/game_manager.dart';
+part of unittests;
 
 /**
  */

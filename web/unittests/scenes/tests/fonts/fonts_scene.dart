@@ -1,7 +1,4 @@
-library fonts_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'fonts_layer.dart';
+part of unittests;
 
 class FontsScene extends Ranger.AnchoredScene {
   double pauseFor = 0.0;

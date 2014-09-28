@@ -1,7 +1,4 @@
-library particlesystems2_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'particlesystems2_layer.dart';
+part of unittests;
 
 class ParticleSystems2Scene extends Ranger.AnchoredScene {
   double pauseFor = 0.0;

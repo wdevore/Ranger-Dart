@@ -1,9 +1,4 @@
-library app_resources;
-
-import 'dart:html';
-import 'dart:async';
-
-import 'package:ranger/ranger.dart' as Ranger;
+part of unittests;
 
 /*
   */

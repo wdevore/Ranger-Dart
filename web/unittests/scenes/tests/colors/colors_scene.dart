@@ -1,7 +1,4 @@
-library colors_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import '../colors/colors_layer.dart';
+part of unittests;
 
 class ColorsScene extends Ranger.AnchoredScene {
   double pauseFor = 0.0;

@@ -1,7 +1,4 @@
-library transforms_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'transforms_layer.dart';
+part of unittests;
 
 class TransformsScene extends Ranger.AnchoredScene {
   double pauseFor = 0.0;

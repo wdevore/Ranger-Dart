@@ -1,12 +1,4 @@
-library keyboard_layer;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-import '../../game/game_manager.dart';
-
-import '../../nodes/rectangle_node.dart';
+part of unittests;
 
 /**
  * This test shows how to properly dispose of [Node]s once they are no

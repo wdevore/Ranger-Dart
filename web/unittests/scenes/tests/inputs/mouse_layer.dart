@@ -1,14 +1,4 @@
-library mouse_layer;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-import 'package:vector_math/vector_math.dart';
-
-import '../../game/game_manager.dart';
-import '../../nodes/rectangle_node.dart';
-import '../../nodes/point_color.dart';
+part of unittests;
 
 
 /**

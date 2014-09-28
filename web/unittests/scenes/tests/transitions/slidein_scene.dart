@@ -1,7 +1,4 @@
-library slide_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'slidein_layer.dart';
+part of unittests;
 
 class SlideInScene extends Ranger.AnchoredScene {
   double pauseFor = 0.0;

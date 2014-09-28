@@ -1,27 +1,4 @@
-library game_layer;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-
-import 'game_scene.dart';
-import '../game/game_manager.dart';
-import '../../../unittests/dialogs/tests_dialog.dart';
-
-import '../tests/transitions/movein_scene.dart';
-import '../tests/transitions/slidein_scene.dart';
-import '../tests/transitions/misc_transitions_scene.dart';
-import '../tests/inputs/keyboard_scene.dart';
-import '../tests/inputs/mouse_scene.dart';
-import '../tests/inputs/touch_scene.dart';
-import '../tests/transforms/transforms_scene.dart';
-import '../tests/colors/colors_scene.dart';
-import '../tests/particlesystems/particlesystems_scene.dart';
-import '../tests/particlesystems/particlesystems2_scene.dart';
-import '../tests/fonts/fonts_scene.dart';
-import '../tests/sprites/sprites_scene.dart';
-import '../tests/spaces/spaces_scene.dart';
+part of unittests;
 
 /**
  * Display a message that directs the user to touch an icon to access

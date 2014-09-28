@@ -1,8 +1,4 @@
-library splash_layer;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-import '../game/game_manager.dart';
+part of unittests;
 
 /**
  * Show Ranger-Dart logo

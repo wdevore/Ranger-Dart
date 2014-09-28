@@ -1,13 +1,4 @@
-library spaces_layer;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-import 'package:vector_math/vector_math.dart';
-
-import '../../game/game_manager.dart';
-import '../../nodes/grid_node.dart';
+part of unittests;
 
 /**
  * Shows the mouse's location relative to different nodes.

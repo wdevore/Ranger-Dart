@@ -1,7 +1,4 @@
-library spaces_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'spaces_layer.dart';
+part of unittests;
 
 class SpacesScene extends Ranger.AnchoredScene {
   double pauseFor = 0.0;
