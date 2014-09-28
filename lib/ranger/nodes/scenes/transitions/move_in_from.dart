@@ -38,11 +38,6 @@ class TransitionMoveInFrom extends TransitionScene {
     switch (_directionFrom) {
       case FROM_LEFT:
         inScene.setPosition(-Application.instance.designSize.width, 0.0);
-
-//        seq.push(UTE.Tween.to(aScene, AnchoredScene.TRANSLATE_X, duration)
-//                ..targetValues = [0.0]
-//                ..easing = UTE.Sine.INOUT);
-
         seq.push(app.animations.moveTo(inScene, duration, 0.0, 0.0, UTE.Sine.INOUT, AnchoredScene.TRANSLATE_X, null, false));
         break;
       case FROM_RIGHT:
@@ -59,26 +54,11 @@ class TransitionMoveInFrom extends TransitionScene {
         break;
     }
     
-//    UTE.Tween funcTw = UTE.Tween.to(aScene, TweenAnimation.NONE, 0.0)
-//      ..targetValues = []
-//      ..easing = UTE.Linear.INOUT
-//      ..callback = _finishCallFunc
-//      ..callbackTriggers = UTE.TweenCallback.COMPLETE;
-
     seq..push(app.animations.callFunc(0.0, _finishCallFunc, null, false))
     ..start();
-//    seq..push(funcTw)
-//      ..start(app.animations.tweenMan);
   }
 
   void _finishCallFunc(int type, UTE.BaseTween source) {
     finish(null);
-//    switch(type) {
-//      case UTE.TweenCallback.COMPLETE:
-//        finish(null);
-//        break;
-//      //default:
-//      //  print('DEFAULT CALLBACK CAUGHT ; type = ' + type.toString());
-//    }
   }
 }
