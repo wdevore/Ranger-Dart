@@ -20,7 +20,7 @@ abstract class RotationBehavior {
   
   /**
    * [angle] is in `radians`.
-   * Depending on the BASE_COORDINATE_ORIENTATION system
+   * Depending on the [CONFIG.BASE_COORDINATE_ORIENTATION] system
    * (aka left or right handed). Rotation will change between systems.
    * If "true", angles specified with POSITIVE values will cause
    * Counter Clockwise (CCW) rotations.
@@ -34,7 +34,7 @@ abstract class RotationBehavior {
   
   /**
    * [angle] is in `degrees`.
-   * Depending on the BASE_COORDINATE_ORIENTATION system
+   * Depending on the [CONFIG.BASE_COORDINATE_ORIENTATION] system
    * (aka left or right handed). Rotation will change between systems.
    * If "true" then angles specified with POSITIVE values cause
    * Counter Clockwise (CCW) rotations.
@@ -46,6 +46,9 @@ abstract class RotationBehavior {
     node.dirty = true;
   }
 
+  /**
+   * [rotationRate] applies during animations. 
+   */
   set rotationRate(double rate) => _rotationRate = rate;
 }
 
