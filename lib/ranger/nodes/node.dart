@@ -35,6 +35,7 @@ abstract class Node extends BaseNode {
     return false;
   }
 
+  @override
   Node clone() {
     return null;
   }
@@ -55,6 +56,7 @@ abstract class Node extends BaseNode {
     _dirtySubscribers.remove(node);
   }
   
+  @override
   void release() {
     
   }
@@ -72,6 +74,7 @@ abstract class Node extends BaseNode {
 //    return aabbox;
 //  }
   
+  @override
   bool isVisible() {
     // checkVisibility is typically implemented by a mixin/behavior.
     // If not then BaseNode supplies a default behavior of reflecting
@@ -96,20 +99,24 @@ abstract class Node extends BaseNode {
   //-------------------------------------------------------------------
   // Life Cycles
   //-------------------------------------------------------------------
+  @override
   void onEnter() {
     // This method will either be BaseNode's method or a mixin/behavior.
     // This is the same for all on.... methods.
     onEnterNode();
   }
 
+  @override
   void onExitTransitionDidStart() {
     onExitTransitionDidStartNode();
   }
 
+  @override
   void onEnterTransitionDidFinish() {
     onEnterTransitionDidFinishNode();
   }
 
+  @override
   void onExit() {
     onExitNode();
   }
@@ -119,10 +126,12 @@ abstract class Node extends BaseNode {
     cleanUpNode(cleanUp);    
   }
 
+  @override
   void updateTransform() {
     updateTransforms();
   }
 
+  @override
   bool visit(DrawContext context) {
     return visitNode(context);
   }
@@ -131,6 +140,7 @@ abstract class Node extends BaseNode {
    * Implement if you want to know when your [Node] was added as a child
    * to some other parent.
    */
+  @override
   void addedAsChild() {
     
   }
@@ -152,6 +162,7 @@ abstract class Node extends BaseNode {
   /// Default is to draw nothing. In essence an invisible node.
   /// Consider setting the [Node] invisible to save unnecessary work if
   /// your design allows.
+  @override
   void draw(DrawContext context) {
     
   }
@@ -160,6 +171,7 @@ abstract class Node extends BaseNode {
    * Iterate through this [Node]'s children accumulating local AABBoxes.
    * An AABBox only needs to be recomputed if a [Node] becomes dirty.
    */
+  @override
   MutableRectangle<double> calcParentAABB() {
     return null;
   }
@@ -180,6 +192,7 @@ abstract class Node extends BaseNode {
     return null;
   }
   
+  @override
   bool pointInside(Vector2 point) {
     return false;
   }
