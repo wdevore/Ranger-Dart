@@ -152,6 +152,7 @@ The optional folders simply provide examples on how to build Nodes, and they are
 
 ###[Documentation](#documentation)
 - [Getting started (pdf)](docs/RangerGettingstarted.pdf)
+- [Nodes (pdf)](docs/RangerNodes.pdf)
 
 ###[Google Blog](#blog)
 **Ranger** has a [Blog](https://plus.google.com/u/0/b/109136453872758385259/109136453872758385259/posts) where I periodically post statues.
