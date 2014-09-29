@@ -102,7 +102,7 @@ web/
 
 #### Unit tests
 There are many unit tests. Some are non-visual but many are visual. The original unit tests have all of the non-visual tests, for example, pooling and affine transformations; and they are a bit outdated so use with caution.
-> A side note: When first looking to port Cocos2D-js the first thing I noticed was that the transform stack appeared as a mess. I couldn't make complete sense of it and I didn't want to use something that I couldn't follow or understand. So the very first thing I did was scrap Cocos2D-js code and learn to make a transform stack myself. Forturnately I had worked with [Piccolo2D](http://www.cs.umd.edu/hcil/piccolo/) and understood how its stack worked.
+> A side note: When first looking to port Cocos2D-js the first thing I noticed was that the transform stack was a mess of incomprehension. I couldn't make complete sense of it and I didn't want to use something that I couldn't follow or understand. So the very first thing I did was scrap Cocos2D-js code and learn to make a transform stack myself. Forturnately I had worked with [Piccolo2D](http://www.cs.umd.edu/hcil/piccolo/) and understood how its stack worked.
 
 The old test (some may not work as they were created almost a year ago) are located under the *old_tests* folder. The newest tests are under the *scenes/tests* folder.
 ```
