@@ -52,7 +52,7 @@ class GameLayer extends Ranger.BackgroundLayer {
     Resources resources = GameManager.instance.resources;
 
     // I use an anonymous Closure to capture the placebo sprite such that it can
-    // be used when the actual image is loaded.
+    // be used when the actual image is being loaded.
     () {  // <--------- Closure
       // While the actual image is loading, display an animated placebo.
       Ranger.SpriteImage placebo = new Ranger.SpriteImage.withElement(resources.spinner);
