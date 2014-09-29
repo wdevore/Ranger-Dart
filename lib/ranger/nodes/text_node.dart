@@ -1,6 +1,7 @@
 part of ranger;
 
 /**
+ * TODO this node needs to be moved to Ranger-Sack repository.
  * [TextNode] is a Html5 Canvas specific [Node] for displaying text.
  * It presense is mostly for unit tests and templates. It normal for
  * you to implement your own text node depending on your requirements.
