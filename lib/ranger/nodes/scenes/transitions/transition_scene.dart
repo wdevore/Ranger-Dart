@@ -84,6 +84,8 @@ abstract class TransitionScene extends Scene {
     //if(cc.renderContextType === cc.WEBGL)
     //  outScene.getCamera().restore();
 
+    // TODO consider replacing this odd usage of UpdateTarget with
+    // a EventBus call instead.
     Scheduler scheduler = Application.instance.scheduler;
     scheduler.scheduleUpdateTarget(_setNewScene, 0.0, Timer.REPEAT_FOREVER, 0.0, !isRunning);
   }
