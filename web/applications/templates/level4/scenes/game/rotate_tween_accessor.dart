@@ -3,7 +3,7 @@ part of template4;
 /**
  * A very simple Tween accessor.
  */
-class RotateAnimationAccessor extends UTE.TweenAccessor<Ranger.SpriteImage> {
+class RotateAnimationAccessor implements UTE.TweenAccessor<Ranger.SpriteImage> {
   static const int ROTATE = 50;
 
   RotateAnimationAccessor();
