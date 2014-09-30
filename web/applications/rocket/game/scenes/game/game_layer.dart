@@ -216,8 +216,6 @@ class GameLayer extends Ranger.BackgroundLayer {
         _contactExplode.explodeByStyle(Ranger.ParticleActivation.OMNI_DIRECTIONAL);
       }
     }
-    
-    _contactExplode.update(dt);
   }
 
   Ranger.UniversalParticle _processBulletToTriangleShip(List<Ranger.Particle> bullets) {
@@ -477,6 +475,8 @@ class GameLayer extends Ranger.BackgroundLayer {
     Ranger.Application app = Ranger.Application.instance;
     app.animations.stop(_listSprite, Ranger.TweenAnimation.ROTATE);
     
+    Ranger.Application.instance.scheduler.unScheduleTimingTarget(_contactExplode);
+    
     unScheduleUpdate();
   }
 
@@ -720,6 +720,8 @@ class GameLayer extends Ranger.BackgroundLayer {
     // Construct Exhaust Particles
     _populateParticleSystemWithCircles(_contactExplode);
     _contactExplode.active = true;
+    
+    Ranger.Application.instance.scheduler.scheduleTimingTarget(_contactExplode);
   }
   
   Ranger.ParticleActivation _configureForExhaustActivation(Ranger.Color4<int> fromColor, Ranger.Color4<int> toColor) {
