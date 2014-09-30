@@ -51,10 +51,9 @@ class GameLayer extends Ranger.BackgroundLayer {
 
     Ranger.Application app = Ranger.Application.instance;
 
-    // We need to register the a few classes so that the
+    // We need to register a few classes so that the
     // Universal Tween Engine (UTE) recognizes them.
-    UTE.Tween.registerAccessor(Ranger.SpriteImage, app.animations);
-    UTE.Tween.registerAccessor(RotateAnimationAccessor, app.animations);
+    UTE.Tween.registerAccessor(Ranger.SpriteImage, _rotateArrowAni);
 
     _loaded = false;
 
