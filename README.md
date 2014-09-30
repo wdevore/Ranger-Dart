@@ -154,6 +154,14 @@ The optional folders simply provide examples on how to build Nodes, and they are
 - [Getting started (pdf)](docs/RangerGettingstarted.pdf)
 - [Nodes (pdf)](docs/RangerNodes.pdf)
 - [Animations (pdf)](docs/RangerAnimation.pdf)
+- [Scene Graph (pdf) -- NOT COMPLETE]()
+
+These docs are not directly related to **Ranger**. But they could help your game development. They are all a work in progress.
+
+- [Misc -- NOT COMPLETE]()
+- [Physics -- NOT COMPLETE]()
+- [Collision -- NOT COMPLETE]()
+
 
 ###[Google Blog](#blog)
 **Ranger** has a [Blog](https://plus.google.com/u/0/b/109136453872758385259/109136453872758385259/posts) where I periodically post statues.
