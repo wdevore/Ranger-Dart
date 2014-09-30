@@ -265,8 +265,9 @@ class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior {
     // would inherit transform properties of the ship that we don't want.
     ps.addByPrototype(_gameLayer, prototype);
     
-    // The prototype is no longer relevant as it has been cloned. So
-    // we move it back to the pool.
+    // The prototypes are no longer relevant as they have been cloned. So
+    // we move it back to the pool. The other option is to NOT put them back
+    // and free up resources.
     protoVisual.moveToPool();
     prototype.moveToPool();
   }
