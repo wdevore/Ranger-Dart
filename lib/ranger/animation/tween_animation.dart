@@ -50,17 +50,7 @@ class TweenAnimation extends TimingTarget implements UTE.TweenAccessor<Node> {
   math.Random _randGen = new math.Random();
   double _displacementScale = 5.0;
   
-  Vector2 _originalPos = new Vector2.zero();
-  
   List<_Tween> _tweens = new List<_Tween>();
-  
-  /**
-   * Some animations (for example [shake]) disturb the position without
-   * restoring to a known position. This will cause a known position
-   * after the [shake].
-   * Default = true
-   */
-  bool resetToOriginalPosition = true;
   
   /**
    * This [TweenManager] is hooked up to the [Scheduler] as a [TimingTarget]
