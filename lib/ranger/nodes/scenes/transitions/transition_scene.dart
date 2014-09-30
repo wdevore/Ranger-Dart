@@ -5,6 +5,8 @@ part of ranger;
  * an Outgoing [Scene].
  */
 abstract class TransitionScene extends Scene {
+//  StreamSubscription _busSubscription;
+
   Scene inScene;
   Scene outScene;
   double duration;
@@ -88,6 +90,9 @@ abstract class TransitionScene extends Scene {
     // a EventBus call instead.
     Scheduler scheduler = Application.instance.scheduler;
     scheduler.scheduleUpdateTarget(_setNewScene, 0.0, Timer.REPEAT_FOREVER, 0.0, !isRunning);
+    
+//    Application.instance.eventBus.fire(this);
+
   }
   
   // UpdateTarget callback
@@ -123,6 +128,11 @@ abstract class TransitionScene extends Scene {
   void onEnter() {
     super.onEnter();
     
+//    _busSubscription = Application.instance.eventBus.on(TransitionScene).listen(
+//    (TransitionScene ts) {
+//      _setNewScene(0.0);
+//    });
+
     // TODO INPUT Disable events during transitions
     
     // outScene should not receive the onEnter callback
@@ -136,6 +146,8 @@ abstract class TransitionScene extends Scene {
   void onExit() {
     super.onExit();
 
+//    _busSubscription.cancel();
+    
     // TODO INPUT Enable events during transitions
 
     outScene.onExit();
