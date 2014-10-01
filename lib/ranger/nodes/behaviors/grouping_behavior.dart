@@ -20,6 +20,9 @@ abstract class GroupingBehavior {
   void initGroupingBehavior(BaseNode context) {
     _this = context;
     
+    if (_children == null)
+      _children = new List<BaseNode>();
+    
     _highestZOrder = 1000000000;
   }
 
@@ -217,9 +220,6 @@ abstract class GroupingBehavior {
     // If the new node's Z-Order is greater than the highest
     // Z-Order then simply add it to the collection.
     // Otherwise add and then sort.
-
-    if (_children == null)
-      _children = new List<BaseNode>();
 
     _children.add(child);
     //Logging.info("GroupingBehavior.addChild: added ${node} as child to parent ${_this} whos parent is ${_this._parent}.");
