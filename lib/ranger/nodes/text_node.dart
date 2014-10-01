@@ -7,10 +7,10 @@ part of ranger;
  * you to implement your own text node depending on your requirements.
  * This node is not that efficient.
  */
-class TextNode extends Node {
-  Color4<int> strokeColor = Color4IBlue;
+class TextNode extends Node with Color4Mixin {
+  Color4<int> strokeColor = Color4IWhite;
   double strokeWidth = 1.0;
-  Color4<int> fillColor;
+  bool filled = true;
   String text;
   String horzAlign;
   String baseLine;
@@ -43,7 +43,7 @@ class TextNode extends Node {
       poolable.font = null;
       poolable.shadows = false;
       poolable.strokeColor = strokeColor;
-      poolable.fillColor = fillColor;
+      poolable.initWithColor(fillColor);
       poolable.initWithUniformScale(poolable, fromScale);
       return poolable;
     }
@@ -63,12 +63,21 @@ class TextNode extends Node {
     return null;
   }
 
+  // We override opacity property so we can also change the opacity
+  // of the stroke.
+  @override
+  void set opacity(int opacity) {
+    super.opacity = opacity;
+    if (strokeColor != null)
+      strokeColor.a = opacity;
+  }
+
   @override
   void draw(DrawContext context) {
     context.save();
 
-    if (fillColor != null)
-      context.fillColor = fillColor.toString();
+    if (filled)
+      context.fillColor = color.toString();
     else
       context.fillColor = null;
      
