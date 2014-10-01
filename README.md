@@ -154,7 +154,7 @@ The optional folders simply provide examples on how to build Nodes, and they are
 - [Getting started (pdf)](docs/RangerGettingstarted.pdf)
 - [Nodes (pdf)](docs/RangerNodes.pdf)
 - [Animations (pdf)](docs/RangerAnimation.pdf)
-- [Scene Graph (pdf) -- NOT COMPLETE]()
+- [Scene Graph (pdf)](docs/RangerScenegraph.pdf)
 - [Development (pdf) -- NOT COMPLETE]()
 
 These docs are not directly related to **Ranger**. But they could help your game development. They are all a work in progress.
