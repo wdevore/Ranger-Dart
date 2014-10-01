@@ -45,12 +45,12 @@ abstract class RGBACascadeMixin {
     // Update this node's opacity.
     _displayedColor.a = (_realColor.a * opacity) ~/ 255;
 
-    if (_cascadeOpacityEnabled) {
+    if (_behaviorChildren != null && _cascadeOpacityEnabled) {
       // Traverse each cascade child layer setting their opacity.
       for(BaseNode node in _behaviorChildren) {
-        if (node is RGBACascadeMixin) {
-          RGBACascadeMixin behavior = node as RGBACascadeMixin;
-          behavior.cascadeOpacity(_displayedColor.a);
+        if (node is Color4Mixin) {
+          Color4Mixin behavior = node as Color4Mixin;
+          behavior.opacity = _displayedColor.a;
         }        
       }
     }
@@ -100,9 +100,9 @@ abstract class RGBACascadeMixin {
     
     if (_cascadeColorEnabled) {
       for(BaseNode node in _behaviorChildren) {
-        if (node is RGBACascadeMixin) {
-          RGBACascadeMixin behavior = node as RGBACascadeMixin;
-          behavior.cascadeColor(_displayedColor);
+        if (node is Color4Mixin) {
+          Color4Mixin behavior = node as Color4Mixin;
+          behavior.initialColor = _displayedColor;
         }        
       }
     }
