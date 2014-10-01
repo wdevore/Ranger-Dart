@@ -1,9 +1,14 @@
 part of ranger;
 
 /** 
- * TODO not yet complete.
  * [LayerCascade] is a subclass of [Layer].
  * It adds color management to child [Layer]s.
+ * In order for cascading to function correctly your [Node]s must implement
+ * the [Color4Mixin] interface. If your [Node] has additional needs
+ * then override [Color4Mixin]'s properties.
+ * For example, [TextNode] also has an outline feature. In order to support
+ * [opacity] for both the fill color and outline color TextNode overrides
+ * the opacity property to properly adjust the outline alpha setting.
  */
 class LayerCascade extends Layer with RGBACascadeMixin {
   /**
