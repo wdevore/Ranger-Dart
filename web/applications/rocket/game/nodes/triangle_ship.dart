@@ -6,7 +6,7 @@ import '../geometry/polygon_node.dart';
 import '../scenes/game/game_layer.dart';
 import '../geometry/circle_particle_node.dart';
 
-class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior {
+class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior, Ranger.GroupingBehavior {
   static const double MAX_MAGNITUDE = 10.0;
   static const double MAX_THRUST_MAGNITUDE = 0.1;
   
@@ -63,7 +63,9 @@ class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior {
 
   @override
   bool init() {
-    super.init();
+    if (super.init()) {
+      initGroupingBehavior(this);
+    }
     
     return true;
   }
