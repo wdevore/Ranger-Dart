@@ -104,6 +104,5 @@ class LayerCascade extends Layer with RGBACascadeMixin {
       }
     }
   }
-
 }
 
