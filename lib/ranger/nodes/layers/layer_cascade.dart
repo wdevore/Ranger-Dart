@@ -84,7 +84,6 @@ class LayerCascade extends Layer with RGBACascadeMixin {
 
   /**
    * If cascasding is enabled then children's colors are set as well.
-   * Alpha is ignored. Use [opacity].
    * implementation for [RGBAInterface]
    */
   set color(Color4<int> c) {
