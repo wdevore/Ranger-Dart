@@ -6,9 +6,7 @@ part of ranger;
  * 
  * This [Node] is meant as a foreground for your game.
  * 
- * [OverlayLayer] will cover the entire Design-space with a rectangle no
- * matter how you transform this [Layer] as long as the [constrainBackground] flag
- * remains true.
+ * [OverlayLayer] does NOT constrain its background.
  */
 class OverlayLayer extends Layer {
   
@@ -27,12 +25,7 @@ class OverlayLayer extends Layer {
   String overlayColor;
   
   AffineTransform t = new AffineTransform.Identity();
-  /**
-   * Constrain the background color to within the [Layer] itself. This
-   * is the typical behavior expected.
-   * Default is (true)
-   */  
-  bool constrainBackground = true;
+
   /**
    * Render a background color defined by [overlayColor].
    * Default is (true)
@@ -64,26 +57,17 @@ class OverlayLayer extends Layer {
     return null;
   }
   
-  /**
-   * [init] defaults to using the Design dimensions.
-   * 
-   * Some [Layer] nodes are "static" in functionality, meaning there
-   * is no transition effects in motion. If that is the case then
-   * you can take the default which is that the [SceneManager] won't
-   * clear the background because the [Layer] is covering it completely.
-   * In other words the background is fully occluded.
-   * [Application.instance.sceneManager.ignoreClear] = true;
-   * (Default is false)
-   * 
-   * However, some [Layer]s may be under the effects of transitions and
-   * as such the background will need to be cleared on every frame
-   * because the Surface may be exposed leading to rendering artifacts.
-   * In this case your [Layer] will need to change the clear flag to
-   * false "after" the init().
-   * 
-   * if [width] and [height] are not provided then
-   * designSize.width, designSize.height are used.
-   */
+  factory OverlayLayer.transparent() {
+    OverlayLayer layer = new OverlayLayer._();
+    if (layer.init()) {
+      layer.transparentBackground = true;
+      
+      return layer;
+    }
+    
+    return null;
+  }
+  
   @override
   bool init([int width, int height]) {
     // Default to "clearing the background".
@@ -168,51 +152,26 @@ class OverlayLayer extends Layer {
   
   void drawBackground(DrawContext context) {
     Size<double> size = contentSize;
-    if (!transparentBackground) {
-      context.drawRect(-size.width / 2.0, -size.height / 2.0, size.width, size.height);
-    }
+    context.drawRect(-size.width / 2.0, -size.height / 2.0, size.width, size.height);
   }
   
   void _drawCanvas(DrawContext context) {
-    // We always want OverlayLayer to cover the entire area with a
-    // rectangle. This means we need to remove any transforms applied
-    // to this Node prior to drawing the rectangle.
-    
-    context.save();
-    context.fillColor = overlayColor;
-
-//    if (constrainBackground) {
-//      // TODO migrate to dirty method
-//      // Use the anchor to force the layer color back into center view.
-//      if (anchoredScene == null) {
-//        print("OverlayLayer ${tag} : Warning! anchor not set. Background will not be constrained to fill scene.");
-//      }
-//      else {
-//        t.toIdentity();
-//        double xt = anchoredScene.anchor.position.x + position.x;
-//        double yt = anchoredScene.anchor.position.y + position.y;
-//        
-//        t.translate(xt, yt);
-//        // We don't negate rotation and scale because we dont' want those effects
-//        // to apply this layer.
-//        //t.rotate(rotation);
-//        //t.scale(uniformScale, uniformScale);
-//        t.invert();
-//        context.transformWith(t);
-//      }
-//    }
-
-    drawBackground(context);
-    
-    context.restore();
+    if (!transparentBackground) {
+      context.save();
+      context.fillColor = overlayColor;
+      drawBackground(context);
+      context.restore();
+    }
 
     if (showOriginAxis) {
       context.save();
       context.lineWidth = 3.0;
+      
       context.drawColor = "rgba(255,255,255,1.0)";
       _ls.setValues(0.0, 0.0);
       _le.setValues(25.0, 0.0);
       context.drawLine(_ls, _le);
+      
       context.drawColor = "rgba(255,0,0,1.0)";
       _ls.setValues(25.0, 0.0);
       _le.setValues(50.0, 0.0);
@@ -222,11 +181,12 @@ class OverlayLayer extends Layer {
       _ls.setValues(0.0, 0.0);
       _le.setValues(0.0, 25.0);
       context.drawLine(_ls, _le);
+      
       context.drawColor = "rgba(0,255,0,1.0)";
       _ls.setValues(0.0, 25.0);
       _le.setValues(0.0, 50.0);
       context.drawLine(_ls, _le);
-      context.lineWidth = 1.0;
+      
       context.restore();
     }
     
