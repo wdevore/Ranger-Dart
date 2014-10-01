@@ -3,7 +3,7 @@ library polygon_node;
 import 'package:ranger/ranger.dart' as Ranger;
 import 'package:vector_math/vector_math.dart';
 
-abstract class PolygonNode extends Ranger.Node with Ranger.GroupingBehavior {
+abstract class PolygonNode extends Ranger.Node {
   bool solid = true;
   bool outlined = false;
   double outlineThickness = 3.0;
@@ -26,7 +26,7 @@ abstract class PolygonNode extends Ranger.Node with Ranger.GroupingBehavior {
   @override
   bool init() {
     if (super.init()) {
-      initGroupingBehavior(this);
+//      initGroupingBehavior(this);
       
       return true;
     }
@@ -76,22 +76,22 @@ abstract class PolygonNode extends Ranger.Node with Ranger.GroupingBehavior {
     Ranger.AffineTransform transform = nodeToWorldTransform();
     Ranger.RectangleApplyAffineTransform(worldAABBox, transform);
 
-    if (children == null)
-      return worldAABBox;
-
-    // Iterate children collecting Bounding Boxes
-    for(Ranger.Node child in children) {
-      if (child is PolygonNode) {
-        if (child.visible) {
-          Ranger.MutableRectangle<double> bbox = child._calcAABBOfChild(transform);
-  
-          // Accumulate bounds. Union aabbox to bbox
-          worldAABBox.union(bbox);
-  
-          bbox.moveToPool();    // Return to pool.
-        }
-      }
-    }
+//    if (children == null)
+//      return worldAABBox;
+//
+//    // Iterate children collecting Bounding Boxes
+//    for(Ranger.Node child in children) {
+//      if (child is PolygonNode) {
+//        if (child.visible) {
+//          Ranger.MutableRectangle<double> bbox = child._calcAABBOfChild(transform);
+//  
+//          // Accumulate bounds. Union aabbox to bbox
+//          worldAABBox.union(bbox);
+//  
+//          bbox.moveToPool();    // Return to pool.
+//        }
+//      }
+//    }
 
     transform.moveToPool();
 
@@ -109,21 +109,21 @@ abstract class PolygonNode extends Ranger.Node with Ranger.GroupingBehavior {
     
     Ranger.RectangleApplyAffineTransform(accumBox, transform);
 
-    if (children != null) {
-      // Iterate children collecting Bounding Boxes
-      for(PolygonNode child in children) {
-        if (child.visible) {
-          // Recurse into children
-          Ranger.MutableRectangle<double> childBox = child._calcAABBOfChild(transform); // A pooled rectangle
-          
-          // Accumulate bounds. Union child bbox.
-          accumBox.union(childBox);
-          
-          // Return bbox back to pool for next child.
-          childBox.moveToPool();
-        }
-      }
-    }
+//    if (children != null) {
+//      // Iterate children collecting Bounding Boxes
+//      for(PolygonNode child in children) {
+//        if (child.visible) {
+//          // Recurse into children
+//          Ranger.MutableRectangle<double> childBox = child._calcAABBOfChild(transform); // A pooled rectangle
+//          
+//          // Accumulate bounds. Union child bbox.
+//          accumBox.union(childBox);
+//          
+//          // Return bbox back to pool for next child.
+//          childBox.moveToPool();
+//        }
+//      }
+//    }
     
     transform.moveToPool();
     
@@ -140,20 +140,20 @@ abstract class PolygonNode extends Ranger.Node with Ranger.GroupingBehavior {
     // Take this node's aabbox and transform it 
     Ranger.RectApplyAffineTransformTo(polygon.aabbox, rect, at);
 
-    if (children == null)
-      return rect;
-
-    // Iterate children collecting Bounding Boxes
-    for(PolygonNode child in children) {
-      if (child.visible) {
-        Ranger.MutableRectangle<double> bbox = child._calcParentAABB(at);
-
-        // Accumulate bounds. Union aabbox to bbox
-        rect.union(bbox);
-
-        bbox.moveToPool();    // Return to pool.
-      }
-    }
+//    if (children == null)
+//      return rect;
+//
+//    // Iterate children collecting Bounding Boxes
+//    for(PolygonNode child in children) {
+//      if (child.visible) {
+//        Ranger.MutableRectangle<double> bbox = child._calcParentAABB(at);
+//
+//        // Accumulate bounds. Union aabbox to bbox
+//        rect.union(bbox);
+//
+//        bbox.moveToPool();    // Return to pool.
+//      }
+//    }
 
     at.moveToPool();
 
@@ -169,21 +169,21 @@ abstract class PolygonNode extends Ranger.Node with Ranger.GroupingBehavior {
     
     Ranger.RectApplyAffineTransformTo(polygon.aabbox, accumBox, transform);
 
-    if (children != null) {
-      // Iterate children collecting Bounding Boxes
-      for(PolygonNode child in children) {
-        if (child.visible) {
-          // Recurse into children
-          Ranger.MutableRectangle<double> childBox = child._calcParentAABB(transform);
-          
-          // Accumulate bounds. Union child bbox.
-          accumBox.union(childBox);
-          
-          // Return bbox back to pool for next child.
-          childBox.moveToPool();
-        }
-      }
-    }
+//    if (children != null) {
+//      // Iterate children collecting Bounding Boxes
+//      for(PolygonNode child in children) {
+//        if (child.visible) {
+//          // Recurse into children
+//          Ranger.MutableRectangle<double> childBox = child._calcParentAABB(transform);
+//          
+//          // Accumulate bounds. Union child bbox.
+//          accumBox.union(childBox);
+//          
+//          // Return bbox back to pool for next child.
+//          childBox.moveToPool();
+//        }
+//      }
+//    }
     
     transform.moveToPool();
     
