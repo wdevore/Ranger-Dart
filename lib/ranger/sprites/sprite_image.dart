@@ -6,7 +6,7 @@ part of ranger;
  * A [SpriteImage] is loaded from a URL/URI source. The source can be
  * specified with either a [URL] or [JSON] file.
  */
-class SpriteImage extends Node {
+class SpriteImage extends Node with Color4Mixin {
   Html.ImageElement imageElement;
   String _resource;
 
@@ -123,11 +123,13 @@ class SpriteImage extends Node {
     if (CONFIG.base_coordinate_system == CONFIG.LEFT_HANDED_COORDSYSTEM)
       context2D.scale(1.0, -1.0);
 
-    // TODO add tween for: context2D.globalAlpha = 0.5;
+    context2D.globalAlpha = color.a / 255.0;
+
     context2D.drawImageToRect(
         imageElement, 
         _destinationRect, sourceRect: _sourceBlitRectangle
         );
+ 
     context.restore();
     
     if (aabboxVisible) {
