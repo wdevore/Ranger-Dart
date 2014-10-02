@@ -13,8 +13,6 @@ class Resources {
   int _iconLoadCount = 0;
   int _iconTotal = 0;
 
-  Completer _loadingWorker;
-
   Resources() {
     // These spinners are embedded resources so they are always available.
     spinner = new ImageElement(
