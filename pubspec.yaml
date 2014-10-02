@@ -1,5 +1,5 @@
 name: ranger
-version: 0.1.3
+version: 0.1.4
 author: William DeVore
 description: A game engine written in Dart and slightly modeled after Cocos2d-js.
 homepage: https://github.com/wdevore/Ranger-Dart

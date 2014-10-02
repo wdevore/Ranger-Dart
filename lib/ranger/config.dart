@@ -12,7 +12,7 @@ class CONFIG {
    * If you post a bug to the forum, please attach this flag.
    */
   static const String ENGINE_NAME = "Ranger-Dart";
-  static const String ENGINE_VERSION = "0.1.3";
+  static const String ENGINE_VERSION = "0.1.4";
   
   static const String CONFIG_OVERRIDE_FILE = r"resources/config.json";
   
