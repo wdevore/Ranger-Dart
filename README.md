@@ -185,7 +185,6 @@ See [MIT license](LICENSE)
 ###[RoadMap](#roadmap)
 There are still manys things that need to be done in **Ranger**. It will probably never really be complete, nonetheless, I have a list of things that I would like to add as time permits in no particular order.
 
-- Color/Alpha Cascading. Color cascading was low on my list but I really need to add it otherwise fading in and out of entire Scenes and Layers is on the onus of the user.
 - [WebGL](https://www.khronos.org/registry/webgl/specs/latest/). **Ranger** has preliminary polymophic support to accomodate WebGL. It is quite possible that an underlying library will be used; perhaps the [Three.dart Pub](https://pub.dartlang.org/packages/three) may be a viable candidate. Worst case is to follow something similar to Cocos2dx-3.x.
 - Quad tree culling
 - Physics with [Box2D Pub](https://pub.dartlang.org/packages/box2d)
