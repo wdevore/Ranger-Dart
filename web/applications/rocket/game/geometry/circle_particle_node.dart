@@ -49,8 +49,6 @@ class CircleParticleNode extends Ranger.Node with Ranger.Color4Mixin {
     context.drawPointAt(0.0, 0.0);
     
     context.restore();
-
-    Ranger.Application.instance.objectsDrawn++;
   }
 
 }

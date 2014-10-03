@@ -280,13 +280,14 @@ class DrawCanvas extends DrawContext {
     if (size == null) {
       size = 1;
     }
-    
+
     if (filled) {
       context..fillStyle = fillColor
              ..beginPath()
              ..arc(x, y, size, 0, DrawContext.TPi)
              ..closePath()
              ..fill();
+      Application.instance.objectsDrawn++;
     }
 
     if (outlined) {
@@ -296,9 +297,9 @@ class DrawCanvas extends DrawContext {
              ..arc(x, y, size, 0, DrawContext.TPi)
              ..closePath()
              ..stroke();
+      Application.instance.objectsDrawn++;
     }
     
-    Application.instance.objectsDrawn++;
   }
 
   /**
