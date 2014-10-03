@@ -6,10 +6,6 @@ import 'package:ranger/ranger.dart' as Ranger;
 import 'package:vector_math/vector_math.dart';
 import 'package:tweenengine/tweenengine.dart' as UTE;
 
-import '../../game_manager.dart';
-import '../../../resources/resources.dart';
-import '../../message_data.dart';
-
 import '../../nodes/triangle_ship.dart';
 import '../../nodes/dual_cell_ship.dart';
 
@@ -41,15 +37,11 @@ class GameLayer extends Ranger.BackgroundLayer {
   
   Vector2 _localOrigin = new Vector2.zero();
   
-  int _listTag;
-  Ranger.SpriteImage _listSprite;
-  
-  Ranger.OverlayLayer _loadingOverlay;
-  Ranger.SpriteImage _overlaySpinner;
-
   int _loadingCount = 0;
   bool _loaded = false;
 
+  Ranger.GroupNode _zoomControl;
+  
   GameLayer();
  
   factory GameLayer.withColor(Ranger.Color4<int> backgroundColor, [bool centered = true, int width, int height]) {
@@ -83,21 +75,27 @@ class GameLayer extends Ranger.BackgroundLayer {
   }
 
   void _configure() {
+    _zoomControl = new Ranger.GroupNode();
+    _zoomControl.iconVisible = true;
+    _zoomControl.iconScale = 50.0;
+    _zoomControl.setPosition(-100.0, -100.0);
+    addChild(_zoomControl, 10);
+    
     //---------------------------------------------------------------
     // Create nodes.
     //---------------------------------------------------------------
     _ship = new TriangleShip.basic();
-    _ship.configure(this);
+    _ship.configure(_zoomControl);
     _ship.directionByDegrees = 270.0;
     _ship.uniformScale = 15.0;
-    addChild(_ship, 10);
+    _zoomControl.addChild(_ship, 10);
     
     _dualCellShip = new DualCellShip.basic();
-    _dualCellShip.configure(this);
+    _dualCellShip.configure(_zoomControl);
     //_dualCellShip.directionByDegrees = 45.0;
     _dualCellShip.uniformScale = 50.0;
     _dualCellShip.setPosition(0.0, 200.0);
-    addChild(_dualCellShip, 10);
+    _zoomControl.addChild(_dualCellShip, 10);
     
     _configureContactExplode();
     
@@ -110,7 +108,7 @@ class GameLayer extends Ranger.BackgroundLayer {
     _trianglePolyNode.fillColor = Color4IGoldYellow.toString();
     _trianglePolyNode.drawColor = Ranger.Color4IGreen.toString();
     _trianglePolyNode.uniformScale = 100.0;
-    addChild(_trianglePolyNode, 11, 703);
+    _zoomControl.addChild(_trianglePolyNode, 11, 703);
 
     _squarePolyNode = new SquarePolygonNode();
     _squarePolyNode.setPosition(-300.0, 0.0);
@@ -119,56 +117,21 @@ class GameLayer extends Ranger.BackgroundLayer {
     _squarePolyNode.fillColor = Ranger.Color4ISkin.toString();
     _squarePolyNode.drawColor = Ranger.Color4IBlack.toString();
     _squarePolyNode.uniformScale = 100.0;
-    addChild(_squarePolyNode, 11, 703);
+    _zoomControl.addChild(_squarePolyNode, 11, 703);
 
     _pointColorNode = new PointColor.initWith(Ranger.Color4ILightBlue, Ranger.Color4IWhite);
     _pointColorNode.setPosition(300.0, 0.0);
     _circleOriginalPos.setFrom(_pointColorNode.position);
     _pointColorNode.visible = true;
     _pointColorNode.uniformScale = 100.0;
-    addChild(_pointColorNode, 11, 704);
+    _zoomControl.addChild(_pointColorNode, 11, 704);
 
     _selectIndicatorNode = new PointColor.initWith(null, Ranger.Color4IWhite);
     _selectIndicatorNode.setPosition(0.0, 0.0);
     _selectIndicatorNode.uniformScale = 0.0;
-    addChild(_selectIndicatorNode, 11, 714);
-
-    //---------------------------------------------------------------
-    // Loading-overlay
-    //---------------------------------------------------------------
-    _configOverlay();
-
-    Ranger.Size<double> size = contentSize;
-    double hWdith = size.width / 2.0;
-    double hHeight = size.height / 2.0;
-    
-    _listTag = _loadImage("resources/list.svg", 32, 32,
-        hWdith - (hWdith * .7), hHeight - (hHeight * .1), false);
+    _zoomControl.addChild(_selectIndicatorNode, 11, 714);
   }
   
-  void _configOverlay() {
-    Ranger.Color4<int> darkBlue = new Ranger.Color4<int>.withRGBA(109~/3, 157~/3, 235~/3, 128);
-    _loadingOverlay = new Ranger.OverlayLayer.withColor(darkBlue);
-    _loadingOverlay.transparentBackground = false;
-    addChild(_loadingOverlay, 20, 555);
-    
-    Ranger.TextNode loading = new Ranger.TextNode.initWith(Ranger.Color4IOrange);
-    loading.text = "Loading...";
-    loading.shadows = true;
-    loading.setPosition(-150.0, -300.0);
-    loading.uniformScale = 8.0;
-    _loadingOverlay.addChild(loading, 10, 556);
-
-    Resources resources = GameManager.instance.resources;
-    
-    Ranger.Application app = Ranger.Application.instance;
-    _overlaySpinner = resources.getSpinnerRing(1.5, -360.0, 7001);
-    // Track this infinite animation.
-    app.animations.track(_overlaySpinner, Ranger.TweenAnimation.ROTATE);
-
-    _loadingOverlay.addChild(_overlaySpinner);
-  }  
-
   @override
   void update(double dt) {
     // Check for collisions between bullets and shapes.
@@ -391,75 +354,9 @@ class GameLayer extends Ranger.BackgroundLayer {
   }
   
   @override
-  bool onMouseDown(MouseEvent event) {
-    if (!_loaded)
-      return false;
-    
-    Ranger.Application app = Ranger.Application.instance;
-    Ranger.Vector2P nodeP = app.drawContext.mapViewToNode(_listSprite, event.offset.x, event.offset.y);
-    //        v-----------------------------------^
-    // The mapping methods always return pooled objects, so be sure to
-    // return them to the pool otherwise your app will progressively
-    // leak.
-    nodeP.moveToPool();
-
-    if (_listSprite.containsPoint(nodeP.v)) {
-      _listSprite.rotationByDegrees = 0.0;
-      app.animations.stop(_listSprite, Ranger.TweenAnimation.ROTATE);
-
-      _wiggleListSprite();
-      
-      // Transmit icon clicked message. This message will be picked
-      // up by GameScene which is listening on the bus.
-      MessageData md = new MessageData();
-      md.actionData = MessageData.SHOW_PANEL;
-      app.eventBus.fire(md);
-
-      return true;
-    }
-
-    return false;
-  }
-
-  void _wiggleListSprite() {
-    Ranger.Application app = Ranger.Application.instance;
-    
-    // Create an animation that when completed will trigger a transition.
-    UTE.Timeline seq = new UTE.Timeline.sequence();
-    
-    UTE.Tween tw1 = app.animations.rotateTo(
-        _listSprite,
-        0.15,
-        -5.0, // CW
-        UTE.Cubic.OUT,
-        null, false);
-
-    seq.push(tw1);
-
-    UTE.Tween tw2 = app.animations.rotateTo(
-        _listSprite,
-        0.15,
-        10.0,
-        UTE.Cubic.OUT,
-        null, false);
-
-    seq.push(tw2);
-
-    UTE.Tween tw3 = app.animations.rotateTo(
-        _listSprite,
-        0.15,
-        0.0,
-        UTE.Cubic.OUT,
-        null, false);
-
-    seq.push(tw3);
-    
-    seq.start();
-  }
-  
-  @override
   void onEnter() {
     enableKeyboard = true;
+    enableMouse = true;
     super.onEnter();
 
     _setViewportAABBox();
@@ -472,12 +369,24 @@ class GameLayer extends Ranger.BackgroundLayer {
   @override
   void onExit() {
     super.onExit();
-    Ranger.Application app = Ranger.Application.instance;
-    app.animations.stop(_listSprite, Ranger.TweenAnimation.ROTATE);
     
     Ranger.Application.instance.scheduler.unScheduleTimingTarget(_contactExplode);
     
     unScheduleUpdate();
+  }
+
+  @override
+  bool onMouseDown(MouseEvent event) {
+    if (event.altKey) {
+      Ranger.Application app = Ranger.Application.instance;
+      Ranger.Vector2P nodeP = app.drawContext.mapViewToNode(this, event.offset.x, event.offset.y);
+      
+      _zoomControl.setPosition(nodeP.v.x, nodeP.v.y);
+      nodeP.moveToPool();
+      return true;
+    }
+    
+    return false;
   }
 
   // Should be called when zoom changes.
@@ -523,10 +432,20 @@ class GameLayer extends Ranger.BackgroundLayer {
 
   @override
   bool onKeyDown(KeyboardEvent event) {
-    //print("key onKeyDown ${event.keyEvent.keyCode}");
+    //print("key onKeyDown ${event.keyCode}");
 
     switch (event.keyCode) {
-      case 82: //r
+      case 49: //1
+        _zoomControl.uniformScale = 1.0;
+        return true;
+      case 50: //2
+        _zoomControl.uniformScale = 2.0;
+        return true;
+      case 51: //3
+        _zoomControl.uniformScale = _zoomControl.uniformScale + 0.1;
+        return true;
+      case 52: //4
+        _zoomControl.uniformScale = _zoomControl.uniformScale - 0.1;
         return true;
       case 84: //t
         return true;
@@ -594,81 +513,6 @@ class GameLayer extends Ranger.BackgroundLayer {
     }
     
     return false;
-  }
-
-  void _loadingUpdate(int tag) {
-    if (tag == _listTag) {
-      // The sprite associated with the tag has now loaded and been added
-      // to the scene graph when the Future completed in the Closure; see
-      // _loadImage() for the Closure.
-      _listSprite = getChildByTag(_listTag);
-      _listSprite.uniformScale = 1.5;
-    }
-    
-    // Have all the assets loaded.
-    if (_loadingCount == 0) {
-      enableMouse = true;
-      enableInputs();
-      
-      Ranger.Application app = Ranger.Application.instance;
-      app.animations.flush(_overlaySpinner);
-      
-      // All sprites have loaded. Remove overlay.
-      // I specify "true" because this Layer Node isn't needed ever again.
-      //              ^--------------v
-      removeChild(_loadingOverlay, true);
-      _loaded = true;
-    }
-  }
-
-  int _loadImage(String resource, int width, int height, double px, double py, [bool simulateLoadingDelay = false]) {
-    Ranger.Application app = Ranger.Application.instance;
-    Resources resources = GameManager.instance.resources;
-
-    _loadingCount++;
-    
-    // Grab current tag prior to bumping.
-    int tg = _nextTag;
-    
-    // I use a Closure to capture the placebo sprite such that it can
-    // be used while the actual image is loading.
-    (int ntag) {  // <--------- Closure
-      // While the actual image is loading, display an animated placebo.
-      Ranger.SpriteImage placebo = resources.getSpinner(7000);
-      // Track this infinite animation.
-      app.animations.track(placebo, Ranger.TweenAnimation.ROTATE);
-
-      placebo.setPosition(px, py);
-      addChild(placebo, 10);
-      
-      // Start loading image
-      // This Template example enables Simulated Loading Delay. You
-      // wouldn't do this in production. Just leave the parameter missing
-      // as it is optional and defaults to "false/disabled".
-      //                                         ^-------v
-      resources.loadImage(resource, width, height, simulateLoadingDelay).then((ImageElement ime) {
-        // Image has finally loaded.
-        // Terminate placebo's animation.
-        app.animations.flush(placebo);
-
-        // Remove placebo and capture index for insertion of actual image.
-        int index = removeChild(placebo);
-        
-        // Now that the image is loaded we can create a sprite from it.
-        Ranger.SpriteImage spri = new Ranger.SpriteImage.withElement(ime);
-        // Add the image at the place-order of the placebo.
-        addChildAt(spri, index, 10, ntag);
-        spri.setPosition(px, py);
-
-        _loadingCount--;
-        
-        _loadingUpdate(ntag);
-      });
-    }(tg);// <---- Immediately execute the Closure.
-    
-    _nextTag++;
-    
-    return tg;
   }
 
   set activeShip(int shipId) {
@@ -788,7 +632,7 @@ class GameLayer extends Ranger.BackgroundLayer {
     // If we had supplied "this" then the particles are emitted as children
     // of the ship and that would visually look incorrect, plus they
     // would inherit transform properties of the ship that we don't want.
-    ps.addByPrototype(this, prototype);
+    ps.addByPrototype(_zoomControl, prototype);
     
     // The prototype is no longer relevant as it has been cloned. So
     // we move it back to the pool.

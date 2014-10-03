@@ -44,7 +44,7 @@ class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior, Ranger.Gr
   
   Ranger.Velocity _bulletVelocity = new Ranger.Velocity();
   
-  GameLayer _gameLayer;
+  Ranger.GroupNode _mainLayer;
 
   TriangleShip();
 
@@ -70,12 +70,12 @@ class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior, Ranger.Gr
     return true;
   }
 
-  void configure(GameLayer gameLayer) {
+  void configure(Ranger.GroupNode mainLayer) {
     // The GameLayer is required because we are emitting particles onto
     // that layer. The particles need to be emitted onto an independent
     // layer otherwise then would be in sync with the ship. This concept
     // is identical to the physical world.
-    _gameLayer = gameLayer;
+    _mainLayer = mainLayer;
     
     _build();
     
@@ -265,7 +265,7 @@ class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior, Ranger.Gr
     // If we had supplied "this" then the particles are emitted as children
     // of the ship and that would visually look incorrect, plus they
     // would inherit transform properties of the ship that we don't want.
-    ps.addByPrototype(_gameLayer, prototype);
+    ps.addByPrototype(_mainLayer, prototype);
     
     // The prototypes are no longer relevant as they have been cloned. So
     // we move it back to the pool. The other option is to NOT put them back
@@ -374,7 +374,7 @@ class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior, Ranger.Gr
   Vector2 _convertToGameLayerSpace(Vector2 location) {
     Ranger.Vector2P ws = convertToWorldSpace(location);
     // Now convert it into GameLayer-space.
-    Ranger.Vector2P ns = _gameLayer.convertWorldToNodeSpace(ws.v);
+    Ranger.Vector2P ns = _mainLayer.convertWorldToNodeSpace(ws.v);
 
     // Clean up.
     ns.moveToPool();
