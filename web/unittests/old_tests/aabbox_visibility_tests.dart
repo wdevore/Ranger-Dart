@@ -106,6 +106,8 @@ class TestLayer extends Ranger.BackgroundLayer {
   Ranger.ParticleSystem ps;
   Ranger.ParticleActivation pactivation;
 
+  Ranger.GroupNode _zoomControl;
+  
   Ranger.Velocity pVelocity = new Ranger.Velocity();
 
   bool _turnCW = false;
@@ -248,12 +250,15 @@ class TestLayer extends Ranger.BackgroundLayer {
 //    gTypeSheet = new Ranger.SpriteSheetImage("../resources/gtype.json");
 //    gTypeSheet.load(spriteLoaded);
     
+    _zoomControl = new Ranger.GroupNode();
+    addChild(_zoomControl, 0, 99);
+    
     //---------------------------------------------------------------
     // Basic grid
     //---------------------------------------------------------------
     Ranger.Size<double> size = app.designSize;
     GridNode grid = new GridNode.withDimensions(size.width, size.height, centered);
-    addChild(grid, 0, 99);
+    _zoomControl.addChild(grid, 0, 123);
 
     //---------------------------------------------------------------
     // Adhoc viewport for visual testing. Only add if you want to see
@@ -295,7 +300,7 @@ class TestLayer extends Ranger.BackgroundLayer {
     // A container for the basicBox node and aabox node.
     //---------------------------------------------------------------
     AABBContainerNode container = new AABBContainerNode.withLead(basicBox);
-    addChild(container, 10, 106);
+    _zoomControl.addChild(container, 10, 106);
 
 
     //---------------------------------------------------------------
@@ -308,7 +313,7 @@ class TestLayer extends Ranger.BackgroundLayer {
     squarePolyNode.fillColor = "rgba(10,50,100, 0.5)";
     squarePolyNode.uniformScale = 100.0;
     //squarePolyNode.rotationByDegrees = -45.0;
-    addChild(squarePolyNode, 10, 703);
+    _zoomControl.addChild(squarePolyNode, 10, 703);
 
     //AABBContainerNode container2 = new AABBContainerNode.withLead(squarePolyNode);
     //addChild(container2, 10, 116);
@@ -318,7 +323,7 @@ class TestLayer extends Ranger.BackgroundLayer {
     circlePolyNode.fillColor = "rgb(100,50,100)";
     circlePolyNode.uniformScale = 100.0;
     circlePolyNode.outlined = true;
-    addChild(circlePolyNode, 10, 704);
+    _zoomControl.addChild(circlePolyNode, 10, 704);
 
     //---------------------------------------------------------------
     // A simple marker.
@@ -327,7 +332,7 @@ class TestLayer extends Ranger.BackgroundLayer {
     orangeCircle.setPosition(640.0, 400.0);
     orangeCircle.color = Ranger.Color3IOrange;
     orangeCircle.uniformScale = 10.0;
-    addChild(orangeCircle, 100, 109);
+    _zoomControl.addChild(orangeCircle, 100, 109);
 
     //---------------------------------------------------------------
     // A node to view the world AABBox of a selected node.
@@ -343,14 +348,14 @@ class TestLayer extends Ranger.BackgroundLayer {
     worldAABB.isSelectable = false;
     worldAABB.visible = false;
     worldAABB.uniformScale = 1.0;
-    addChild(worldAABB, 10, 1020);
+    _zoomControl.addChild(worldAABB, 10, 1020);
 
     //---------------------------------------------------------------
     // Paricle system
     //---------------------------------------------------------------
     Ranger.ParticleSystemVisual visual = ps.emitterVisual;
     visual.size = 25.0;
-    addChild(visual, 200, 5001);
+    _zoomControl.addChild(visual, 200, 5001);
 
     app.scheduler.scheduleTimingTarget(ps);
     
@@ -737,12 +742,14 @@ class TestLayer extends Ranger.BackgroundLayer {
     zoomText.text = zValue.toStringAsFixed(2);
     
     Ranger.GroupingBehavior sceneGB = sm.runningScene as Ranger.GroupingBehavior;
-    Ranger.BaseNode layer = sceneGB.getChildByTag(2525);
-    if (layer != null) {
-      layer.uniformScale = zValue;
-    }
+//    Ranger.BaseNode layer = sceneGB.getChildByTag(2525);
+//    if (layer != null) {
+//      layer.uniformScale = zValue;
+//    }
 
-    Ranger.BaseNode grid = sceneGB.getChildByTag(99);
+    _zoomControl.uniformScale = zValue;
+    
+    Ranger.BaseNode grid = sceneGB.getChildByTag(123);
     if (grid != null) {
       grid.dirty = true;
     }
@@ -800,7 +807,7 @@ class TestLayer extends Ranger.BackgroundLayer {
 //    prototype.initWithRotation(0.0, 45.0, 10.0, Ranger.ParticleRotationBehavior.CONSTANT);
 //    prototype.initWithScale(5.0, 50.0);
     
-    ps.addByPrototype(this, prototype, maxParticles);
+    ps.addByPrototype(_zoomControl, prototype, maxParticles);
     prototype.moveToPool();
   }
 
