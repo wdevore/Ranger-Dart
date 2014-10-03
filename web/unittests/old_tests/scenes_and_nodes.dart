@@ -671,8 +671,8 @@ class GridNode extends Ranger.Node {
   void draw(Ranger.DrawContext context) {
 
     // Note: we really should extract the length
-    if (parent.uniformScale > 1.0)
-      context.lineWidth = 1.0 / parent.uniformScale;
+    double invScale = 1.0 / calcUniformScaleComponent();
+    context.lineWidth = invScale;
     
     if (!centered)
       _drawNonCentered(context, dimension.x, dimension.y);
