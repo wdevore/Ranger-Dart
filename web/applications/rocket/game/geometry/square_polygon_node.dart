@@ -1,7 +1,4 @@
-library square_polygon_node;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import '../geometry/polygon_node.dart';
+part of ranger_rocket;
 
 class SquarePolygonNode extends PolygonNode with Ranger.VisibilityBehavior {
   // ----------------------------------------------------------

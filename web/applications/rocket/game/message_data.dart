@@ -1,4 +1,4 @@
-library message_data;
+part of ranger_rocket;
 
 class MessageData {
   static const int UNKNOWN = -1;

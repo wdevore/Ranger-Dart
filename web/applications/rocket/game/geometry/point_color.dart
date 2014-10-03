@@ -1,11 +1,4 @@
-library point_color_node;
-
-import 'dart:math';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:vector_math/vector_math.dart';
-
-import '../geometry/polygon_node.dart';
+part of ranger_rocket;
 
 class PointColor extends Ranger.Node {
   String outlineColor;

@@ -1,7 +1,4 @@
-library polygon_node;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:vector_math/vector_math.dart';
+part of ranger_rocket;
 
 abstract class PolygonNode extends Ranger.Node {
   bool solid = true;

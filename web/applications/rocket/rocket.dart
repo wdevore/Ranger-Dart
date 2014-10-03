@@ -1,16 +1,41 @@
+library ranger_rocket;
+
 import 'dart:html';
 import 'dart:async';
+import 'dart:math';
 
 import 'package:ranger/ranger.dart' as Ranger;
+import 'package:tweenengine/tweenengine.dart' as UTE;
+import 'package:vector_math/vector_math.dart';
+
+// Resources
+part 'resources/resources.dart';
 
 // Management
-import 'game/game_manager.dart';
+part 'game/game_manager.dart';
+part 'game/message_data.dart';
 
 // The main game scene where the fun happens.
-import 'game/scenes/game/game_scene.dart';
+part 'game/scenes/game/game_scene.dart';
+part 'game/scenes/game/game_layer.dart';
+part 'game/scenes/game/hud_layer.dart';
 
 // The splash scene is where resources are loaded.
-import 'game/scenes/splash/splash_scene.dart';
+part 'game/scenes/splash/splash_scene.dart';
+part 'game/scenes/splash/splash_layer.dart';
+
+part 'game/nodes/triangle_ship.dart';
+part 'game/nodes/dual_cell_ship.dart';
+
+part 'game/geometry/point_color.dart';
+part 'game/geometry/square_polygon_node.dart';
+part 'game/geometry/triangle_polygon_node.dart';
+part 'game/geometry/circle_particle_node.dart';
+part 'game/geometry/polygon_node.dart';
+
+part 'game/dialogs/controls_dialog.dart';
+part 'game/dialogs/base_modal_dialog.dart';
+
 
 // The Ranger application access
 Ranger.Application _app;

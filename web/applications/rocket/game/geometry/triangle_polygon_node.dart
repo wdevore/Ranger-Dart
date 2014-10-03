@@ -1,7 +1,4 @@
-library triangle_polygon_node;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import '../geometry/polygon_node.dart';
+part of ranger_rocket;
 
 class TrianglePolygonNode extends PolygonNode with Ranger.VisibilityBehavior {
   // ----------------------------------------------------------

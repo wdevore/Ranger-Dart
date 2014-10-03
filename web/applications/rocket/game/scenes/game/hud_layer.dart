@@ -1,13 +1,4 @@
-library hud_layer;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
-import '../../game_manager.dart';
-import '../../../resources/resources.dart';
-
-import '../../message_data.dart';
+part of ranger_rocket;
 
 /// Overlay layer.
 class HudLayer extends Ranger.BackgroundLayer {

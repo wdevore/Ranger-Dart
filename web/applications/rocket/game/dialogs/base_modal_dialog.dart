@@ -1,6 +1,4 @@
-library base_modal_dialog;
-
-import 'dart:html';
+part of ranger_rocket;
 
 /**
 * base modal dialog class.
@@ -17,17 +15,11 @@ abstract class BaseModalDialog {
   {
     _content.id = "modalContent";
     
-    window.onAnimationEnd.listen(
-        (AnimationEvent e) => _animationEnd(e)
-        );
-    
     _blackOverlay.id = "modalOverlay";
   }
 
   DivElement get content => _content;
   DivElement get blackOverlay => _blackOverlay;
-  
-  void _animationEnd(AnimationEvent ae);
   
   void hide();
 

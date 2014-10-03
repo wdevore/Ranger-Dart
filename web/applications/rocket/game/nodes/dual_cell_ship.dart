@@ -1,12 +1,4 @@
-library dual_cell_ship;
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:vector_math/vector_math.dart';
-import '../scenes/game/game_layer.dart';
-
-import '../geometry/circle_particle_node.dart';
-import '../geometry/point_color.dart';
-import '../geometry/square_polygon_node.dart';
+part of ranger_rocket;
 
 /*
  * This ship has dual thrusters and dual guns.

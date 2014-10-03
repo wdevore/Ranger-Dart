@@ -1,18 +1,4 @@
-library game_layer;
-
-import 'dart:html';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:vector_math/vector_math.dart';
-import 'package:tweenengine/tweenengine.dart' as UTE;
-
-import '../../nodes/triangle_ship.dart';
-import '../../nodes/dual_cell_ship.dart';
-
-import '../../geometry/point_color.dart';
-import '../../geometry/square_polygon_node.dart';
-import '../../geometry/triangle_polygon_node.dart';
-import '../../geometry/circle_particle_node.dart';
+part of ranger_rocket;
 
 class GameLayer extends Ranger.BackgroundLayer {
   static int _nextTag = 100000;

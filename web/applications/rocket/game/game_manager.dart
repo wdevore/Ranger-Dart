@@ -1,8 +1,8 @@
-library game_manager;
+part of ranger_rocket;
 
-import 'dart:async';
-
-import '../resources/resources.dart';
+//import 'dart:async';
+//
+//import '../resources/resources.dart';
 
 class GameManager {
   static final GameManager _instance = new GameManager._internal();

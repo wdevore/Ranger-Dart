@@ -1,10 +1,4 @@
-library app_resources;
-
-import 'dart:html';
-import 'dart:async';
-
-import 'package:ranger/ranger.dart' as Ranger;
-import 'package:tweenengine/tweenengine.dart' as UTE;
+part of ranger_rocket;
 
 /*
   */

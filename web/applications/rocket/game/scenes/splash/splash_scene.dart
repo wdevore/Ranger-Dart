@@ -1,10 +1,4 @@
-library splash_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-
-import '../../game_manager.dart';
-
-import 'splash_layer.dart';
+part of ranger_rocket;
 
 class SplashScene extends Ranger.AnchoredScene {
   double pauseFor = 0.0;

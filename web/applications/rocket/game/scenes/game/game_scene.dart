@@ -1,11 +1,4 @@
-library game_scene;
-
-import 'package:ranger/ranger.dart' as Ranger;
-
-import 'game_layer.dart';
-import 'hud_layer.dart';
-import '../../dialogs/controls_dialog.dart';
-import '../../message_data.dart';
+part of ranger_rocket;
 
 class GameScene extends Ranger.AnchoredScene {
   Ranger.Scene _replacementScene;
