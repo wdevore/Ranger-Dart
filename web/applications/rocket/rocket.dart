@@ -88,7 +88,7 @@ void _windowResize(Event e) {
 }
 
 void showWindowInfo() {
-  print("{${window.innerWidth} x ${window.innerHeight}}");
+  //print("{${window.innerWidth} x ${window.innerHeight}}");
 }
 
 void preConfigure() {
