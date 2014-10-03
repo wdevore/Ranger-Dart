@@ -161,7 +161,10 @@ class SpriteSheetImage extends SpriteSheet {
   }
 
   void _handleFileError(Error error) {
-    Logging.error("SpriteSheetImage._handleFileError: $error");
+    if (error != null)
+      Logging.error("SpriteSheetImage._handleFileError: $error");
+    else
+      Logging.error("SpriteSheetImage._handleFileError: unknown");
   }
 
   void _loadSpriteSheet(String resource, int width, int height) {
