@@ -21,6 +21,8 @@ part of ranger;
  */
 class GroupNode extends Node with GroupingBehavior {
   bool iconVisible = false;
+  double iconScale = 1.0;
+  
   String outlineColor = Color4IDarkBlue.toString();
   
   // ----------------------------------------------------------
@@ -62,8 +64,8 @@ class GroupNode extends Node with GroupingBehavior {
       context.drawColor = outlineColor;
       double invScale = 1.0 / calcUniformScaleComponent();
       context.lineWidth = invScale;
-      context.drawLineByComp(-0.25, 0.25, 0.25, -0.25);
-      context.drawLineByComp(-0.25, -0.25, 0.25, 0.25);
+      context.drawLineByComp(-0.25 * iconScale, 0.25 * iconScale, 0.25 * iconScale, -0.25 * iconScale);
+      context.drawLineByComp(-0.25 * iconScale, -0.25 * iconScale, 0.25 * iconScale, 0.25 * iconScale);
       context.restore();
     }
   }
