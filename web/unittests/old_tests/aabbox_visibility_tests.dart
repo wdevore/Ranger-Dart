@@ -234,6 +234,7 @@ class TestLayer extends Ranger.BackgroundLayer {
 
   @override
   void onEnter() {
+    enableKeyboard = true;
     super.onEnter();
 //    if (!centered) {
 //      setPosition(0.0, 300.0);
@@ -244,8 +245,8 @@ class TestLayer extends Ranger.BackgroundLayer {
     Ranger.Application app = Ranger.Application.instance;
     //print("app.viewPortWindowAABB: ${app.viewPortWindowAABB}");
 
-    gTypeSheet = new Ranger.SpriteSheetImage("resources/gtype.json");
-    gTypeSheet.load(spriteLoaded);
+//    gTypeSheet = new Ranger.SpriteSheetImage("../resources/gtype.json");
+//    gTypeSheet.load(spriteLoaded);
     
     //---------------------------------------------------------------
     // Basic grid
@@ -736,7 +737,7 @@ class TestLayer extends Ranger.BackgroundLayer {
     zoomText.text = zValue.toStringAsFixed(2);
     
     Ranger.GroupingBehavior sceneGB = sm.runningScene as Ranger.GroupingBehavior;
-    Ranger.BaseNode layer = sceneGB.getChildByTag(2010);
+    Ranger.BaseNode layer = sceneGB.getChildByTag(2525);
     if (layer != null) {
       layer.uniformScale = zValue;
     }
