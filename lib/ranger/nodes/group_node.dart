@@ -30,7 +30,9 @@ class GroupNode extends Node with GroupingBehavior {
   // ----------------------------------------------------------
   GroupNode._();
 
-  factory GroupNode() {
+  GroupNode();
+  
+  factory GroupNode.basic() {
     GroupNode poolable = new GroupNode.pooled();
     if (poolable.init()) {
       poolable.initGroupingBehavior(poolable);
