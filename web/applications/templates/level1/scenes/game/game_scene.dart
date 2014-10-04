@@ -17,7 +17,7 @@ class GameScene extends Ranger.AnchoredScene {
   @override
   bool init([int width, int height]) {
     if (super.init()) {
-      _group = new Ranger.GroupNode();
+      _group = new Ranger.GroupNode.basic();
       _group.tag = 2011; // An optional arbitrary number usual for debugging.
       initWithPrimary(_group);
     

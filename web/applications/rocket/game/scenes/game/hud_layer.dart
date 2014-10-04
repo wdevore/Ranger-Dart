@@ -142,7 +142,7 @@ class HudLayer extends Ranger.BackgroundLayer {
     _objectDrawnText.uniformScale = 3.0;
     addChild(_objectDrawnText, 10, 111);
     
-    _help = new Ranger.GroupNode();
+    _help = new Ranger.GroupNode.basic();
     _help.visible = false;
     _help.setPosition(-900.0, -250.0);
     addChild(_help, 10, 111);

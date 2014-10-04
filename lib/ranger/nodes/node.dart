@@ -128,6 +128,7 @@ abstract class Node extends BaseNode {
 
   @override
   void updateTransform() {
+    // Generally a Mixin provides functionality.
     updateTransforms();
   }
 

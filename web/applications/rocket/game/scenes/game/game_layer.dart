@@ -61,7 +61,7 @@ class GameLayer extends Ranger.BackgroundLayer {
   }
 
   void _configure() {
-    _zoomControl = new Ranger.GroupNode();
+    _zoomControl = new Ranger.GroupNode.basic();
     _zoomControl.iconVisible = true;
     _zoomControl.iconScale = 50.0;
     _zoomControl.setPosition(-100.0, -100.0);

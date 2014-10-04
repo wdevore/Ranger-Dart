@@ -26,7 +26,7 @@ class DualCellShip extends Ranger.Node with Ranger.GroupingBehavior {
   double _pulseMag = 1.0;
   Ranger.Velocity _pulseForce = new Ranger.Velocity();
   
-  Ranger.GroupNode _centerMass = new Ranger.GroupNode();
+  Ranger.GroupNode _centerMass = new Ranger.GroupNode.basic();
 
   // Main hull
   PointColor _mainHull;
@@ -273,7 +273,7 @@ class DualCellShip extends Ranger.Node with Ranger.GroupingBehavior {
 
 
   void _build() {
-    _centerMass = new Ranger.GroupNode();
+    _centerMass = new Ranger.GroupNode.basic();
     _centerMass.setPosition(0.0, 0.0);
     //_centerMass.iconVisible = true;
     addChild(_centerMass, 11, 1234);

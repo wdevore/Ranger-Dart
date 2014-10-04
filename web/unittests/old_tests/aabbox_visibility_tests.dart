@@ -250,7 +250,7 @@ class TestLayer extends Ranger.BackgroundLayer {
 //    gTypeSheet = new Ranger.SpriteSheetImage("../resources/gtype.json");
 //    gTypeSheet.load(spriteLoaded);
     
-    _zoomControl = new Ranger.GroupNode();
+    _zoomControl = new Ranger.GroupNode.basic();
     addChild(_zoomControl, 0, 99);
     
     //---------------------------------------------------------------
