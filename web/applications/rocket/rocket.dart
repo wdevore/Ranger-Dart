@@ -15,6 +15,10 @@ part 'resources/resources.dart';
 part 'game/game_manager.dart';
 part 'game/message_data.dart';
 
+// Panels and dialogs
+part 'game/dialogs/controls_dialog.dart';
+part 'game/dialogs/base_modal_dialog.dart';
+
 // The main game scene where the fun happens.
 part 'game/scenes/game/game_scene.dart';
 part 'game/scenes/game/game_layer.dart';
@@ -24,18 +28,18 @@ part 'game/scenes/game/hud_layer.dart';
 part 'game/scenes/splash/splash_scene.dart';
 part 'game/scenes/splash/splash_layer.dart';
 
+part 'game/scenes/zoom_layer.dart';
+
+// Actors
 part 'game/nodes/triangle_ship.dart';
 part 'game/nodes/dual_cell_ship.dart';
 
+// Geometry
 part 'game/geometry/point_color.dart';
 part 'game/geometry/square_polygon_node.dart';
 part 'game/geometry/triangle_polygon_node.dart';
 part 'game/geometry/circle_particle_node.dart';
 part 'game/geometry/polygon_node.dart';
-
-part 'game/dialogs/controls_dialog.dart';
-part 'game/dialogs/base_modal_dialog.dart';
-
 
 // The Ranger application access
 Ranger.Application _app;
