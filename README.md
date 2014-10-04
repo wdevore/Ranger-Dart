@@ -151,11 +151,11 @@ Basically there are 4 critical folders that matter when developing a game: *anim
 The optional folders simply provide examples on how to build Nodes, and they are used mostly for the unit tests and templates.
 
 ###[Documentation](#documentation)
-- [Getting started (pdf)](docs/RangerGettingstarted.pdf)
-- [Nodes (pdf)](docs/RangerNodes.pdf)
-- [Animations (pdf)](https://docs.google.com/document/d/1uFhSjwm1ehiZ3ni7yOUx5Cbf1LOVP9pcP3YcfumyFS4/edit?usp=sharing)
-- [Scene Graph (pdf)](docs/RangerScenegraph.pdf)
-- [Development (pdf) -- NOT COMPLETE]()
+- [Getting started (Google doc)](https://docs.google.com/document/d/1k_vyVV9duqlMcCM4nZYc8B2BhyC_j4RXHg6WN6KSRPE/edit?usp=sharing)
+- [Nodes (Google doc)](https://docs.google.com/document/d/1_uQJxKHuGpn82cWt3C2yBU-sfX2nb4BWKxhhJUpwKBA/edit?usp=sharing)
+- [Animations (Google doc)](https://docs.google.com/document/d/1uFhSjwm1ehiZ3ni7yOUx5Cbf1LOVP9pcP3YcfumyFS4/edit?usp=sharing)
+- [Scene Graph (Google doc)](https://docs.google.com/document/d/1CYAASqzukvdKToi7j9sv7TkiN4Le_ZjnFdN7I7uXqYI/edit?usp=sharing)
+- [Development (--) -- NOT COMPLETE]()
 
 These docs are not directly related to **Ranger**. But they could help your game development. They are all a work in progress.
 
