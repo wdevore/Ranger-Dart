@@ -26,7 +26,8 @@ class GameLayer extends Ranger.BackgroundLayer {
   int _loadingCount = 0;
   bool _loaded = false;
 
-  Ranger.GroupNode _zoomControl;
+//  Ranger.GroupNode _zoomControl;
+  ZoomGroup _zoomControl;
   
   GameLayer();
  
@@ -61,61 +62,61 @@ class GameLayer extends Ranger.BackgroundLayer {
   }
 
   void _configure() {
-    _zoomControl = new Ranger.GroupNode.basic();
+//    _zoomControl = new Ranger.GroupNode.basic();
+    _zoomControl = new ZoomGroup.basic();
+    addChild(_zoomControl, 10);
     _zoomControl.iconVisible = true;
     _zoomControl.iconScale = 50.0;
     _zoomControl.setPosition(-100.0, -100.0);
-    addChild(_zoomControl, 10);
     
     //---------------------------------------------------------------
     // Create nodes.
     //---------------------------------------------------------------
     _ship = new TriangleShip.basic();
+    _zoomControl.addChild(_ship, 10);
     _ship.configure(_zoomControl);
     _ship.directionByDegrees = 270.0;
     _ship.uniformScale = 15.0;
-    _zoomControl.addChild(_ship, 10);
     
     _dualCellShip = new DualCellShip.basic();
+    _zoomControl.addChild(_dualCellShip, 10);
     _dualCellShip.configure(_zoomControl);
     //_dualCellShip.directionByDegrees = 45.0;
     _dualCellShip.uniformScale = 50.0;
     _dualCellShip.setPosition(0.0, 200.0);
-    _zoomControl.addChild(_dualCellShip, 10);
     
     _configureContactExplode();
     
     _trianglePolyNode = new TrianglePolygonNode();
-    _trianglePolyNode.setPosition(0.0, -200.0);
+    _zoomControl.addChild(_trianglePolyNode, 11, 703);
     _trianglePolyNode.outlined = true;
     _trianglePolyNode.enableAABoxVisual = false;
     Ranger.Color4<int> Color4IGoldYellow = new Ranger.Color4<int>.withRGBA(255, 200, 0, 128);
-
     _trianglePolyNode.fillColor = Color4IGoldYellow.toString();
     _trianglePolyNode.drawColor = Ranger.Color4IGreen.toString();
     _trianglePolyNode.uniformScale = 100.0;
-    _zoomControl.addChild(_trianglePolyNode, 11, 703);
+    _trianglePolyNode.setPosition(0.0, -200.0);
 
     _squarePolyNode = new SquarePolygonNode();
+    _zoomControl.addChild(_squarePolyNode, 11, 703);
     _squarePolyNode.setPosition(-300.0, 0.0);
     _squarePolyNode.outlined = true;
     _squarePolyNode.enableAABoxVisual = false;
     _squarePolyNode.fillColor = Ranger.Color4ISkin.toString();
     _squarePolyNode.drawColor = Ranger.Color4IBlack.toString();
     _squarePolyNode.uniformScale = 100.0;
-    _zoomControl.addChild(_squarePolyNode, 11, 703);
 
     _pointColorNode = new PointColor.initWith(Ranger.Color4ILightBlue, Ranger.Color4IWhite);
+    _zoomControl.addChild(_pointColorNode, 11, 704);
     _pointColorNode.setPosition(300.0, 0.0);
     _circleOriginalPos.setFrom(_pointColorNode.position);
     _pointColorNode.visible = true;
     _pointColorNode.uniformScale = 100.0;
-    _zoomControl.addChild(_pointColorNode, 11, 704);
 
     _selectIndicatorNode = new PointColor.initWith(null, Ranger.Color4IWhite);
+    _zoomControl.addChild(_selectIndicatorNode, 11, 714);
     _selectIndicatorNode.setPosition(0.0, 0.0);
     _selectIndicatorNode.uniformScale = 0.0;
-    _zoomControl.addChild(_selectIndicatorNode, 11, 714);
   }
   
   @override
@@ -428,10 +429,12 @@ class GameLayer extends Ranger.BackgroundLayer {
         _zoomControl.uniformScale = 2.0;
         return true;
       case 51: //3
-        _zoomControl.uniformScale = _zoomControl.uniformScale + 0.1;
+//        _zoomControl.uniformScale = _zoomControl.uniformScale + 0.1;
+        _zoomControl.zoomBy(0.1);
         return true;
       case 52: //4
-        _zoomControl.uniformScale = _zoomControl.uniformScale - 0.1;
+//        _zoomControl.uniformScale = _zoomControl.uniformScale - 0.1;
+        _zoomControl.zoomBy(-0.1);
         return true;
       case 84: //t
         return true;

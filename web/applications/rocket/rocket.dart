@@ -132,7 +132,7 @@ void preConfigure() {
   // to transitioning to the main game scene.
   //---------------------------------------------------------------
   SplashScene splashScene = new SplashScene.withReplacementScene(gameScene);
-  splashScene.pauseFor = 2.0;
+  splashScene.pauseFor = 0.0;
   
   // Note: typically we push a boot scene for release.
   // A simple dummy scene to allow Ranger to complete boot sequence.
