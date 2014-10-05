@@ -304,9 +304,12 @@ class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior, Ranger.Gr
       // Form a force vector and apply to ship's position
       _pulseForce.directionByDegrees = _pulseAngle;
       _pulseForce.magnitude = _pulseMag;
+    }
+
+    if (_pulseForce.speed > _pulseForce.minMagnitude) {
+      _pulseForce.applyTo(position);
       dirty = true;   // <--- You signal that the transform is dirty.
     }
-    _pulseForce.applyTo(position);
     
     if (_pulseForce.speed > 0.0) {
       _pulseForce.decreaseSpeed(0.005);
@@ -334,8 +337,10 @@ class TriangleShip extends PolygonNode with Ranger.VisibilityBehavior, Ranger.Gr
         _momentum.add(_thrust);
     
     // Now update the ship's position based on the momentum.
-    _momentum.applyTo(position);
-    dirty = true;
+    if (_momentum.speed > 0.0) {
+      _momentum.applyTo(position);
+      dirty = true;
+    }
     
     // If there is no thrust being applied then the thrust slowly dies off.
     decreaseSpeed();

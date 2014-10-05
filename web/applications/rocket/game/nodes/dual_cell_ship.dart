@@ -412,9 +412,12 @@ class DualCellShip extends Ranger.Node with Ranger.GroupingBehavior {
       // Form a force vector and apply to ship's position
       _pulseForce.directionByDegrees = _pulseAngle;
       _pulseForce.magnitude = _pulseMag;
+    }
+    
+    if (_pulseForce.speed > _pulseForce.minMagnitude) {
+      _pulseForce.applyTo(position);
       dirty = true;   // <--- You signal that the transform is dirty.
     }
-    _pulseForce.applyTo(position);
     
     if (_pulseForce.speed > 0.0) {
       _pulseForce.decreaseSpeed(0.025);
@@ -442,8 +445,10 @@ class DualCellShip extends Ranger.Node with Ranger.GroupingBehavior {
         _momentum.add(_thrust);
     
     // Now update the ship's position based on the momentum.
-    _momentum.applyTo(position);
-    dirty = true;   // <--- You signal that the transform is dirty.
+    if (_momentum.speed > _momentum.minMagnitude) {
+      _momentum.applyTo(position);
+      dirty = true;   // <--- You signal that the transform is dirty.
+    }
     
     // If there is no thrust being applied then the thrust slowly dies off.
     if (_thrust.speed > 0.0)
