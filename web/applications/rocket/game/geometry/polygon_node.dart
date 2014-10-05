@@ -23,8 +23,6 @@ abstract class PolygonNode extends Ranger.Node {
   @override
   bool init() {
     if (super.init()) {
-//      initGroupingBehavior(this);
-      
       return true;
     }
     
