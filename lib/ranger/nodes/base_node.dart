@@ -286,7 +286,7 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
   
   /**
    * This is the basic visit traversal. For heiarchial traversals use the
-   * [GroupingBehavior] mixin.
+   * [GroupingBehavior.visitNode] mixin.
    */
   bool visitNode(DrawContext context) {
     if (!isVisible())
@@ -307,15 +307,19 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
     return true;
   }
 
-  set dirty(bool dirty) {
+  /**
+   * There are two dirty states: Transform and axis-aligned bounding box (aabbox).
+   * This dirty flag applies to Transforms of which I consider it a downward
+   * traversal at the present time. Note: this may change.
+   */
+  set dirty(bool dirty);
+  
+  set dirtyNode(bool dirty) {
     _transformDirty = _inverseDirty = dirty;
     
-    // Traverse up the tree setting flags.
-    // If a child is dirty so is the parent.
-    if (_parent != null)
-      _parent.dirty = dirty;
-    
-    dirtyChanged(this);
+    // TODO dirtyChanged disabled for now. It is used mostly by 
+    // dependency Nodes with a relationship with hierarchys. May deprecate.
+    //dirtyChanged(this);
   }
   
   bool get dirty => _transformDirty;
@@ -587,6 +591,7 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
         transform.scale(scale.x, scale.y);
       }
 
+      print("BaseNode.calcTransform\n ${transform}, tag:$tag");
       _transformDirty = false;
     }
 

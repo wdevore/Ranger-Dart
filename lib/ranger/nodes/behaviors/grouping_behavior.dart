@@ -105,6 +105,28 @@ abstract class GroupingBehavior {
     return true;// continue visiting.
   }
 
+  set dirtyNode(bool dirty) {
+    _this._transformDirty = _this._inverseDirty = dirty;
+    
+    // Parent traversal isn't really appropriate here.
+    // It should only apply to aabboxes.
+    
+    // If a Node changes then its transform is dirty including
+    // any of its children.
+    rippleDirty();
+
+    // My perception is that traversing up the tree applies to aaboxes.
+    // If a child is dirty then the parent's aabbox has changed and
+    // continuing up the parent heiarchy.
+    // TODO continue to monitor this disabled code
+    // we may move this to VisibilityBehavior or somewhere were aabboxes are computed.
+//    if (_parent != null)
+//      _parent.dirty = dirty;
+
+    // TODO dirtyChanged callback disable for now. My deprecate.
+    //_this.dirtyChanged(_this);
+  }
+
   void rippleDirty([List<BaseNode> children]) {
     if (children != null) {
       for(BaseNode child in children) {
@@ -114,10 +136,16 @@ abstract class GroupingBehavior {
             rippleDirty(gb.children);
           }
           else {
+            // By directly setting the flags we bypass recursion
+            // However, the node must be added before calling any
+            // transform methods like setPosition(...)
+            //child._transformDirty = child._inverseDirty = true;
+            // I prefer not requiring any order so I use .dirty.
             child.dirty = true;
           }
         }
         else {
+          //child._transformDirty = child._inverseDirty = true;
           child.dirty = true;
         }
       }
@@ -131,17 +159,17 @@ abstract class GroupingBehavior {
               rippleDirty(gb.children);
             }
             else {
+              //child._transformDirty = child._inverseDirty = true;
               child.dirty = true;
             }
           }
           else {
+            //child._transformDirty = child._inverseDirty = true;
             child.dirty = true;
           }
         }
       }
     }
-
-    _this.dirty = true;
   }
 
   BaseNode getChildByTag(int tag) {

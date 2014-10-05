@@ -137,6 +137,10 @@ abstract class Node extends BaseNode {
     return visitNode(context);
   }
   
+  set dirty(bool dirty) {
+    dirtyNode = dirty;
+  }
+  
   /**
    * Implement if you want to know when your [Node] was added as a child
    * to some other parent.
