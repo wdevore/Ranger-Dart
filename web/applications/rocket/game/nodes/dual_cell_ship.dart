@@ -286,6 +286,7 @@ class DualCellShip extends Ranger.Node with Ranger.GroupingBehavior {
     _centerMass.addChild(_mainHull, 11, 7100);
 
     _leftCell = new SquarePolygonNode();
+    addChild(_leftCell, 11, 7800);
     _leftCell.setPosition(-0.65, 0.65);
     _leftCell.scaleX = 1.0;
     _leftCell.scaleY = 0.5;
@@ -293,9 +294,9 @@ class DualCellShip extends Ranger.Node with Ranger.GroupingBehavior {
     _leftCell.enableAABoxVisual = false;
     _leftCell.fillColor = Ranger.color4IFromHex("#86647a").toString();
     _leftCell.drawColor = Ranger.Color4IWhite.toString();
-    addChild(_leftCell, 11, 7800);
 
     _rightCell = new SquarePolygonNode();
+    addChild(_rightCell, 11, 7801);
     _rightCell.setPosition(-0.65, -0.65);
     _rightCell.scaleX = 1.0;
     _rightCell.scaleY = 0.5;
@@ -303,7 +304,6 @@ class DualCellShip extends Ranger.Node with Ranger.GroupingBehavior {
     _rightCell.enableAABoxVisual = false;
     _rightCell.fillColor = Ranger.color4IFromHex("#86647a").toString();
     _rightCell.drawColor = Ranger.Color4IWhite.toString();
-    addChild(_rightCell, 11, 7801);
   }
   
   void _populateParticleSystemWithCircles(Ranger.ParticleSystem ps, [Ranger.Color4<int> fromColor, Ranger.Color4<int> toColor]) {
