@@ -55,6 +55,15 @@ class AffineTransform extends ComponentPoolable {
 
   static AffineTransform createPoolable() => new AffineTransform._();
 
+  factory AffineTransform.asTranslate(double tx, double ty) {
+    AffineTransform t = new AffineTransform._poolable(1.0, 0.0, 0.0, 1.0, tx, ty);
+    return t;
+  }
+
+  factory AffineTransform.asScale(double sx, double sy) {
+    AffineTransform t = new AffineTransform._poolable(sx, 0.0, 0.0, sy, 0.0, 0.0);
+    return t;
+  }
 
   // ----------------------------------------------------------
   // Operators
