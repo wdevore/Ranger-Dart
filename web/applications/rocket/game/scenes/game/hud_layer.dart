@@ -201,6 +201,12 @@ class HudLayer extends Ranger.BackgroundLayer {
     key.uniformScale = 3.0;
     _help.addChild(key, 10, 111);
 
+    key = new Ranger.TextNode.initWith(Ranger.Color4IWhite);
+    key.text = "Alt-click to set zoom center (white cross)";
+    key.setPosition(0.0, -270.0);
+    key.uniformScale = 3.0;
+    _help.addChild(key, 10, 111);
+
     _setViewportAABBox();
 
     Ranger.Size<double> size = contentSize;
