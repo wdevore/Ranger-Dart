@@ -7,7 +7,6 @@ Ranger-Dart - v0.5.0 Beta
 - [Screen shots](#shots)
 - [Features](#features)
 - [Getting started](#getting-started)
-- [Templates, Applications and Unit tests](#templates)
 - [Libraries (Pubs)](#libraries)
 - [Folder layout](#folders)
 - [Documentation](#documentation)
@@ -76,59 +75,6 @@ Once [Dartium](https://www.dartlang.org/tools/dartium/) (which comes with the SD
 ![GameLayer](docs/template0_gamelayer.png)
 7. Congratulations. You have successfully installed and ran **Ranger**!
 
-###[Templates, Applications and Unit tests](#templates)
-**Ranger** comes with a suite of Templates, Applications and Unit tests all of which is located in the **Sack**. Each serves as a *howto* for starting a project or referencing during project development. When starting a new project you will copy one of the Templates and begin coding from there. The Applications and Unit tests are for later, after you have a project underway and want to know how to do something.
-
-#### Templates
-There are currently 7 Templates located under the *web* folder.
-```
-web/
-    applications/
-        templates/
-```
-Each Template progressively adds on a feature showing how to perform a basic task. For example, *level0* is the most basic: a Splace Scene and Splash Layer, and a GameScene and GameLayer.
-
-- Level 0 - A stripped down basic framework template.
-- Level 1 - Loads a single sprite asyncronously.
-- Level 2 - Loads 5 sprites asyncronously and adds an overlay busy spinner.
-- Level 3 - Basic keyboard activation and usage.
-- Level 4 - Demonstrates basic Scene transition and animations.
-- Level 5 - Demonstrates icon animation and HTML panel animation.
-- Level 6 - Demonstrates a particle system.
-
-#### Applications
-There are currently 2 applications.
-```
-web/
-    applications/
-        ranger_particles/
-        rocket/
-```
-*Ranger_particles* is a hand built HTML/CSS application that uses **Ranger** to display the particles. The application itself is not complete meaning you can only save to local-storage. There is code to save to the GDrive but it hasn't been completely wired up. I know the GDrive code works because it is used in the [SpritePatch]() application to save and load sprite sheets.
-
-*RangerRocket* is a demonstration of complex Node usage. In there you will find examples on how to map between "world-space" and "node-space" in order to handle particle placing and collision detection. It also shows the proper way of handling key presses.
-
-#### Unit tests
-There are many unit tests. Some are non-visual but many are visual. The original unit tests have all of the non-visual tests, for example, pooling and affine transformations; and they are a bit outdated so use with caution.
-> A side note: When first looking to port Cocos2D-js the first thing I noticed was that the transform stack was a mess of incomprehension. I couldn't make complete sense of it and I didn't want to use something that I couldn't follow or understand. So the very first thing I did was scrap Cocos2D-js code and learn to make a transform stack myself. Forturnately I had worked with [Piccolo2D](http://www.cs.umd.edu/hcil/piccolo/) and understood how its stack worked.
-
-The old test (some may not work as they were created almost a year ago) are located under the *old_tests* folder. The newest tests are under the *scenes/tests* folder.
-```
-web/
-    unittests/
-        old_tests/
-        scenes/
-            tests/
-                colors/
-                fonts/
-                inputs/
-                particlesystems/
-                spaces/
-                sprites/
-                transforms/
-                transitions/
-```
-The new tests cover pretty much all aspects of **Ranger**. They serve as both unit tests and as a resource to learn from.
 
 ###[Libraries (Pubs)](#libraries)
 **Ranger** relies on several Dart [Pubs](https://pub.dartlang.org/). 
