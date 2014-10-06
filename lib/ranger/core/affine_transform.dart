@@ -141,12 +141,15 @@ class AffineTransform extends ComponentPoolable {
     ty += (b * x) + (d * y);
   }
 
-  void setToTranslate(double x, double y)
+  void setToTranslate(double tx, double ty)
   {
-    tx = x;
-    ty = y;
+    set(1.0, 0.0, 0.0, 1.0, tx, ty);
   }
 
+  void setToScale(double sx, double sy)
+  {
+    set(sx, 0.0, 0.0, sy, 0.0, 0.0);
+  }
 
   /// Concatenate scale
   void scale(double sx, double sy) {

@@ -10,7 +10,11 @@ class ZoomGroup extends Ranger.GroupNode {
   bool zoomIconVisible = false;
   
   Ranger.AffineTransform atSCTransform = new Ranger.AffineTransform.Identity();
-  
+  Ranger.AffineTransform zoomCenter = new Ranger.AffineTransform.Identity();
+  Ranger.AffineTransform scaleTransform = new Ranger.AffineTransform.Identity();
+  Ranger.AffineTransform negScaleCenter = new Ranger.AffineTransform.Identity();
+  Ranger.AffineTransform atTransform = new Ranger.AffineTransform.Identity();
+
   ZoomGroup._();
 
   factory ZoomGroup.basic() {
@@ -35,9 +39,9 @@ class ZoomGroup extends Ranger.GroupNode {
 
   void _updateMatrix() {
     if (_zoomDirty) {
-      Ranger.AffineTransform zoomCenter = new Ranger.AffineTransform.asTranslate(scaleCenter.x, scaleCenter.y);
-      Ranger.AffineTransform scaleTransform = new Ranger.AffineTransform.asScale(scale.x, scale.y);
-      Ranger.AffineTransform negScaleCenter = new Ranger.AffineTransform.asTranslate(-scaleCenter.x, -scaleCenter.y);
+      zoomCenter.setToTranslate(scaleCenter.x, scaleCenter.y);
+      scaleTransform.setToScale(scale.x, scale.y);
+      negScaleCenter.setToTranslate(-scaleCenter.x, -scaleCenter.y);
       
       // Accumulate zoom transformations.
       // atSCTransform is an intermediate accumulative matrix used for tracking the current zoom target.
@@ -45,20 +49,15 @@ class ZoomGroup extends Ranger.GroupNode {
       Ranger.affineTransformMultiplyTo(scaleTransform, atSCTransform);
       Ranger.affineTransformMultiplyTo(negScaleCenter, atSCTransform);
       
-      zoomCenter.moveToPool();
-      scaleTransform.moveToPool();
-      negScaleCenter.moveToPool();
-      
       // We reset Scale because atSCTransform is accumulative.
       scale.setValues(1.0, 1.0);
       
       // Tack on translation. Note: we don't append it, but concat it into a separate matrix.
       // We want to leave atSCTransform solely responsible for zooming.
       // transform is the final matrix for this node.
-      Ranger.AffineTransform atTransform = new Ranger.AffineTransform.asTranslate(position.x, position.y);
+      atTransform.setToTranslate(position.x, position.y);
   
       transform.multiply(atSCTransform, atTransform);
-      atTransform.moveToPool();
       
       // Now that we have rebuilt the transform matrix is it no longer dirty.
       _zoomDirty = false;
