@@ -141,6 +141,13 @@ class AffineTransform extends ComponentPoolable {
     ty += (b * x) + (d * y);
   }
 
+  void setToTranslate(double x, double y)
+  {
+    tx = x;
+    ty = y;
+  }
+
+
   /// Concatenate scale
   void scale(double sx, double sy) {
     a *= sx;
@@ -215,7 +222,10 @@ class AffineTransform extends ComponentPoolable {
     b += math.tan(x);
   }
   
-  void concatenate(AffineTransform t) {
+  /**
+   * A pre multiply order.
+   */
+  void preMultiply(AffineTransform t) {
     double _a = a;
     double _b = b;
     double _c = c;
@@ -231,6 +241,15 @@ class AffineTransform extends ComponentPoolable {
     ty = (_tx * t.b) + (_ty * t.d) + t.ty;
   }
   
+  void multiply(AffineTransform t1, AffineTransform t2) {
+    a = t1.a * t2.a + t1.b * t2.c;
+    b = t1.a * t2.b + t1.b * t2.d;
+    c = t1.c * t2.a + t1.d * t2.c;
+    d = t1.c * t2.b + t1.d * t2.d;
+    tx = t1.tx * t2.a + t1.ty * t2.c + t2.tx;
+    ty = t1.tx * t2.b + t1.ty * t2.d + t2.ty;
+  }
+
   void invert() {
     double determinant = 1.0 / (a * d - b * c);
     double _a = a;
