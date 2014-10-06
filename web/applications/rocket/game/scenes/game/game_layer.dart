@@ -26,7 +26,6 @@ class GameLayer extends Ranger.BackgroundLayer {
   int _loadingCount = 0;
   bool _loaded = false;
 
-//  Ranger.GroupNode _zoomControl;
   ZoomGroup _zoomControl;
   
   GameLayer();
@@ -62,12 +61,13 @@ class GameLayer extends Ranger.BackgroundLayer {
   }
 
   void _configure() {
-//    _zoomControl = new Ranger.GroupNode.basic();
     _zoomControl = new ZoomGroup.basic();
     addChild(_zoomControl, 10);
     _zoomControl.iconVisible = true;
+    _zoomControl.zoomIconVisible = true;
     _zoomControl.iconScale = 50.0;
-    _zoomControl.setPosition(-100.0, -100.0);
+    //_zoomControl.setPosition(-100.0, -100.0);
+    _zoomControl.scaleCenter.setValues(50.0, 50.0);
     
     //---------------------------------------------------------------
     // Create nodes.
@@ -366,9 +366,11 @@ class GameLayer extends Ranger.BackgroundLayer {
   bool onMouseDown(MouseEvent event) {
     if (event.altKey) {
       Ranger.Application app = Ranger.Application.instance;
-      Ranger.Vector2P nodeP = app.drawContext.mapViewToNode(this, event.offset.x, event.offset.y);
+      // Use "this" when mapping the position
+      // Use "_zoomControl" when mapping the scaleCenter.
+      Ranger.Vector2P nodeP = app.drawContext.mapViewToNode(_zoomControl, event.offset.x, event.offset.y);
       
-      _zoomControl.setPosition(nodeP.v.x, nodeP.v.y);
+      _zoomControl.scaleCenter.setFrom(nodeP.v);
       nodeP.moveToPool();
       return true;
     }
@@ -423,17 +425,15 @@ class GameLayer extends Ranger.BackgroundLayer {
 
     switch (event.keyCode) {
       case 49: //1
-        _zoomControl.uniformScale = 1.0;
+        _zoomControl.currentScale = 1.0;
         return true;
       case 50: //2
-        _zoomControl.uniformScale = 2.0;
+        _zoomControl.currentScale = 2.0;
         return true;
       case 51: //3
-//        _zoomControl.uniformScale = _zoomControl.uniformScale + 0.1;
         _zoomControl.zoomBy(0.1);
         return true;
       case 52: //4
-//        _zoomControl.uniformScale = _zoomControl.uniformScale - 0.1;
         _zoomControl.zoomBy(-0.1);
         return true;
       case 84: //t
