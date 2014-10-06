@@ -1,16 +1,11 @@
 name: ranger
-version: 0.1.5
+version: 0.5.1
 author: William DeVore
-description: A game engine written in Dart and slightly modeled after Cocos2d-js.
+description: A game engine written in Dart and slightly modeled after Cocos2d-js. Its companion project is Ranger-Sack.
 homepage: https://github.com/wdevore/Ranger-Dart
 documentation: https://github.com/wdevore/Ranger-Dart
 dependencies:
   browser: any
-  color_slider_control:
-    git: git://github.com/wdevore/color_slider_control.git
   event_bus: any
-  gradient_colorstops_control:
-    git: git://github.com/wdevore/gradient_colorstops_control.git
-  lawndart: any
   tweenengine: any
   vector_math: any
