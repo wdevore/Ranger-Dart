@@ -17,6 +17,13 @@ abstract class GroupingBehavior {
 
   List<BaseNode> _children;
 
+  /**
+   * Enable/Disable parent traversal on this [Node]. Some situations where
+   * a [Node] becomes dirty the parent(s) need to marked dirty as well.
+   * The default is "disabled".
+   */
+  bool enableParentDirting = false;
+  
   void initGroupingBehavior(BaseNode context) {
     _this = context;
     
@@ -109,20 +116,24 @@ abstract class GroupingBehavior {
     _this._transformDirty = _this._inverseDirty = dirty;
     
     // Parent traversal isn't really appropriate here.
-    // It should only apply to aabboxes.
+    // It should only apply to aabboxes traversals.
     
     // If a Node changes then its transform is dirty including
     // any of its children.
     rippleDirty();
 
     // My perception is that traversing up the tree applies to aaboxes.
-    // If a child is dirty then the parent's aabbox has changed and
-    // continuing up the parent heiarchy.
-    // TODO continue to monitor this disabled code
+    // If a child is dirty then the parent's aabbox has changed too.
+    // TODO continue to monitor this code
     // we may move this to VisibilityBehavior or somewhere were aabboxes are computed.
-//    if (_parent != null)
-//      _parent.dirty = dirty;
-
+    if (enableParentDirting) {
+      BaseNode p = _this._parent;
+      while (p != null) {
+        p._transformDirty = p._inverseDirty = dirty;
+        p = p._parent;
+      }
+    }
+    
     // TODO dirtyChanged callback disable for now. My deprecate.
     //_this.dirtyChanged(_this);
   }
