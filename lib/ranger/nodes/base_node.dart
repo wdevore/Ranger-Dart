@@ -591,7 +591,7 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
         transform.scale(scale.x, scale.y);
       }
 
-      print("BaseNode.calcTransform\n ${transform}, tag:$tag");
+      //print("BaseNode.calcTransform\n ${transform}, tag:$tag");
       _transformDirty = false;
     }
 
