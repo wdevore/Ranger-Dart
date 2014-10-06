@@ -1,4 +1,4 @@
-Ranger-Dart - v0.1.5
+Ranger-Dart - v0.5.0 Beta
 ===========
 ![Logo](docs/RangerDart_logo.png)
 
@@ -21,14 +21,22 @@ Ranger-Dart - v0.1.5
 - [Contributing](#contributing)
 
 ###[About](#about-dart)
-**Ranger-Dart** (Ranger for short) is a game engine written in [Dart](https://www.dartlang.org/) and slightly modeled after an older version of [Cocos2d-js 1.x](http://www.cocos2d-x.org/products#cocos2dx-js). If you have ever worked with Cocos2Dx then you will recognize a fair amount of the examples. However, several things have changed, most notebly Animations and Messaging.
+**Ranger-Dart** (**Ranger** for short) is a game engine written in [Dart](https://www.dartlang.org/) and slightly modeled after an older version of [Cocos2d-js 1.x](http://www.cocos2d-x.org/products#cocos2dx-js). **Ranger** is actually two projects: this project and
+
+##[Ranger-Sack (**Sack** for short)](https://github.com/wdevore/Ranger-Sack).
+
+![HighLevel](docs/diagrams/Ranger_Highlevel.png)
+
+**Ranger** is the core piece needed to create games. The Sack isn't needed at all, it simply serves as a goto place for examples covering apps, templates and unit tests.
+
+If you have ever worked with Cocos2D-js then you will recognize a fair amount of the examples. However, several things have changed, most notebly Animations and Messaging.
 
 Initially **Ranger**'s code base was structured similar to Cocos2d. However, after using Dart design patterns and libraries (aka Pubs) the code base diverged and has changed considerably. The only *concepts* remaining are Scenes, Layers and Scheduler.
 
-**Ranger** is a game engine currently centric around an HTML5-Canvas and a [Scene graph](http://en.wikipedia.org/wiki/Scene_graph). Rendering of the scene graph is rendered to a Context of type [CanvasRenderingContext2D](https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/dart-dom-html.CanvasRenderingContext2D). In the future the [WebGLRenderingContext](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext) will be supported.
+**Ranger** is a game engine currently centric around an HTML5-Canvas and a [Scene graph](http://en.wikipedia.org/wiki/Scene_graph). Rendering of the scene graph is rendered via a Context of type [CanvasRenderingContext2D](https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/dart-dom-html.CanvasRenderingContext2D). In the future the [WebGLRenderingContext](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext) will be supported.
 
 ###[Screen shots](#shots)
-**Ranger** in action: [ScreenShots and videos](docs/Screenshots.md)
+**Ranger** in action via Sack: [ScreenShots and videos](docs/Screenshots.md)
 
 ###[Features](#features)
 - Scene graph (heirarchical spatial organization) including space mappings.
@@ -49,7 +57,7 @@ Initially **Ranger**'s code base was structured similar to Cocos2d. However, aft
 Where to start? Easy, just follow these steps:
 
 1. Download the [Dart SDK](https://www.dartlang.org/) and install it. If you are on a Mac then it is as easy as installing the .dmg.
-2. Go to GitHub and download [Ranger-Dart](https://github.com/wdevore/Ranger-Dart). To do that choose to either *Clone in Desktop* or *Download ZIP*. If choose the Zip option then uncompress it to a location of your choosing. You should now have a folder called "Ranger-Dart".
+2. Go to GitHub and download [Ranger-Sack](https://github.com/wdevore/Ranger-Sack). To do that choose to either *Clone in Desktop* or *Download ZIP*. If choose the Zip option then uncompress it to a location of your choosing. You should now have a folder called "Ranger-Sack".
 3. Launch the [Dart Editor](https://www.dartlang.org/tools/editor/) that came with the SDK.
 4. In the editor navigate to the file menu and choose *Open Existing Folder*.
  * Navigate to the location of either the uncompressed Zip or
@@ -69,7 +77,7 @@ Once [Dartium](https://www.dartlang.org/tools/dartium/) (which comes with the SD
 7. Congratulations. You have successfully installed and ran **Ranger**!
 
 ###[Templates, Applications and Unit tests](#templates)
-**Ranger** comes with a suite of Templates, Applications and Unit tests. Each serves as a *howto* for starting a project or referencing during project development. When starting a new project you will copy one of the Templates and begin coding from there. The Applications and Unit tests are for later, after you have a project underway and want to know how to do something.
+**Ranger** comes with a suite of Templates, Applications and Unit tests all of which is located in the **Sack**. Each serves as a *howto* for starting a project or referencing during project development. When starting a new project you will copy one of the Templates and begin coding from there. The Applications and Unit tests are for later, after you have a project underway and want to know how to do something.
 
 #### Templates
 There are currently 7 Templates located under the *web* folder.
@@ -98,7 +106,7 @@ web/
 ```
 *Ranger_particles* is a hand built HTML/CSS application that uses **Ranger** to display the particles. The application itself is not complete meaning you can only save to local-storage. There is code to save to the GDrive but it hasn't been completely wired up. I know the GDrive code works because it is used in the [SpritePatch]() application to save and load sprite sheets.
 
-*Rocket* is a demonstration of complex Node usage. In there you will find examples on how to map between "world-space" and "node-space" in order to handle particle placing and collision detection. It also shows the proper way of handling key presses.
+*RangerRocket* is a demonstration of complex Node usage. In there you will find examples on how to map between "world-space" and "node-space" in order to handle particle placing and collision detection. It also shows the proper way of handling key presses.
 
 #### Unit tests
 There are many unit tests. Some are non-visual but many are visual. The original unit tests have all of the non-visual tests, for example, pooling and affine transformations; and they are a bit outdated so use with caution.
@@ -123,11 +131,18 @@ web/
 The new tests cover pretty much all aspects of **Ranger**. They serve as both unit tests and as a resource to learn from.
 
 ###[Libraries (Pubs)](#libraries)
-**Ranger** relies on several Dart [Pubs](https://pub.dartlang.org/). However, you may notice several other Pubs in the [pubspec.yaml](https://www.dartlang.org/tools/pub/) file: color_slider_control, gradient_colorstops_control, lawndart. These Pubs are used by the particle system application and aren't really a part of **Ranger**. Here are the actual Pub dependencies:
+**Ranger** relies on several Dart [Pubs](https://pub.dartlang.org/). 
+
 - [EventBus](https://pub.dartlang.org/packages/event_bus) by Marco Jakob
 - [Tween Engine](https://pub.dartlang.org/packages/tweenengine) by Xavier Guzman
 - [Vector Math](https://pub.dartlang.org/packages/vector_math) by John McCutchan
 - Browser. Every Dartium app relies on this Pub.
+
+**Sack** relies on **Ranger** libraries plus several other Pubs
+
+- color_slider_control
+- gradient_colorstops_control
+- lawndart.
 
 ###[Folder layout](#folders)
 **Ranger** is a Pub and the core code is located under the *lib* folder. Here is a brief overview:
@@ -168,7 +183,7 @@ These docs are not directly related to **Ranger**. But they could help your game
 **Ranger** has a [Blog](https://plus.google.com/u/0/b/109136453872758385259/109136453872758385259/posts) where I periodically post statues.
 
 ###[Author](#author)
-Hello, I am [Will DeVore](https://plus.google.com/u/0/b/104513085420089025698/104513085420089025698/posts) the current developer of **Ranger**. I find it a pleasure working with the [Dart](https://www.dartlang.org/) language. Its integration with HTML/CSS/Canvas/WebGL is solid and functional.
+Hello, I am [Will DeVore](https://plus.google.com/u/0/b/104513085420089025698/104513085420089025698/posts) the current developer of **Ranger** and **Sack**. I find it a pleasure working with the [Dart](https://www.dartlang.org/) language. Its integration with HTML/CSS/Canvas/WebGL is solid and functional.
 
 ###[License](#license)
 See [MIT license](LICENSE)
@@ -179,7 +194,7 @@ See [MIT license](LICENSE)
 - Pause/Resume. I need to add the pause/resume code when Scenes are transitioning. An early version was present but once I replaced the old dispatch code with Dart's Streams that code became obsolete.
 - Visibility of browser/tabs. When a tab or the whole browser focus is lost the engine needs to recognize this and pause.
 - Accelerometer code.
-- Several pieces of code should be optimized to check for dirty flag on transformations. I have slacked off is a few areas.
+- Several pieces of code should be optimized to check for dirty flag on transformations. I have slacked off is a few areas--*in progress*.
 - A better more full proof way of handling Infinite animations. At the moment the developer needs to track the Infinite animations. If they are not "killed" then cycles are wasted as the animation continues to animate objects that may be gone or invisible.
 
 ###[RoadMap](#roadmap)
