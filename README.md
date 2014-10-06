@@ -26,7 +26,7 @@ Ranger-Dart - v0.5.0 Beta
 
 ![HighLevel](docs/diagrams/Ranger_Highlevel.png)
 
-**Ranger** is the core piece needed to create games. The Sack isn't needed at all, it simply serves as a goto place for examples covering apps, templates and unit tests.
+**Ranger** is the core piece needed to create games. The **Sack** isn't needed at all, it simply serves as a goto place for examples covering apps, templates and unit tests.
 
 If you have ever worked with Cocos2D-js then you will recognize a fair amount of the examples. However, several things have changed, most notebly Animations and Messaging.
 
@@ -35,7 +35,7 @@ Initially **Ranger**'s code base was structured similar to Cocos2d. However, aft
 **Ranger** is a game engine currently centric around an HTML5-Canvas and a [Scene graph](http://en.wikipedia.org/wiki/Scene_graph). Rendering of the scene graph is rendered via a Context of type [CanvasRenderingContext2D](https://api.dartlang.org/apidocs/channels/stable/dartdoc-viewer/dart-dom-html.CanvasRenderingContext2D). In the future the [WebGLRenderingContext](https://developer.mozilla.org/en-US/docs/Web/API/WebGLRenderingContext) will be supported.
 
 ###[Screen shots](#shots)
-**Ranger** in action via Sack: [ScreenShots and videos](docs/Screenshots.md)
+**Ranger** in action via **Sack**: [ScreenShots and videos](docs/Screenshots.md)
 
 ###[Features](#features)
 - Scene graph (heirarchical spatial organization) including space mappings.
