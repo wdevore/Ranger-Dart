@@ -196,14 +196,14 @@ abstract class DrawContext {
   /**
    * draws a point at coordinates.
    */
-  void drawPointAt(double x, double y, [int size]) {
+  void drawPointAt(double x, double y, [num size]) {
   }
   
   /**
    * draws a point given x and y coordinate measured in points
    *  [Point] point
    */
-  void drawPoint(Vector2 point, [int size]) {
+  void drawPoint(Vector2 point, [num size]) {
   }
 
   /**

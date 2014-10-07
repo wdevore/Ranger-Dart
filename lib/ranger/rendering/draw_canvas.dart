@@ -276,7 +276,7 @@ class DrawCanvas extends DrawContext {
    * draws a point given x and y coordinate measured in points.
    */
   @override
-  drawPointAt(double x, double y, [int size]) {
+  drawPointAt(double x, double y, [num size]) {
     if (size == null) {
       size = 1;
     }
@@ -306,7 +306,7 @@ class DrawCanvas extends DrawContext {
    * draws a point given x and y coordinate measured in points.
    */
   @override
-  drawPoint(Vector2 point, [int size]) {
+  drawPoint(Vector2 point, [num size]) {
     drawPointAt(point.x, point.y, size);
   }
 
