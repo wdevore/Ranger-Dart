@@ -1,4 +1,4 @@
-Ranger-Dart - v0.5.0 Beta
+Ranger-Dart - v0.9.0 Beta
 ===========
 ![Logo](docs/RangerDart_logo.png)
 
