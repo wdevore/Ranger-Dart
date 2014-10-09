@@ -1,0 +1,30 @@
+tAa*tBa+tAb*tBc         tAa*tBb+tAb*tBd         0
+tAc*tBa+tAd*tBc         tAc*tBb+tAd*tBd         0
+tAtx*tBa+tAty*tBc+tBtx  tAtx*tBb+tAty*tBd+tBty  1
+
+a    b    0
+c    d    0
+tx   ty   1
+
+tAa  tAb  0       tBa  tBb  0
+tAc  tAd  0   x   tBc  tBd  0 
+tAtx tAty 1       tBtx tBty 1
+
+------------------------------------------------------------
+tBa  tBb  0       tAa  tAb  0
+tBc  tBd  0   x   tAc  tAd  0
+tBtx tBty 1       tAtx tAty 1
+
+
+tBa*tAa+tBb*tAc         tBa*tAb+tBb*tAd         0
+tBc*tAa+tBd*tAc         tBc*tAb+tBd*tAd         0
+tBtx*tAa+tBty*tAc+tAtx  tBtx*tAb+tBty*tAd+tAty  1
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    |a    b    0|
+|x    y    1|   x   |c    d    0|
+                    |tx   ty   1|
+
+|x*a+y*c   x*b+y*d+ty   1|
+============================================================
+
