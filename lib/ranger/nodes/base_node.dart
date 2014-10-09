@@ -438,7 +438,7 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
    * If you don't move the object back to the pool
    * the GC will have something to collect and you may not want that.
    */
-  AffineTransform nodeToWorldTransform() {
+  AffineTransform nodeToWorldTransform([BaseNode psuedoRoot]) {
     // Get a pooled transform to accumulate the parent transforms.
     // child = comp
     AffineTransform comp = new AffineTransform.withAffineTransformP(calcTransform());
@@ -446,7 +446,7 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
     // Iterate "upwards" starting with the child towards the parents
     // starting with this child's parent.
     BaseNode p = _parent;
-    
+
     while (p != null) {
       AffineTransform parentT = p.calcTransform(); // Non-pooled object 
 
@@ -465,20 +465,19 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
       // [child] x [parent ofchild] x [parent of parent of child]...
       //
       // In other words the child is mutiplied "into" the parent.
-//      AffineTransform t = affineTransformMultiply(comp, parentT);
-//      childT.setWithAT(t);
-//      t.moveToPool();
       
       affineTransformMultiplyFrom(comp, parentT);   // <--- correct
-//      affineTransformMultiplyTo(parentT, comp);
 
+      if (p == psuedoRoot)
+        break;
+      
       // next parent upwards 
       p = p._parent;
     }
 
     return comp;  // return pooled object
   }
-
+  
   double nodeToWorldScale() {
     double scale = uniformScale;
     
@@ -505,9 +504,16 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
    * Note: The returned object is poolable.
    *     Remember to call the object's [moveToPool] method when done
    *     with object.
+   * [pseudoRoot] is a [Node] that you are sure is a common ancestor
+   * to the Nodes you are mapping between. However, there is one caveat,
+   * All the ancestor to the pseudo root must be statically Identity
+   * transforms. Otherwise you will get improper mapping.
+   * Providing a pseudoRoot could save a few matrix multiplications.
+   * 
+   * When in doubt simply omit providing a pseudoRoot.
    */
-  AffineTransform worldToNodeTransform() {
-    AffineTransform nwt = nodeToWorldTransform();
+  AffineTransform worldToNodeTransform([BaseNode pseudoRoot]) {
+    AffineTransform nwt = nodeToWorldTransform(pseudoRoot);
     AffineTransform invt = AffineTransformInvert(nwt);
     nwt.moveToPool();
     return invt; // return pooled object.
@@ -519,9 +525,17 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
    * The result are in [Point]s.
    * Note: The returned object is poolable.
    *     Remember to call the object's [moveToPool] method when finished.
+   * 
+   * [pseudoRoot] is a [Node] that you are sure is a common ancestor
+   * to the Nodes you are mapping between. However, there is one caveat,
+   * All the ancestor to the pseudo root must be statically Identity
+   * transforms. Otherwise you will get improper mapping.
+   * Providing a pseudoRoot could save a few matrix multiplications.
+   * 
+   * When in doubt simply omit providing a pseudoRoot.
    */
-  Vector2P convertWorldToNodeSpace(Vector2 point) {
-    AffineTransform wnt = worldToNodeTransform();
+  Vector2P convertWorldToNodeSpace(Vector2 point, [BaseNode pseudoRoot]) {
+    AffineTransform wnt = worldToNodeTransform(pseudoRoot);
     Vector2P p = PointApplyAffineTransform(point, wnt);
     wnt.moveToPool();
     return p; // Remember to call moveToPool on "p"
@@ -539,9 +553,17 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
    * World-space = Root-space.
    * Note: The returned object is poolable.
    *     Remember to call the object's [moveToPool] method when finished.
+   * 
+   * [pseudoRoot] is a [Node] that you are sure is a common ancestor
+   * to the Nodes you are mapping between. However, there is one caveat,
+   * All the ancestor to the pseudo root must be statically Identity
+   * transforms. Otherwise you will get improper mapping.
+   * Providing a pseudoRoot could save a few matrix multiplications.
+   * 
+   * When in doubt simply omit providing a pseudoRoot.
    */
-  Vector2P convertToWorldSpace(Vector2 nodePoint) {
-    AffineTransform nwt = nodeToWorldTransform();
+  Vector2P convertToWorldSpace(Vector2 nodePoint, [BaseNode pseudoRoot]) {
+    AffineTransform nwt = nodeToWorldTransform(pseudoRoot);
     
     Vector2P p = PointApplyAffineTransform(nodePoint, nwt);
     
