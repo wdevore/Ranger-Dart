@@ -297,6 +297,23 @@ class AffineTransform extends ComponentPoolable {
     return length;
   }
   
+  /**
+   * Reliable as long as the transform does not have a Skew present.
+   * http://stackoverflow.com/tags/affinetransform/info
+   */
+  double get extractRotation => math.atan2(c, d);
+  
+  /**
+   * Reliable as long as the transform does not have a Skew present.
+   * http://stackoverflow.com/tags/affinetransform/info
+   */
+  double get extractScaleX => math.sqrt(a*a + b*b);
+  /**
+   * Reliable as long as the transform does not have a Skew present.
+   * http://stackoverflow.com/tags/affinetransform/info
+   */
+  double get extractScaleY => math.sqrt(d*d + c*c);
+  
   String toString() {
     StringBuffer s = new StringBuffer();
     s.writeln("|${a.toStringAsFixed(2)}, ${b.toStringAsFixed(2)}, ${tx.toStringAsFixed(2)}|");
@@ -572,6 +589,9 @@ void affineTransformMultiplyTo(AffineTransform tA, AffineTransform tB) {
 
 /**
  * Multiply [tA] x [tB] and place in [tA]
+ * A pre-multiply
+ * 
+ * http://www-evasion.imag.fr/~Francois.Faure/doc/inventorMentor/sgi_html/ch09.html
  */
 void affineTransformMultiplyFrom(AffineTransform tA, AffineTransform tB) {
   double a = tA.a * tB.a + tA.b * tB.c;
