@@ -424,14 +424,14 @@ class DrawCanvas extends DrawContext {
     if (solid == DrawContext.SOLID) {
       context..fillStyle = fillColor
              ..fill();
+      Application.instance.objectsDrawn++;
     }
     else {
       context..strokeStyle = drawColor
              ..lineWidth = lineWidth
              ..stroke();
+      Application.instance.objectsDrawn++;
     }
-    
-    Application.instance.objectsDrawn++;
   }
 
   /**
