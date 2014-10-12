@@ -43,6 +43,7 @@ part 'ranger/geometry/size.dart';
 part 'ranger/geometry/rectangle.dart';
 part 'ranger/geometry/vector2p.dart';
 part 'ranger/geometry/polygon.dart';
+part 'ranger/geometry/custom_polygon.dart';
 part 'ranger/geometry/square.dart';
 part 'ranger/geometry/circle.dart';
 part 'ranger/geometry/triangle.dart';
