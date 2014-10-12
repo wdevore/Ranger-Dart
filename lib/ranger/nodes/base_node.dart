@@ -29,7 +29,7 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
   /**
    * If this [Node] is invisible then the [draw] method is not called.
    */
-  bool visible = true;
+  bool _visible = true;
 
   BaseNode _parent;
 
@@ -326,6 +326,10 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
   
   void dirtyChanged(BaseNode node);
 
+  set visible(bool b) => _visible = b;
+  
+  bool get visible => _visible; 
+  
   /**
    * override to manage visibility for culling situations.
    */
