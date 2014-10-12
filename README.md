@@ -88,7 +88,7 @@ Once [Dartium](https://www.dartlang.org/tools/dartium/) (which comes with the SD
 
 - color_slider_control
 - gradient_colorstops_control
-- lawndart.
+- lawndart by Seth Ladd.
 
 ###[Folder layout](#folders)
 **Ranger** is a Pub and the core code is located under the *lib* folder. Here is a brief overview:
