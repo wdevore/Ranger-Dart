@@ -21,6 +21,15 @@ class AnchoredScene extends Scene with UTE.Tweenable {
 
   Function completeVisitCallback;
   
+  /**
+   * How long to pause (in seconds) before beginning transition to the [_replacementScene]
+   * [Scene]. Default is immediately (aka 0.0)
+   */
+  double pauseFor = 0.0;
+  double _pauseForCount = 0.0;
+  bool _pauseComplete = false;
+  bool transitionEnabled = false;
+  
   AnchoredScene();
   
   AnchoredScene.withPrimaryLayer(Node primary, [Function completeVisit = null]) {
@@ -54,12 +63,44 @@ class AnchoredScene extends Scene with UTE.Tweenable {
     return true;
   }
   
+  @override
+  void onEnter() {
+    super.onEnter();
+    _pauseForCount = 0.0;
+    _pauseComplete = false;
+    
+    scheduleUpdate();
+  }
+
+  @override
+  void onExit() {
+    super.onExit();
+    unScheduleUpdate();
+  }
+
+  @override
+  void update(double dt) {
+    if (transitionEnabled) {
+      _pauseForCount += dt;
+      
+      if (_pauseForCount > pauseFor && !_pauseComplete) {
+        _pauseComplete = true;
+        transition();
+      }
+    }
+  }
+
   void addLayer(Layer layer, [int zOrder = 0, int tag = 0]) {
     layer.anchoredScene = this;
     if (primaryLayer is GroupingBehavior) {
       GroupingBehavior gb = primaryLayer as GroupingBehavior;
       gb.addChild(layer, zOrder, tag);
     }
+  }
+  
+  /// Override, if necessary, to provide custom transition.
+  void transition() {
+    
   }
   
   @override

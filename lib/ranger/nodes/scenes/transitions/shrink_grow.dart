@@ -40,29 +40,26 @@ class TransitionShrinkGrow extends TransitionScene {
     inComingScene.setAnchorPositionByPercent(0.0, 0.0);
     inComingScene.anchor.uniformScale = 0.0;
 
-    UTE.Timeline par = new UTE.Timeline.parallel();
+    UTE.Timeline par = new UTE.Timeline.parallel()
     
-    par.push(app.animations.scaleTo(inScene, 
+    ..push(app.animations.scaleTo(inScene, 
                                      duration, 
                                      1.0, 1.0,
                                      UTE.Sine.OUT, 
                                      TweenAnimation.SCALE_XY, 
-                                     null, TweenAnimation.MULTIPLY, false));
+                                     null, TweenAnimation.MULTIPLY, false))
 
-    par.push(app.animations.scaleTo(outScene, 
+    ..push(app.animations.scaleTo(outScene, 
                                      duration, 
                                      0.0, 0.0,
                                      UTE.Sine.OUT, 
                                      TweenAnimation.SCALE_XY, 
                                      null, TweenAnimation.MULTIPLY, false));
 
-    UTE.Timeline seq = new UTE.Timeline.sequence();
-    if (pauseFor > 0.0)
-      seq.pushPause(pauseFor);
-    seq.push(par);
-    seq..push(app.animations.callFunc(0.0, _finishCallFunc, null, false))
-       ..start();
-
+    UTE.Timeline seq = new UTE.Timeline.sequence()
+        ..push(par)
+        ..push(app.animations.callFunc(0.0, _finishCallFunc, null, false))
+        ..start();
   }
 
   void _finishCallFunc(int type, UTE.BaseTween source) {

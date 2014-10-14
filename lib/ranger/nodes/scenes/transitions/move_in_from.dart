@@ -30,9 +30,6 @@ class TransitionMoveInFrom extends TransitionScene {
     UTE.Timeline seq = new UTE.Timeline.sequence();
     AnchoredScene aScene = inScene as AnchoredScene;
     
-    if (pauseFor > 0.0)
-      seq.pushPause(pauseFor);
-    
     // Note: If the Canvas is Left-handed then the top and bottom
     // animations will be flipped.
     switch (_directionFrom) {
@@ -55,7 +52,7 @@ class TransitionMoveInFrom extends TransitionScene {
     }
     
     seq..push(app.animations.callFunc(0.0, _finishCallFunc, null, false))
-    ..start();
+       ..start();
   }
 
   void _finishCallFunc(int type, UTE.BaseTween source) {

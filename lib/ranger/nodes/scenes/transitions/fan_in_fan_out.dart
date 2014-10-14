@@ -42,24 +42,22 @@ class TransitionFanInFanOut extends TransitionScene {
     // Set anchor to lower left.
     outGoingScene.setAnchorPositionByPercent(0.0, 0.0);
     
-    UTE.Timeline par = new UTE.Timeline.parallel();
+    UTE.Timeline par = new UTE.Timeline.parallel()
     
-    par.push(app.animations.rotateBy(inScene, 
+    ..push(app.animations.rotateBy(inScene, 
                                      duration * 1.5, 
                                      90.0, 
-                                     UTE.Bounce.OUT, null, false));
+                                     UTE.Bounce.OUT, null, false))
 
-    par.push(app.animations.rotateBy(outScene, 
+    ..push(app.animations.rotateBy(outScene, 
                                      duration, 
                                      90.0, 
                                      UTE.Sine.IN, null, false));
 
-    UTE.Timeline seq = new UTE.Timeline.sequence();
-    if (pauseFor > 0.0)
-      seq.pushPause(pauseFor);
-    seq.push(par);
-    seq..push(app.animations.callFunc(0.0, _finishCallFunc, null, false))
-       ..start();
+    UTE.Timeline seq = new UTE.Timeline.sequence()
+      ..push(par)
+      ..push(app.animations.callFunc(0.0, _finishCallFunc, null, false))
+      ..start();
   }
 
   void _finishCallFunc(int type, UTE.BaseTween source) {

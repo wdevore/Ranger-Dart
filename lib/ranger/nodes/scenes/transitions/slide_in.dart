@@ -25,7 +25,14 @@ class TransitionSlideIn extends TransitionScene {
   @override
   void onEnter() {
     super.onEnter();
+    _beginTransition();
+  }
 
+  void _finishCallFunc(int type, UTE.BaseTween source) {
+    finish(null);
+  }
+
+  void _beginTransition() {
     double width = Application.instance.designSize.width;
     double height = Application.instance.designSize.height;
     
@@ -33,52 +40,41 @@ class TransitionSlideIn extends TransitionScene {
 
     UTE.Timeline seq = new UTE.Timeline.sequence();
 
-    if (pauseFor > 0.0)
-      seq.pushPause(pauseFor);
-
+    // TODO There seems to be a bug in UTE where pauses always seem to
+    // occur at the end of a parallel sequence.
+    seq.beginParallel();
+    
     switch (_directionFrom) {
       case FROM_LEFT:
         inScene.setPosition(-width, 0.0);
-        UTE.Timeline par = new UTE.Timeline.parallel();
-        par.push(app.animations.moveBy(inScene, duration, width, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_X, null, false));
-        par.push(app.animations.moveBy(outScene, duration, width, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_X, null, false));
-        seq.push(par);
+        seq.push(app.animations.moveBy(inScene, duration, width, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_X, null, false));
+        seq.push(app.animations.moveBy(outScene, duration, width, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_X, null, false));
         break;
       case FROM_RIGHT:
         inScene.setPosition(width, 0.0);
-        UTE.Timeline par = new UTE.Timeline.parallel();
-        par.push(app.animations.moveBy(inScene, duration, -width, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_X, null, false));
-        par.push(app.animations.moveBy(outScene, duration, -width, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_X, null, false));
-        seq.push(par);
+        seq.push(app.animations.moveBy(inScene, duration, -width, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_X, null, false));
+        seq.push(app.animations.moveBy(outScene, duration, -width, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_X, null, false));
         break;
       case FROM_TOP:
         inScene.setPosition(0.0, height);
-        UTE.Timeline par = new UTE.Timeline.parallel();
         // Note: the X and Y parameters are NOT positional based. For example,
         // This animation only effects the Y axis so only 1 of the parameters
         // is needed, the second isn't relevant. So the Y value is passed
         // first then an arbitrary value (in this case 0.0).
         // Your first intuition is to pass height second but that would
         // mean nothing would happen.
-        par.push(app.animations.moveBy(inScene, duration, -height, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_Y, null, false));
-        par.push(app.animations.moveBy(outScene, duration, -height, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_Y, null, false));
-        seq.push(par);
+        seq.push(app.animations.moveBy(inScene, duration, -height, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_Y, null, false));
+        seq.push(app.animations.moveBy(outScene, duration, -height, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_Y, null, false));
         break;
       case FROM_BOTTOM:
         inScene.setPosition(0.0, -height);
-        UTE.Timeline par = new UTE.Timeline.parallel();
-        par.push(app.animations.moveBy(inScene, duration, height, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_Y, null, false));
-        par.push(app.animations.moveBy(outScene, duration, height, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_Y, null, false));
-        seq.push(par);
+        seq.push(app.animations.moveBy(inScene, duration, height, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_Y, null, false));
+        seq.push(app.animations.moveBy(outScene, duration, height, 0.0, UTE.Sine.INOUT, TweenAnimation.TRANSLATE_Y, null, false));
         break;
     }
 
-    seq..push(app.animations.callFunc(0.0, _finishCallFunc, null, false))
+    seq..end()
+       ..push(app.animations.callFunc(0.0, _finishCallFunc, null, false))
        ..start();
   }
-
-  void _finishCallFunc(int type, UTE.BaseTween source) {
-    finish(null);
-  }
-
 }

@@ -37,26 +37,24 @@ class TransitionRotateAndZoom extends TransitionScene {
     // Setup outgoing scene second.
     // Set anchor to lower left.
     
-    UTE.Timeline par = new UTE.Timeline.parallel();
+    UTE.Timeline par = new UTE.Timeline.parallel()
     
-    par.push(app.animations.rotateBy(inScene, 
+    ..push(app.animations.rotateBy(inScene, 
                                      duration / 1.5, 
                                      720.0, 
-                                     UTE.Sine.OUT, null, false));
+                                     UTE.Sine.OUT, null, false))
 
-    par.push(app.animations.scaleTo(inScene, 
+    ..push(app.animations.scaleTo(inScene, 
                                      duration / 1.2, 
                                      1.0, 1.0,
                                      UTE.Sine.OUT, 
                                      TweenAnimation.SCALE_XY, 
                                      null, TweenAnimation.MULTIPLY, false));
 
-    UTE.Timeline seq = new UTE.Timeline.sequence();
-    if (pauseFor > 0.0)
-      seq.pushPause(pauseFor);
-    seq.push(par);
-    seq..push(app.animations.callFunc(0.0, _finishCallFunc, null, false))
-       ..start();
+    UTE.Timeline seq = new UTE.Timeline.sequence()
+        ..push(par)
+        ..push(app.animations.callFunc(0.0, _finishCallFunc, null, false))
+        ..start();
 
   }
 
