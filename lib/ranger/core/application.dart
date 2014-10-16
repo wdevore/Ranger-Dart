@@ -251,6 +251,12 @@ class Application {
   bool _loading = true;
   LinkedHashMap configuration;
   
+  // Unload event
+  Function unloadCallback;
+  
+  // Visibility event
+  Function visibilityCallback;
+  
   // ----------------------------------------------------------
   // Factories with different design layout and constraints.
   // ----------------------------------------------------------
@@ -506,10 +512,20 @@ class Application {
   void _registerEvents() {
     // TODO Use visibility to pause Engine
     // This event triggers when moving between tabs.
-    Html.document.onVisibilityChange.listen(
-        (Html.Event e) => Logging.info("visibility changed")
-        );
-    
+    Html.document.onVisibilityChange.listen((Html.Event e) {
+        if (visibilityCallback != null)
+          visibilityCallback();
+        else
+          Logging.info("Visibility event unhandled.");
+    });
+
+    window.onUnload.listen((Html.Event e) {
+      if (unloadCallback != null)
+        unloadCallback();
+      else
+        Logging.info("Unload event unhandled.");
+    });
+
     // This event is received when the browser "gains" focus not when it is
     // lost.
     Html.window.onFocus.listen(
