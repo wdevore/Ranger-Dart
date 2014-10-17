@@ -109,7 +109,8 @@ class SpriteImage extends Node with Color4Mixin {
   /**
    * [p] should be in node's local-space.
    */
-  bool containsPoint(Vector2 p) {
+  @override
+  bool pointInside(Vector2 p) {
     return localBounds.containsVector2(p);
   }
   
