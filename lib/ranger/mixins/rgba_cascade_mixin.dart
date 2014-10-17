@@ -36,14 +36,17 @@ abstract class RGBACascadeMixin {
   }
 
   int get displayedOpacity => _displayedColor.a;
+  set displayedOpacity(int a) => _displayedColor.a = a;
+  
   Color4<int> get displayedColor => _displayedColor;
-
+  set displayedColor(Color4<int> c) => _displayedColor.setWith(c);
+  
   // ----------------------------------------------------------
   // Opacity
   // ----------------------------------------------------------
   void cascadeOpacity(int opacity) {
     // Update this node's opacity.
-    _displayedColor.a = (_realColor.a * opacity) ~/ 255;
+    displayedOpacity = (_realColor.a * opacity) ~/ 255;
 
     if (_behaviorChildren != null && _cascadeOpacityEnabled) {
       // Traverse each cascade child layer setting their opacity.
