@@ -46,9 +46,7 @@ abstract class Color4Mixin {
    * Override synthesized setOpacity to recurse through Layer hiearchy.
    * [opacity] ranges from 0 -> 255.
    */
-  void set opacity(int opacity) {
-    changingColor.a = opacity;
-  }
+  set opacity(int opacity) => changingColor.a = opacity;
   
   // ----------------------------------------------------------
   // Color
