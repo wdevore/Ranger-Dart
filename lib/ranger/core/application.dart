@@ -250,11 +250,23 @@ class Application {
   
   bool _loading = true;
   LinkedHashMap configuration;
-  
+
+  /**
+   * BeforeUnload event.
+   * Note: USE [beforeUnloadCallback] event to properly store game state prior to exiting.
+   * 
+   * DON'T use [unloadCallback] to store state on exit as Pubs are
+   * silently "cutoff" from storing to local-storage.
+   */ 
+  Function beforeUnloadCallback;
+
   // Unload event
   Function unloadCallback;
   
-  // Visibility event
+  /**
+   * This event occurs when moving between tabs in a browser. You can
+   * use it to pause your game.
+   */
   Function visibilityCallback;
   
   // ----------------------------------------------------------
@@ -522,8 +534,11 @@ class Application {
     window.onUnload.listen((Html.Event e) {
       if (unloadCallback != null)
         unloadCallback();
-      else
-        Logging.info("Unload event unhandled.");
+    });
+
+    window.onBeforeUnload.listen((Html.Event e) {
+      if (beforeUnloadCallback != null)
+        beforeUnloadCallback();
     });
 
     // This event is received when the browser "gains" focus not when it is
