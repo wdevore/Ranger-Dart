@@ -197,6 +197,7 @@ class Application {
 
   // physical dimensions of the device browser or mobile.
   Size<int> screenSize = new Size<int>(0, 0);
+  bool _fullScreenActivated = false;
   
   // view size = Canvas size.
   Size<int> viewSize = new Size<int>(0, 0);
@@ -268,6 +269,10 @@ class Application {
    * use it to pause your game.
    */
   Function visibilityCallback;
+  
+  StreamSubscription _fullscreenSubscription;
+  StreamSubscription _fullscreenExitSubscription;
+ 
   
   // ----------------------------------------------------------
   // Factories with different design layout and constraints.
@@ -498,7 +503,8 @@ class Application {
   // This is called by any Node that wishes to signal the application
   // that it has setup up the scene.
   void sceneIsReady() {
-    _sceneReady();
+    if (_sceneReady != null)
+      _sceneReady();
   }
   
   /**
@@ -506,6 +512,27 @@ class Application {
    */
   void gameConfigured() {
     _core.start();
+  }
+  
+  void switchToFullscreen() {
+    _fullScreenActivated = !_fullScreenActivated;
+    if (_fullScreenActivated) {
+      _fullscreenSubscription = container.onFullscreenChange.listen((Html.Event e) {
+        Html.DivElement divContainer = e.currentTarget as Html.DivElement;
+        Logging.info("Application FullScreen Change: client=${divContainer.client}");
+      });
+      _fullscreenExitSubscription = container.onFullscreenError.listen((Html.Event e) {
+        Logging.error("FullScreen Error: ${e.currentTarget}");
+      });
+      container.requestFullscreen();
+    }
+    else {
+      Logging.info("Application Exiting fullscreen.");
+      Html.HtmlDocument doc = window.document as Html.HtmlDocument;
+      doc.exitFullscreen();
+      _fullscreenSubscription.cancel();
+      _fullscreenExitSubscription.cancel();
+    }
   }
   
   // ----------------------------------------------------------
