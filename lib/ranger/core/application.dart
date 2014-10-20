@@ -515,6 +515,7 @@ class Application {
   }
   
   void switchToFullscreen() {
+    // Dart issue #21360
     _fullScreenActivated = !_fullScreenActivated;
     if (_fullScreenActivated) {
       _fullscreenSubscription = container.onFullscreenChange.listen((Html.Event e) {
