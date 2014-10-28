@@ -75,6 +75,8 @@ abstract class ParticleSystem extends ComponentPoolable with TimingTarget {
   
   List<Particle> get particles => _particles;
   
+  bool get isActive => _particles.where((Particle p) => p.active).length > 0;
+  
   void add(Particle p) {
     _particles.add(p);
   }
