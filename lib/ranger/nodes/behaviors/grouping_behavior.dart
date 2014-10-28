@@ -88,7 +88,7 @@ abstract class GroupingBehavior {
       // Visit negative Z orders first. This allows children with -Zs
       // to be drawn "above" their parent.
       if (hasNegZOrders) {
-        _children.skipWhile((BaseNode n) => n.drawOrder >= 0)
+        _children.where((BaseNode n) => n.drawOrder < 0)
                  .forEach((BaseNode child) => child.visit(context));
       }
       
@@ -98,7 +98,7 @@ abstract class GroupingBehavior {
       _this.draw(context);
       
       // Visit 0 and +Z orders last.
-      _children.skipWhile((BaseNode n) => n.drawOrder < 0)
+      _children.where((BaseNode n) => n.drawOrder >= 0)
                .forEach((BaseNode child) => child.visit(context));
     }
     else {
