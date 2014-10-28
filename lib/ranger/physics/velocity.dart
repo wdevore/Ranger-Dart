@@ -9,7 +9,7 @@ class Velocity {
   double minMagnitude = 0.0;
   double maxMagnitude = 0.0;
   
-  Vector2 direction = new Vector2(1.0, 0.0);
+  Vector2 direction = new Vector2(0.0, 0.0);
   
   bool limitMagnitude = true;
   
@@ -27,7 +27,16 @@ class Velocity {
     magnitude = speed;
     direction.setValues(x, y);
   }
-  
+
+  set velocity(Velocity velocity) {
+    magnitude = velocity.magnitude;
+    minMagnitude = velocity.minMagnitude;
+    maxMagnitude = velocity.maxMagnitude;
+    
+    direction.setFrom(velocity.direction);
+  }
+
+
   void setSpeedRange(double min, double max) {
     minMagnitude = min;
     maxMagnitude = max;    
@@ -150,6 +159,6 @@ class Velocity {
     magnitude = magnitude > maxMagnitude ? maxMagnitude : magnitude;
   }
   
-  String toString() => "mag: ${magnitude.toStringAsFixed(2)}, dir: $direction, min/max:(${minMagnitude.toStringAsFixed(2)}, ${maxMagnitude.toStringAsFixed(2)})";
+  String toString() => "mag: ${magnitude.toStringAsFixed(4)}, dir: [${direction.x.toStringAsFixed(2)}, ${direction.y.toStringAsFixed(2)}], min/max:(${minMagnitude.toStringAsFixed(2)}, ${maxMagnitude.toStringAsFixed(2)})";
   
 }
