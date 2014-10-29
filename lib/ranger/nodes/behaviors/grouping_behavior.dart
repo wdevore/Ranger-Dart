@@ -92,13 +92,15 @@ abstract class GroupingBehavior {
                  .forEach((BaseNode child) => child.visit(context));
       }
 
-      _this.clip(context);
+      _this.preClip(context);
 
       // Now draw parent.
       // This draw could leave the context in a certain state that other
       // child nodes may not expect.
       _this.draw(context);
       
+      _this.postClip(context);
+
       // Visit 0 and +Z orders last.
       _children.where((BaseNode n) => n.drawOrder >= 0)
                .forEach((BaseNode child) => child.visit(context));

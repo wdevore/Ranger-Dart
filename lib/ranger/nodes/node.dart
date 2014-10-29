@@ -165,11 +165,11 @@ abstract class Node extends BaseNode {
   }
 
   /**
-   * Optional clipping prior to drawing.
+   * Optional clipping BEFORE to drawing current node.
    * Default is nothing.
    */
   @override
-  void clip(DrawContext context) {
+  void preClip(DrawContext context) {
     
   }
   
@@ -181,6 +181,15 @@ abstract class Node extends BaseNode {
     
   }
 
+  /**
+   * Optional clipping AFTER to drawing current node.
+   * Default is nothing.
+   */
+  @override
+  void postClip(DrawContext context) {
+    
+  }
+  
   /**
    * Iterate through this [Node]'s children accumulating local AABBoxes.
    * An AABBox only needs to be recomputed if a [Node] becomes dirty.
