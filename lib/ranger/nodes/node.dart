@@ -164,6 +164,15 @@ abstract class Node extends BaseNode {
     }
   }
 
+  /**
+   * Optional clipping prior to drawing.
+   * Default is nothing.
+   */
+  @override
+  void clip(DrawContext context) {
+    
+  }
+  
   /// Default is to draw nothing. In essence an invisible node.
   /// Consider setting the [Node] invisible to save unnecessary work if
   /// your design allows.

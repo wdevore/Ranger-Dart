@@ -91,7 +91,9 @@ abstract class GroupingBehavior {
         _children.where((BaseNode n) => n.drawOrder < 0)
                  .forEach((BaseNode child) => child.visit(context));
       }
-      
+
+      _this.clip(context);
+
       // Now draw parent.
       // This draw could leave the context in a certain state that other
       // child nodes may not expect.
