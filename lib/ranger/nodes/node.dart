@@ -164,16 +164,6 @@ abstract class Node extends BaseNode {
     }
   }
 
-  /**
-   * Optional rendering applied BEFORE drawing current node.
-   * This is a good place to perform clipping.
-   * Default is nothing.
-   */
-  @override
-  void preDraw(DrawContext context) {
-    
-  }
-  
   /// Default is to draw nothing. In essence an invisible node.
   /// Consider setting the [Node] invisible to save unnecessary work if
   /// your design allows.
@@ -182,16 +172,6 @@ abstract class Node extends BaseNode {
     
   }
 
-  /**
-   * Optional rendering applied AFTER drawing current node.
-   * This is a good place to perform clipping.
-   * Default is nothing.
-   */
-  @override
-  void postDraw(DrawContext context) {
-    
-  }
-  
   /**
    * Iterate through this [Node]'s children accumulating local AABBoxes.
    * An AABBox only needs to be recomputed if a [Node] becomes dirty.

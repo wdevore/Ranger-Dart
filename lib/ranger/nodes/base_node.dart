@@ -348,22 +348,10 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
   void addedAsChild();
   
   /**
-   * Optional rendering applied BEFORE drawing current node.
-   * This is a good place to perform clipping.
-   */
-  void preDraw(DrawContext context);
-  
-  /**
    * You must override this method in order for your [BaseNode] to be
    * visually rendered.
    */
   void draw(DrawContext context);
-  
-  /**
-   * Optional rendering applied AFTER drawing current node.
-   * This is a good place to perform clipping.
-   */
-  void postDraw(DrawContext context);
   
   // ----------------------------------------------------------
   // Transforms
