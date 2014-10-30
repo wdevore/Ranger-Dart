@@ -165,11 +165,12 @@ abstract class Node extends BaseNode {
   }
 
   /**
-   * Optional clipping BEFORE to drawing current node.
+   * Optional rendering applied BEFORE drawing current node.
+   * This is a good place to perform clipping.
    * Default is nothing.
    */
   @override
-  void preClip(DrawContext context) {
+  void preDraw(DrawContext context) {
     
   }
   
@@ -182,11 +183,12 @@ abstract class Node extends BaseNode {
   }
 
   /**
-   * Optional clipping AFTER to drawing current node.
+   * Optional rendering applied AFTER drawing current node.
+   * This is a good place to perform clipping.
    * Default is nothing.
    */
   @override
-  void postClip(DrawContext context) {
+  void postDraw(DrawContext context) {
     
   }
   
