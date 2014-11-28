@@ -26,20 +26,20 @@ class Scheduler {
   List<TimingTarget> _normalPriorityTargets;
   List<TimingTarget> _lowPriorityTargets;
 
-  List<Timer> _updateTargets;
+  List<RTimer> _updateTargets;
 
   // ----------------------------------------------------------
   // Constructors
   // ----------------------------------------------------------
   Scheduler() {
     // Setup a pool of timers.
-    ObjectPool.addMany(Timer, Timer.createPoolable, 16);
+    ObjectPool.addMany(RTimer, RTimer.createPoolable, 16);
     
     _highPriorityTargets = new List<TimingTarget>();
     _normalPriorityTargets = new List<TimingTarget>();
     _lowPriorityTargets = new List<TimingTarget>();
 
-    _updateTargets = new List<Timer>();
+    _updateTargets = new List<RTimer>();
   }
 
   /**
@@ -71,17 +71,17 @@ class Scheduler {
 
     if (_updateTargets.length > 0) {
       // Update the timers. Some may expire.
-      _updateTargets.forEach((Timer timer) => timer.update(dt));
+      _updateTargets.forEach((RTimer timer) => timer.update(dt));
       
       // Sweep the expired timers.
       // First remove them from the pool.
-      for(Timer timer in _updateTargets) {
+      for(RTimer timer in _updateTargets) {
         if (timer.expired)
-          unScheduleUpdateTargetByTimer(timer);
+          unScheduleUpdateTargetByRTimer(timer);
       }
       
       // And remove any from the collection too.
-      _updateTargets.removeWhere((Timer timer) => timer.expired);      
+      _updateTargets.removeWhere((RTimer timer) => timer.expired);      
     }
   }
   
@@ -90,8 +90,8 @@ class Scheduler {
     _normalPriorityTargets.clear();
     _lowPriorityTargets.clear();
     
-    // First move Timers back to the pool
-    _updateTargets.forEach((Timer timer) => unScheduleUpdateTargetByTimer(timer));
+    // First move RTimers back to the pool
+    _updateTargets.forEach((RTimer timer) => unScheduleUpdateTargetByRTimer(timer));
     _updateTargets.clear();
   }
   
@@ -172,26 +172,26 @@ class Scheduler {
   // UpdateTargets
   // ----------------------------------------------------------
   /**
-   * [UpdateTarget]s are wrapped inside of [Poolable] [Timer]s.
+   * [UpdateTarget]s are wrapped inside of [Poolable] [RTimer]s.
    * If the [target] is already wrapped then adjust
    * only the interval.
    */
-  Timer scheduleUpdateTarget(UpdateTarget target, [double interval = 0.0, int repeat = Timer.REPEAT_FOREVER, double delay = 0.0, bool paused = false]) {
+  RTimer scheduleUpdateTarget(UpdateTarget target, [double interval = 0.0, int repeat = RTimer.REPEAT_FOREVER, double delay = 0.0, bool paused = false]) {
     assert(target is UpdateTarget);
     
     // Check if the target is already contained.
-    Timer timer = _getTimerForUpdateTarget(target);
+    RTimer timer = _getRTimerForUpdateTarget(target);
     
     if (timer != null) {
       // update associated timer's interval instead.
       timer.interval = interval;
     }
     else {
-      // The Timer's factory will actually get a Timer from the pool.
+      // The RTimer's factory will actually get a RTimer from the pool.
       // We must remember to move it back to the pool when done.
       // Note: Dart has the concept of factories. The "new" operator is
       // designed to "pull" from the pool first before attempting to create.
-      timer = new Timer(target, interval, repeat, delay, paused);
+      timer = new RTimer(target, interval, repeat, delay, paused);
       timer.arm();
       _updateTargets.add(timer);
     }
@@ -208,7 +208,7 @@ class Scheduler {
     scheduleUpdateTarget(target, 0.0, 0, delay, pause);
   }
 
-  void unScheduleUpdateTargetByTimer(Timer timer) {
+  void unScheduleUpdateTargetByRTimer(RTimer timer) {
     // Mark expired such it is picked up on the next tick.
     timer.expired = true;
     
@@ -217,10 +217,10 @@ class Scheduler {
   }
   
   void unScheduleUpdateTarget(UpdateTarget target) {
-    Timer timer = _getTimerForUpdateTarget(target);
+    RTimer timer = _getRTimerForUpdateTarget(target);
     
     if (timer != null) {
-      unScheduleUpdateTargetByTimer(timer);
+      unScheduleUpdateTargetByRTimer(timer);
     }
   }
   
@@ -229,21 +229,21 @@ class Scheduler {
   }
   
   void pauseUpdateTarget(UpdateTarget target) {
-    Timer timer = _getTimerForUpdateTarget(target);
+    RTimer timer = _getRTimerForUpdateTarget(target);
     if (timer != null) {
       timer.paused = true;
     }
   }
 
   void resumeUpdateTarget(UpdateTarget target) {
-    Timer timer = _getTimerForUpdateTarget(target);
+    RTimer timer = _getRTimerForUpdateTarget(target);
     if (timer != null) {
       timer.paused = false;
     }
   }
   
   bool isUpdateTargetPaused(UpdateTarget target) {
-    Timer timer = _getTimerForUpdateTarget(target);
+    RTimer timer = _getRTimerForUpdateTarget(target);
     if (timer != null) {
       return timer.paused;
     }
@@ -251,11 +251,11 @@ class Scheduler {
     return false;
   }
   
-  Timer _getTimerForUpdateTarget(UpdateTarget target) {
-    Iterable<Timer> itr = _updateTargets.where((Timer timer) => timer.target == target);
+  RTimer _getRTimerForUpdateTarget(UpdateTarget target) {
+    Iterable<RTimer> itr = _updateTargets.where((RTimer timer) => timer.target == target);
     
     if (itr.length > 0) {
-      Timer timer = itr.first;
+      RTimer timer = itr.first;
       return timer;
     }
     

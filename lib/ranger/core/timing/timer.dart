@@ -1,6 +1,6 @@
 part of ranger;
 
-class Timer extends ComponentPoolable {
+class RTimer extends ComponentPoolable {
   static int _genId = 0;  // unique id.
   int id;
   
@@ -31,8 +31,8 @@ class Timer extends ComponentPoolable {
   /**
    * 
    */
-  factory Timer(UpdateTarget target, double seconds, int repeat, double delay, bool paused) {
-    Timer poolable = new Poolable.of(Timer, _constructor);
+  factory RTimer(UpdateTarget target, double seconds, int repeat, double delay, bool paused) {
+    RTimer poolable = new Poolable.of(RTimer, _constructor);
     poolable.id = _genId++;
     poolable.target = target;
     poolable.elapsed = -1.0;
@@ -44,8 +44,8 @@ class Timer extends ComponentPoolable {
     return poolable;
   }
 
-  factory Timer.withTarget(UpdateTarget target, double seconds, bool paused) {
-    Timer poolable = new Poolable.of(Timer, _constructor);
+  factory RTimer.withTarget(UpdateTarget target, double seconds, bool paused) {
+    RTimer poolable = new Poolable.of(RTimer, _constructor);
     poolable.id = _genId++;
     poolable.target = target;
     poolable.elapsed = -1.0;
@@ -57,9 +57,9 @@ class Timer extends ComponentPoolable {
     return poolable;
   }
   
-  Timer._();
-  static Timer _constructor() => new Timer._();
-  static Timer createPoolable() => _constructor();
+  RTimer._();
+  static RTimer _constructor() => new RTimer._();
+  static RTimer createPoolable() => _constructor();
   
   // ----------------------------------------------------------
   // Methods
@@ -107,7 +107,7 @@ class Timer extends ComponentPoolable {
         else {
           if (elapsed >= interval) {
             if (target == null)
-              Logging.error("Timer: target is null!");
+              Logging.error("RTimer: target is null!");
             else
               target(elapsed);
 
@@ -118,7 +118,7 @@ class Timer extends ComponentPoolable {
 
         if (!runForever && (timesExecuted > repeat)) {
           expired = true;
-          //Logging.info("Timer expired: $this");
+          //Logging.info("RTimer expired: $this");
         }
       }
     }

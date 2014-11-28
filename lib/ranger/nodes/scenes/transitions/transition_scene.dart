@@ -89,7 +89,7 @@ abstract class TransitionScene extends Scene {
     // TODO consider replacing this odd usage of UpdateTarget with
     // a EventBus call instead.
     Scheduler scheduler = Application.instance.scheduler;
-    scheduler.scheduleUpdateTarget(_setNewScene, 0.0, Timer.REPEAT_FOREVER, 0.0, !isRunning);
+    scheduler.scheduleUpdateTarget(_setNewScene, 0.0, RTimer.REPEAT_FOREVER, 0.0, !isRunning);
     
 //    Application.instance.eventBus.fire(this);
 
