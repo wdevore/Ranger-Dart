@@ -6,7 +6,8 @@ import 'dart:math' as math;
 import 'dart:collection';
 import 'dart:convert' show JSON;
 import "dart:typed_data";
-import "dart:async";
+import "dart:async";      // for Timer and Futures
+import 'dart:web_audio';  // for WebAudio
 
 import 'package:vector_math/vector_math.dart';
 import 'package:tweenengine/tweenengine.dart' as UTE;
@@ -159,6 +160,35 @@ part 'ranger/core/pooling/bag.dart';
 part 'ranger/core/core.dart';
 part 'ranger/core/browser.dart';
 part 'ranger/core/affine_transform.dart';
+
+// ----------------------------------------------------------------------
+// Audio
+// ----------------------------------------------------------------------
+part 'ranger/audio/sound_utilities.dart';
+part 'ranger/audio/audio_effects.dart';
+
+// RSfxr
+part 'ranger/audio/rsfxr/wa_sfxr.dart';
+part 'ranger/audio/rsfxr/audio_mixer.dart';
+part 'ranger/audio/rsfxr/wa_envelope.dart';
+part 'ranger/audio/rsfxr/wa_generator.dart';
+part 'ranger/audio/rsfxr/wa_vibrato.dart';
+part 'ranger/audio/rsfxr/wa_tremolo.dart';
+part 'ranger/audio/rsfxr/wa_frequency_slider.dart';
+part 'ranger/audio/rsfxr/wa_arpeggio.dart';
+part 'ranger/audio/rsfxr/wa_lowpass_filter.dart';
+part 'ranger/audio/rsfxr/wa_highpass_filter.dart';
+part 'ranger/audio/rsfxr/wa_phaser_filter.dart';
+part 'ranger/audio/rsfxr/wa_flanger_filter.dart';
+part 'ranger/audio/rsfxr/wa_bitcrusher.dart';
+part 'ranger/audio/rsfxr/wa_distortion.dart';
+// Sfxr
+part 'ranger/audio/sfxr/external_view.dart';
+part 'ranger/audio/sfxr/generator.dart';
+part 'ranger/audio/sfxr/internal_view.dart';
+part 'ranger/audio/sfxr/param_view.dart';
+part 'ranger/audio/sfxr/sfxr.dart';
+part 'ranger/audio/sfxr/wave.dart';
 
 // ----------------------------------------------------------------------
 // Misc: Utilities, config
