@@ -4,7 +4,7 @@ class WALowPassFilter {
   AudioContext _context;
   
   double frequencyCutoff = 25000.0;
-  double prevFrequencyCutoff = 0.0;
+  double _prevFrequencyCutoff = 0.0;
   // Higher values lead to more distortion.
   double _qResonance = 0.001;
   double _prevQResonance = 0.0;
@@ -71,7 +71,7 @@ class WALowPassFilter {
 
     bool valueChanged = false;
     
-    if (frequencyCutoff != prevFrequencyCutoff) {
+    if (frequencyCutoff != _prevFrequencyCutoff) {
       _filter.frequency.cancelScheduledValues(now);
       _filter.frequency.setValueAtTime(frequencyCutoff, now);
       valueChanged = true;
@@ -87,7 +87,7 @@ class WALowPassFilter {
     _filter.frequency.setValueAtTime(frequencyCutoff, now);
     _filter.frequency.exponentialRampToValueAtTime(rampTo, now + 1.0);
     
-    prevFrequencyCutoff = frequencyCutoff;
+    _prevFrequencyCutoff = frequencyCutoff;
     _prevQResonance = _qResonance;
   }
 }
