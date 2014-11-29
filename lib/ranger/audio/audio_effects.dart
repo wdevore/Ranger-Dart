@@ -17,7 +17,6 @@ class AudioEffects {
   Map<int, AudioMixer> _rsfxr_effects;
   
   Sfxr _sfxr;
-  Map<int, String> _sfxr_effects;
   
   AudioEffects();
 
@@ -74,15 +73,7 @@ class AudioEffects {
   }
   
   void _loadSfxr(int eID, Map m) {
-    if (_sfxr_effects == null) {
-      _sfxr_effects = new Map<int, String>();
-    }
-    
-    //String name = m["Name"] as String;
-    
-    _sfxr.addEffect(m);
-    
-    _sfxr_effects[eID] = "Name$_sfxr_effectId";
+    _sfxr.addEffect(m, eID);
   }
   
   void _loadRSfxr(int eID, Map m) {
@@ -105,7 +96,7 @@ class AudioEffects {
     }
     else {
       // Play Sfxr
-      _sfxr.play(_sfxr_effects[eID]);
+      _sfxr.play(eID);
     }
   }
 }

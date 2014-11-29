@@ -20,12 +20,13 @@ part of ranger;
  * http://blog.chrislowis.co.uk/2013/06/17/synthesis-web-audio-api-envelopes.html
  */
 class Sfxr {
+  static int _id = 0;
   AudioContext _context;
 
-  Map<String, AudioBuffer> _buffers;
+  Map<int, AudioBuffer> _buffers;
   
   /// The currently active [AudioBuffer]
-  String current;
+  int current;
   
   static const String PICKUP_COIN = "PickupCoin";
   static const String LASER_SHOOT = "LaserShoot";
@@ -43,9 +44,11 @@ class Sfxr {
   ExternalView uiView;
   InternalView view;
   
+  String name = "None";
+  
   Sfxr() {
     uiView = new ExternalView.basic();
-    _buffers = new Map<String, AudioBuffer>();
+    _buffers = new Map<int, AudioBuffer>();
   }
 
   factory Sfxr.basic(AudioContext context) {
@@ -73,7 +76,7 @@ class Sfxr {
     category = sfxr["Category"] as String;
     
     if (format == "AutoGen") {
-      autoGenByCategory(name, sfxr);
+      current = autoGenByCategory(sfxr);
       return true;
     }
     else if (format == "Samples") {
@@ -84,7 +87,8 @@ class Sfxr {
       data.forEach((num n) => samples[i++] = n.toDouble());
       
       num nSampleRate = sfxr["SampleRate"] as num;
-      _transferSamplesToAudioBuffer(name, samples, nSampleRate.toInt());
+      current = _id++;
+      _transferSamplesToAudioBuffer(current, samples, nSampleRate.toInt());
       return true;
     }
     else if (format == "InternalView") {
@@ -95,9 +99,9 @@ class Sfxr {
     return false;
   }
   
-  void addEffect(Map sfxr) {
-    current = sfxr["Name"] as String;
-    print("Configuring $current...");
+  int addEffect(Map sfxr, [int eID]) {
+    String name = sfxr["Name"] as String;
+    print("Configuring $name...");
 
     view = new InternalView.withJSON(sfxr);
     
@@ -112,8 +116,14 @@ class Sfxr {
 
     generator.generate();  // This is computatively intensive.
     
+    if (eID == null)
+      current = _id++;
+    else
+      current = eID;
     // Now we have samples in Unit form. Transfer them to WebAudio.
     _tranferGenToAudioBuffer(current, generator);
+    
+    return current;
   }
   
   void updateByWaveShape(int waveShape) {
@@ -161,8 +171,8 @@ class Sfxr {
     return iv;
   }
   
-  void autoGenByCategory(String name, Map sfxr) {
-    current = name;
+  int autoGenByCategory(Map sfxr) {
+    current = _id++;
     
     // Ignore any data present and create from scratch using one of
     // built in functions.
@@ -212,13 +222,15 @@ class Sfxr {
     generator.generate();  // This is computatively intensive.
     
     // Now we have samples in Unit form. Transfer them to WebAudio.
-    _tranferGenToAudioBuffer(name, generator);
+    _tranferGenToAudioBuffer(current, generator);
+    
+    return current;
   }
   
-  void _transferSamplesToAudioBuffer(String name, Float32List samples, int sampleRate) {
+  void _transferSamplesToAudioBuffer(int id, Float32List samples, int sampleRate) {
     // Create audio buffer to transfer samples into
     AudioBuffer buffer = _context.createBuffer(1, samples.length, sampleRate);
-    _buffers[name] = buffer;
+    _buffers[id] = buffer;
     
     // Get the mono-channel data.
     Float32List data = buffer.getChannelData(0);
@@ -228,7 +240,7 @@ class Sfxr {
     samples.forEach((double sample) => data[i++] = sample);
   }
   
-  void _tranferGenToAudioBuffer(String name, Generator sg) {
+  void _tranferGenToAudioBuffer(int id, Generator sg) {
     int frameCount = _frameCount(sg);
     
     if (frameCount == 0)
@@ -236,7 +248,7 @@ class Sfxr {
     
     // Create audio buffer to transfer samples into
     AudioBuffer buffer = _context.createBuffer(1, frameCount, sg.sampleRate);
-    _buffers[name] = buffer;
+    _buffers[id] = buffer;
     
     // Get the mono-channel data.
     Float32List data = buffer.getChannelData(0);
@@ -264,10 +276,10 @@ class Sfxr {
   /**
    * [name] is optional. If not supplied the last effect loaded is played.
    */
-  void play([String name]) {
-    if (name == null)
-      name = current;
-    AudioBuffer ab = _buffers[name];
+  void play([int id]) {
+    if (id == null)
+      id = current;
+    AudioBuffer ab = _buffers[id];
     
     if (ab != null) {
       AudioBufferSourceNode srcNode = _context.createBufferSource();
@@ -315,8 +327,11 @@ class Sfxr {
     }
   }
   
-  Map toMapAsSamples(String name, String category) {
-    AudioBuffer ab = _buffers[name];
+  Map toMapAsSamples(String category, [int eID]) {
+    if (eID != null)
+      current = eID;
+    
+    AudioBuffer ab = _buffers[current];
     Float32List data = ab.getChannelData(0);
 
     Map m = {
@@ -329,7 +344,7 @@ class Sfxr {
     return m;
   }
   
-  Map toMapAsSettings(String name, String category) {
+  Map toMapAsSettings(String category) {
 
     if (view == null)
       return null;
