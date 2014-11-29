@@ -36,8 +36,8 @@ class BasicParticleSystem extends ParticleSystem {
 
   static BasicParticleSystem _createPoolable() => new BasicParticleSystem._();
 
-  void activateByStyle(int emissionStyle, [double dt = 0.0]) {
-    emit(emissionStyle);
+  bool activateByStyle(int emissionStyle, [double dt = 0.0]) {
+    return emit(emissionStyle);
   }
 
   void update(double dt) {
@@ -63,14 +63,19 @@ class BasicParticleSystem extends ParticleSystem {
     }
   }
 
-  void emit(int emissionStyle) {
+  bool emit(int emissionStyle) {
+    int emitted = 0;
     do {
       // Continue to emit particles until count maxed.
       emissionRateCount++;
-      _activate(emissionStyle);
+      bool e = _activate(emissionStyle);
+      if (e)
+        emitted++;
     } while (emissionRateCount < emissionRate);
     
     emissionRateCount = 0;
+    
+    return emitted > 0;
   }
   
 }

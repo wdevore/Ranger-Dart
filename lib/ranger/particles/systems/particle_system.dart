@@ -107,7 +107,7 @@ abstract class ParticleSystem extends ComponentPoolable with TimingTarget {
   
   Particle get nextAvailableParticle => _particles.firstWhere((Particle p) => !p.active, orElse: () => null);
   
-  void activateByStyle(int emissionStyle, [double dt = 0.0]);
+  bool activateByStyle(int emissionStyle, [double dt = 0.0]);
 
   void explodeByStyle(int emissionStyle) {
     activeParticles = 0;
@@ -117,7 +117,7 @@ abstract class ParticleSystem extends ComponentPoolable with TimingTarget {
     }
   }
   
-  void _activate(int emissionStyle) {
+  bool _activate(int emissionStyle) {
     if (particleActivation != null) {
       if (particlesAvailable) {
         Particle p = nextAvailableParticle;
@@ -128,12 +128,15 @@ abstract class ParticleSystem extends ComponentPoolable with TimingTarget {
             _preActivateCallback(p);
           
           particleActivation.activate(p, emissionStyle, emitterVisual.position.x, emitterVisual.position.y);
+          return true;
         }
       }
     }
     else {
       print("ParticleSystem: warning! A particle activator is not assigned. Particles can not be activated.");
     }
+    
+    return false;
   }
   
   void emit(int emissionStyle);
