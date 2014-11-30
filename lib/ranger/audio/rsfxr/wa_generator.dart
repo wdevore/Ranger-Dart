@@ -36,7 +36,7 @@ class WAGenerator {
   double _playbackRate = 2.0;
   double _prevPlaybackRate = 0.0;
   bool _noiseEnabled = false;
-  double _noiseVolume = 5.0;
+  double _noiseVolume = 1.0;
   double _prevNoiseVolume = 0.0;
   
   // Overdrives
@@ -148,7 +148,7 @@ class WAGenerator {
     _bufferSize = 10;
     _playbackRate = 2.0;
     _noiseEnabled = false;
-    _noiseVolume = 5.0;
+    _noiseVolume = 1.0;
     _pinkNoiseDistortion = 2.5;  // Overdrive
     _brownNoiseDistortion = 50.0;
     
