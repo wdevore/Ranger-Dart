@@ -11,6 +11,7 @@ class AudioMixer {
   
   int activeChannel = 0;
   WASfxr effect;
+  double _baseGain = 0.25;
   
   String name = "None";
   
@@ -28,7 +29,7 @@ class AudioMixer {
 
   bool init() {
     _mixer = _context.createGain();
-    gain = 1.0;
+    gain = _baseGain;
     
     _mixer.connectNode(_context.destination);
 
@@ -59,12 +60,13 @@ class AudioMixer {
       WASfxr effect = _effects[index];
       effect.enabled = enabled;
       
+      // Does not work as expected. DISABLED for now.
       // The GainNode is additive so we scale by the total effects active.
-      int chans = enabledChannels;
-      if (chans > 0)
-        _mixer.gain.value = 1.0 - ((chans - 1) / 10.0);
-      else
-        _mixer.gain.value = 1.0;
+      //int chans = enabledChannels;
+      //if (chans > 0)
+      //  _mixer.gain.value = _baseGain - ((chans - 1) / 10.0);
+      //else
+      //  _mixer.gain.value = _baseGain;
       
       trigger();
       return;
@@ -148,7 +150,12 @@ class AudioMixer {
       wa.output.connectNode(_mixer);
     }
 
-    _mixer.gain.value = 1.0 - ((chans.length - 1) / 10.0);
+    double g = toDouble(m["Gain"]);
+    if (g == 0.0)
+      _mixer.gain.value = 0.25;
+    else
+      _mixer.gain.value = g;
+    //_mixer.gain.value = 1.0 - ((chans.length - 1) / 10.0);
 
     selectChannel(0);
   }
@@ -162,9 +169,18 @@ class AudioMixer {
     Map m = {
       "Format": "RSfxr",
       "Name": name,
+      "Gain": _mixer.gain.value,
       "Channels": chans
     };
     
     return m;
   }
+  
+  double toDouble(Object o) {
+    if (o == null)
+      return 0.0;
+    num d = o as num;
+    return d.toDouble();
+  }
+
 }
