@@ -96,20 +96,6 @@ class WASfxr {
     envelope = new WAEnvelope.basic(_context);
     envelope.setSustain(1.0, 1.0); // Default
     
-    lowPass = new WALowPassFilter.basic(_context);
-    highPass = new WAHighPassFilter.basic(_context);
-    
-    flanger = new WAFlangerFilter.basic(_context);
-    
-    vibrato = new WAVibrato.basic(_context);
-    vibrato.configure("sine", 0.0, 20.0);
-    
-    enableVibrato = true;
-    
-    tremolo = new WATremolo.basic(_context);
-    tremolo.configure("sine", 0.0, 1.0); // Typically 8Hz
-    tremolo.start();
-
     freq = new WAFrequencySlider.basic(_context);
     freq.whatToControl = generator;
     
@@ -148,31 +134,6 @@ class WASfxr {
 //    _crusher.output.connectNode(_masterGain);
   }
   
-  void _connectTremolo(bool connect) {
-    if (connect && !_tremoloConnected) {
-      // Connect Tremolo
-      print("Connecting Tremolo");
-      _tremoloConnected = true;
-      
-      envelope.output.disconnect(0);
-      
-      envelope.output.connectNode(tremolo.input);
-      tremolo.output.connectNode(_masterGain);
-      tremolo.enabled = true;
-    }
-    else if (!connect && _tremoloConnected) {
-      // Disconnect Tremolo
-      print("Disconnecting Tremolo");
-      _tremoloConnected = false;
-
-      tremolo.output.disconnect(0);
-      envelope.output.disconnect(0);
-      
-      envelope.output.connectNode(_masterGain);
-      tremolo.enabled = false;
-    }
-  }
-  
   double get frequency => generator.frequency;
   set frequency(double f) => generator.frequency = f;
 
@@ -184,49 +145,133 @@ class WASfxr {
   // -------------------------------------------------------------
   // Vibrato
   // -------------------------------------------------------------
-  set vibratoStrength(double s) => vibrato.strength = s;
-  double get vibratoStrength => vibrato.strength;
-  
-  set vibratoFrequency(double f) => vibrato.frequency = f;
-  double get vibratoFrequency => vibrato.frequency;
-
-  set enableVibrato(bool b) {
-    if (b)
-      vibrato.start();
+  set vibratoStrength(double s) {
+    if (vibrato != null)
+      vibrato.strength = s;
+  }
+  double get vibratoStrength {
+    if (vibrato != null)
+      return vibrato.strength;
     else
-      vibrato.stop();
+      return 0.0;
   }
   
-  bool get vibratoEnabled => vibrato.enabled;
+  set vibratoFrequency(double f) {
+    if (vibrato != null)
+      vibrato.frequency = f;
+  }
+  double get vibratoFrequency {
+    if (vibrato != null)
+      return vibrato.frequency;
+    else
+      return 0.0;
+  }
+
+  bool get vibratoEnabled => vibrato != null;
   
   bool toggleVibrato() {
-    connectVibrato(!vibrato.enabled);
-    return vibrato.enabled;
+    if (vibrato == null) {
+      connectVibrato(true);
+      return true;
+    }
+    else {
+      // Disconnect
+      connectVibrato(false);
+      return false;
+    }
   }
 
   void connectVibrato(bool connect) {
-    if (connect && !vibrato.enabled) {
+    if (connect && vibrato == null) {
+      vibrato = new WAVibrato.basic(_context);
+      // TODO add radio buttons to change type.
+      vibrato.configure(WASfxr.SINE, 8.0, 20.0);
+      vibrato.start();
       vibrato.enabled = true;
       print("Connecting Vibrato");
       vibrato.output.connectParam(generator.frequencyParam);
     }
-    else if (!connect && vibrato.enabled) {
+    else if (!connect && vibrato != null) {
       print("Disconnecting Vibrato");
-      vibrato.enabled = false;
       vibrato.output.disconnect(0);
+      vibrato = null;
     }
   }
 
   // -------------------------------------------------------------
   // Tremolo
   // -------------------------------------------------------------
-  set tremoloStrength(double s) => tremolo.strength = s;
-  double get tremoloStrength => tremolo.strength;
+  set tremoloStrength(double s) {
+    if (tremolo != null)
+      tremolo.strength = s;
+  }
+  double get tremoloStrength {
+    if (tremolo != null)
+      return tremolo.strength;
+    else
+      return 0.0;
+  }
   
-  set tremoloFrequency(double f) => tremolo.frequency = f;
-  double get tremoloFrequency => tremolo.frequency;
+  set tremoloFrequency(double f) {
+    if (tremolo != null)
+      tremolo.frequency = f;
+  }
+  double get tremoloFrequency {
+    if (tremolo != null)
+      return tremolo.frequency;
+    else
+      return 0.0;
+  }
 
-  bool get tremoloEnabled => tremolo.enabled;
+  bool get tremoloEnabled => tremolo != null;
+
+  bool toggleTremolo() {
+    _connectTremolo(tremolo == null);
+    return tremolo != null;
+  }
+  
+  void disableTremolo() {
+    _connectTremolo(false);
+  }
+  
+  void enableTremolo() {
+    _connectTremolo(true);
+  }
+
+  void _connectTremolo(bool connect) {
+    if (connect && !_tremoloConnected) {
+      tremolo = new WATremolo.basic(_context);
+      // TODO add radio buttons to change type.
+      tremolo.configure(WASfxr.SQUARE, 8.0, 1.0); // Typically 8Hz
+      tremolo.start();
+
+      // Connect Tremolo
+      print("--Connecting Tremolo");
+      _tremoloConnected = true;
+      
+      envelope.output.disconnect(0);
+      
+      print("  Connecting envelope to tremolo");
+      envelope.output.connectNode(tremolo.input);
+      print("  Connecting tremolo to masterGain");
+      tremolo.output.connectNode(_masterGain);
+      tremolo.enabled = true;
+    }
+    else if (!connect && _tremoloConnected) {
+      // Disconnect Tremolo
+      print("--Disconnecting Tremolo");
+      _tremoloConnected = false;
+
+      tremolo.output.disconnect(0);
+      print("  Disconnecting envelope");
+      envelope.output.disconnect(0);
+      
+      print("  Connecting envelope to masterGain");
+      envelope.output.connectNode(_masterGain);
+      
+      tremolo = null;
+    }
+  }
 
   // -------------------------------------------------------------
   // Frequency
@@ -265,22 +310,6 @@ class WASfxr {
   int get arpeStepType => arpeggio.stepType;
 
   // -------------------------------------------------------------
-  // Tremolo
-  // -------------------------------------------------------------
-  bool toggleTremolo() {
-    _connectTremolo(!tremolo.enabled);
-    return tremolo.enabled;
-  }
-  
-  void disableTremolo() {
-    _connectTremolo(false);
-  }
-  
-  void enableTremolo() {
-    _connectTremolo(true);
-  }
-  
-  // -------------------------------------------------------------
   // Duty cycle
   // -------------------------------------------------------------
   set dutyCycle(double percent) => generator.dutyCycle = percent;
@@ -293,23 +322,37 @@ class WASfxr {
   // Low pass
   // -------------------------------------------------------------
   bool toggleLowPass() {
-    connectLowPass(!lowPass.enabled);
-    return lowPass.enabled;
+    if (lowPass == null) {
+      connectLowPass(true);
+      return true;
+    }
+    else {
+      connectLowPass(!lowPass.enabled);
+      return false;
+    }
   }
 
-  bool get lowPassEnabled => lowPass.enabled;
+  bool get lowPassEnabled {
+    if (lowPass == null)
+      return false;
+    else
+      return lowPass.enabled;
+  }
   
   void connectLowPass(bool connect) {
     // To connect lowPass we need to "look" backward and forwards.
     // We look backwards until we reach the Generator and we look
     // forward until we reach the Envelope.
-    if (connect && !lowPass.enabled) {
+    if (connect && lowPass == null) {
       // lowPass isn't connected to anything. So we splice it in.
-      lowPass.enabled = true;
       print("--Connecting lowPass");
-      
+      if (lowPass == null)
+        lowPass = new WALowPassFilter.basic(_context);
+
+      lowPass.enabled = true;
+
       // Backward will be either the Flanger or Generator.
-      if (flanger.enabled) {
+      if (flanger != null) {
         // Disconnect from whatever it is currently connected to.
         print("  Redirecting Flanger to lowPass");
         flanger.output.disconnect(0);
@@ -322,7 +365,7 @@ class WASfxr {
       }
       
       // Forward will be either highPass or Envelope
-      if (highPass.enabled) {
+      if (highPass != null) {
         print("  Connecting lowPass to highPass");
         lowPass.output.connectNode(highPass.input);
       }
@@ -331,17 +374,19 @@ class WASfxr {
         lowPass.output.connectNode(envelope.input);
       }
     }
-    else if (!connect && lowPass.enabled) {
+    else if (!connect && lowPass != null) {
       print("--Disconnecting lowPass");
       lowPass.enabled = false;
       lowPass.output.disconnect(0);
 
+      lowPass = null;
+      
       // If the Flanger is connected we want to redirect its output forward.
       // We either connect it to highPass or Envelope
-      if (flanger.enabled) {
+      if (flanger != null) {
         print("  Disconnecting flanger");
         flanger.output.disconnect(0);
-        if (highPass.enabled) {
+        if (highPass != null) {
           print("  Connecting flanger to highPass");
           flanger.output.connectNode(highPass.input);
         }
@@ -354,7 +399,7 @@ class WASfxr {
         // The Flanger is disconnected so redirect the Generator output.
         print("  Disconnecting generator");
         generator.output.disconnect(0);
-        if (highPass.enabled) {
+        if (highPass != null) {
           print("  Connecting generator to highPass");
           generator.output.connectNode(highPass.input);
         }
@@ -366,34 +411,67 @@ class WASfxr {
     }
   }
   
-  set lowPassFrequency(double percent) => lowPass.frequencyCutoff = percent;
-  double get lowPassFrequency => lowPass.frequencyCutoff;
+  set lowPassFrequency(double percent) {
+    if (lowPass != null)
+      lowPass.frequencyCutoff = percent;
+  }
+  double get lowPassFrequency {
+    if (lowPass != null)
+      return lowPass.frequencyCutoff;
+    return 0.0;
+  }
 
-  set lowPassSweep(double df) => lowPass.cutoffSweep = df;
-  double get lowPassSweep => lowPass.cutoffSweep;
+  set lowPassSweep(double df) {
+    if (lowPass != null)
+      lowPass.cutoffSweep = df;
+  }
+  double get lowPassSweep {
+    if (lowPass != null)
+      return lowPass.cutoffSweep;
+    return 0.0;
+  }
 
-  set lowPassResonance(double q) => lowPass.qResonance = q;
-  double get lowPassResonance => lowPass.qResonance;
+  set lowPassResonance(double q) {
+    if (lowPass != null)
+      lowPass.qResonance = q;
+  }
+  double get lowPassResonance {
+    if (lowPass != null)
+      return lowPass.qResonance;
+    return 0.0;
+  }
 
   // -------------------------------------------------------------
   // High pass
   // -------------------------------------------------------------
   bool toggleHighPass() {
-    connectHighPass(!highPass.enabled);
-    return highPass.enabled;
+    if (highPass == null) {
+      connectHighPass(true);
+      return true;
+    }
+    else {
+      connectHighPass(false);
+      return false;
+    }
   }
 
-  bool get highPassEnabled => highPass.enabled;
+  bool get highPassEnabled {
+    if (highPass != null)
+      return highPass.enabled;
+    else
+      return false;
+  }
 
   void connectHighPass(bool connect) {
     // To connect highPass we need to "look" backward and forwards.
     // We look backwards until we reach the Generator and we look
     // forward until we reach the Envelope.
-    if (connect && !highPass.enabled) {
+    if (connect && highPass == null) {
+      highPass = new WAHighPassFilter.basic(_context);
       highPass.enabled = true;
       print("--Connecting highPass");
       
-      if (lowPass.enabled) {
+      if (lowPass != null) {
         print("  Disconnecting lowPass");
         // Disconnect lowPass from whatever it is currently connected.
         lowPass.output.disconnect(0);
@@ -403,13 +481,17 @@ class WASfxr {
       }
       else {
         // Continue to check backwards.
-        if (flanger.enabled) {
+        if (flanger != null) {
           print("  Disconnecting flanger");
           flanger.output.disconnect(0);
           print("  Connecting flanger to highPass");
           flanger.output.connectNode(highPass.input);
         }
         else {
+          // Neither lowPass or Flanger are connected. So Generator needs
+          // to be disconnected.
+          print("  Disconnecting generator");
+          generator.output.disconnect(0);
           print("  Connecting generator to highPass");
           generator.output.connectNode(highPass.input);
         }
@@ -419,19 +501,21 @@ class WASfxr {
       print("  Connecting highPass to envelope");
       highPass.output.connectNode(envelope.input);
     }
-    else if (!connect && highPass.enabled) {
+    else if (!connect && highPass != null) {
       // Disconnect highPass then route anything backward to envelope
       print("--Disconnecting highPass");
       highPass.enabled = false;
       highPass.output.disconnect(0);
 
-      if (lowPass.enabled) {
+      highPass = null;
+
+      if (lowPass != null) {
         print("  Redirecting lowPass to envelope");
         lowPass.output.disconnect(0);
         lowPass.output.connectNode(envelope.input);
       }
       else {
-        if (flanger.enabled) {
+        if (flanger != null) {
           print("  Redirecting flanger to envelope");
           flanger.output.disconnect(0);
           flanger.output.connectNode(envelope.input);
@@ -445,32 +529,97 @@ class WASfxr {
     }
   }
 
-  set highPassFrequency(double percent) => highPass.frequencyCutoff = percent;
-  double get highPassFrequency => highPass.frequencyCutoff;
+  set highPassFrequency(double percent) {
+    if (highPass != null)
+      highPass.frequencyCutoff = percent;
+  }
+  double get highPassFrequency {
+    if (highPass != null)
+      return highPass.frequencyCutoff;
+    else
+      return 0.0;
+  }
 
-  set highPassSweep(double df) => highPass.cutoffSweep = df;
-  double get highPassSweep => highPass.cutoffSweep;
+  set highPassSweep(double df) {
+    if (highPass != null)
+      highPass.cutoffSweep = df;
+  }
+  double get highPassSweep {
+    if (highPass != null)
+      return highPass.cutoffSweep;
+    else
+      return 0.0;
+  }
 
-  set highPassResonance(double q) => highPass.qResonance = q;
-  double get highPassResonance => highPass.qResonance;
+  set highPassResonance(double q) {
+    if (highPass != null)
+      highPass.qResonance = q;
+  }
+  
+  double get highPassResonance {
+    if (highPass != null)
+      return highPass.qResonance;
+    else
+      return 0.0;
+  }
 
   // -------------------------------------------------------------
   // Flanger
   // -------------------------------------------------------------
-  set FlangerFrequency(double f) => flanger.Frequency = f;
-  double get FlangerFrequency => flanger.Frequency;
+  set FlangerFrequency(double f) {
+    if (flanger != null)
+      flanger.Frequency = f;
+  }
+  double get FlangerFrequency {
+    if (flanger != null)
+      return flanger.Frequency;
+    else
+      return 0.0;
+  }
 
-  set FlangerDelayScaler(double s) => flanger.DelayScaler = s;
-  double get FlangerDelayScaler => flanger.DelayScaler;
+  set FlangerDelayScaler(double s) {
+    if (flanger != null)
+      flanger.DelayScaler = s;
+  }
+  double get FlangerDelayScaler {
+    if (flanger != null)
+      return flanger.DelayScaler;
+    else
+      return 0.0;
+  }
 
-  set FlangerFeedback(double f) => flanger.Feedback = f;
-  double get FlangerFeedback => flanger.Feedback;
+  set FlangerFeedback(double f) {
+    if (flanger != null)
+      flanger.Feedback = f;
+  }
+  double get FlangerFeedback {
+    if (flanger != null)
+      return flanger.Feedback;
+    else
+      return 0.0;
+  }
 
-  set FlangerFeedbackSweep(double d) => flanger.FeedbackSweep = d;
-  double get FlangerFeedbackSweep => flanger.FeedbackSweep;
+  set FlangerFeedbackSweep(double d) {
+    if (flanger != null)
+      flanger.FeedbackSweep = d;
+  }
+  double get FlangerFeedbackSweep {
+    if (flanger != null)
+      return flanger.FeedbackSweep;
+    else
+      return 0.0;
+  }
 
-  set FlangerBaseDelay(double d) => flanger.BaseDelay = d;
-  double get FlangerBaseDelay => flanger.BaseDelay;
+  set FlangerBaseDelay(double d) {
+    if (flanger != null)
+      flanger.BaseDelay = d;
+  }
+  double get FlangerBaseDelay {
+    if (flanger != null)
+      return flanger.BaseDelay;
+    else
+      return 0.0;
+  }
 
   bool toggleFlanger() {
     if (_flangerConnected)
@@ -478,21 +627,17 @@ class WASfxr {
     else
       connectFlanger();
     
-    flanger.enabled = _flangerConnected;
-    
-    return flanger.enabled;
+    return _flangerConnected;
   }
   
-  bool get flangerEnabled => flanger.enabled;
+  bool get flangerEnabled => _flangerConnected;
 
   void enableFlanger() {
     connectFlanger();
-    flanger.enabled = _flangerConnected;
   }
   
   void disableFlanger() {
     disconnectFlanger();
-    flanger.enabled = _flangerConnected;
   }
   
   void connectFlanger() {
@@ -500,15 +645,21 @@ class WASfxr {
     print("--Connecting flanger");
     print("  Disconnecting generator");
     generator.output.disconnect(0);
+
+    if (flanger == null)
+      flanger = new WAFlangerFilter.basic(_context);
+
+    flanger.enabled = true;
+
     print("  Connecting generator to flanger");
     generator.output.connectNode(flanger.input);
     
-    if (lowPass.enabled) {
+    if (lowPass != null) {
       print("  Connecting flanger to lowPass");
       flanger.output.connectNode(lowPass.input);
     }
     else {
-      if (highPass.enabled) {
+      if (highPass != null) {
         print("  Connecting flanger to highPass");
         flanger.output.connectNode(highPass.input);
       }
@@ -525,15 +676,17 @@ class WASfxr {
     print("--Disconnecting flanger");
     flanger.output.disconnect(0);
     
+    flanger = null;
+    
     print("  Disconnecting generator");
     generator.output.disconnect(0);
     
-    if (lowPass.enabled) {
+    if (lowPass != null) {
       print("  Connecting to lowPass");
       generator.output.connectNode(lowPass.input);
     }
     else {
-      if (highPass.enabled) {
+      if (highPass != null) {
         print("  Connecting to highPass");
         generator.output.connectNode(highPass.input);
       }
@@ -601,12 +754,12 @@ class WASfxr {
   }
   
   void _connectGeneratorOutput() {
-    if (lowPass.enabled) {
+    if (lowPass != null) {
       print("  Connecting generator to lowPass");
       generator.output.connectNode(lowPass.input);
     }
     else {
-      if (highPass.enabled) {
+      if (highPass != null) {
         print("  Connecting generator to highPass");
         generator.output.connectNode(highPass.input);
       }
@@ -700,7 +853,11 @@ class WASfxr {
     reset();
 
     enableFrequency();
-
+    disableTremolo();
+    connectVibrato(false);
+    connectHighPass(false);
+    connectLowPass(false);
+    
     // Mostly around 587 - 1111 - 1200 Hz
     double baseFreq = 587.0 + (SoundUtilities.randomDouble() * 613.0);
     frequency = baseFreq;
@@ -714,6 +871,11 @@ class WASfxr {
   
   void genLaserShoot() {
     reset();
+
+    disableTremolo();
+    connectVibrato(false);
+    connectHighPass(false);
+    connectLowPass(false);
 
     enableFrequency();
 
@@ -738,9 +900,12 @@ class WASfxr {
 
     OscillatorType = WASfxr.NOISE;
 
+    disableTremolo();
     connectDistortion(false);
     disableFrequency();
-    
+    connectHighPass(false);
+    connectLowPass(true);
+
     // 5.028
     NoisePlaybackRate = (2.609 - 2.0) + (SoundUtilities.randomDouble() * (2.609 + 3.0));
     
@@ -758,7 +923,11 @@ class WASfxr {
   void genPowerUp() {
     reset();
     OscillatorType = WASfxr.SAWTOOTH;
+    disableTremolo();
+    connectVibrato(false);
     enableFrequency();
+    connectHighPass(false);
+    connectLowPass(false);
     frequency = (585.217 - 100.0) + (SoundUtilities.randomDouble() * (585.217 + 500.0));
     slideFrequency = (0.2 - 0.2) + (SoundUtilities.randomDouble() * (0.2 + 0.2));
     
@@ -769,7 +938,11 @@ class WASfxr {
     reset();
     OscillatorType = WASfxr.SAWTOOTH;
     enableFrequency();
-    
+    disableTremolo();
+    connectVibrato(false);
+    connectHighPass(false);
+    connectLowPass(true);
+
     envelope.decay[WAEnvelope.TIME] = (0.109 - 0.05) + (SoundUtilities.randomDouble() * (0.109 + 0.1));
     envelope.sustain[WAEnvelope.TIME] = (0.109 - 0.05) + (SoundUtilities.randomDouble() * (0.109 + 0.1));
 
@@ -786,8 +959,12 @@ class WASfxr {
   void genJump() {
     reset();
     OscillatorType = WASfxr.SQUARE;
+    disableTremolo();
+    connectVibrato(false);
     enableFrequency();
-    
+    connectHighPass(false);
+    connectLowPass(true);
+
     dutyCycle = (0.707 - 0.5) + (SoundUtilities.randomDouble() * (0.707 + 0.5));
 
     envelope.sustain[WAEnvelope.TIME] = (0.326 - 0.2) + (SoundUtilities.randomDouble() * (0.326 + 0.2));
@@ -806,7 +983,11 @@ class WASfxr {
     reset();
     OscillatorType = WASfxr.SQUARE;
     enableFrequency();
-    
+    disableTremolo();
+    connectVibrato(false);
+    connectHighPass(false);
+    connectLowPass(true);
+
     envelope.decay[WAEnvelope.TIME] = (0.109 - 0.05) + (SoundUtilities.randomDouble() * (0.109 + 0.1));
     envelope.sustain[WAEnvelope.TIME] = (0.109 - 0.05) + (SoundUtilities.randomDouble() * (0.109 + 0.1));
 
@@ -838,6 +1019,9 @@ class WASfxr {
 
     arpeNotes = SoundUtilities.rndr(0.0, 1.0).floor();
 
+    connectHighPass(true);
+    connectLowPass(false);
+
     // hipass freq 0 - 1500, sweep 1000, 0 res
     if (SoundUtilities.randomDouble() > 0.7)
       highPassFrequency = SoundUtilities.rndr(0.0, 1500.0);
@@ -854,7 +1038,7 @@ class WASfxr {
     
     if (SoundUtilities.yes) {
       toggleTremolo();
-      if (tremolo.enabled) {
+      if (tremolo != null) {
         tremoloStrength = SoundUtilities.rndr(2.0, 3.0);
         tremoloFrequency = SoundUtilities.rndr(8.0, 20.0);
       }
@@ -865,6 +1049,8 @@ class WASfxr {
     reset();
     
     enableFrequency();
+    connectHighPass(false);
+    connectLowPass(false);
     double n =  SoundUtilities.randomDouble();
     if (n < 0.25)
       OscillatorType = WASfxr.SINE;
@@ -877,6 +1063,8 @@ class WASfxr {
 
     frequency = SoundUtilities.rndr(1300.0, 2500.0);
     
+    connectVibrato(false);
+
     enableTremolo();
     tremoloStrength = SoundUtilities.rndr(0.1, 2.0);
     tremoloFrequency = SoundUtilities.rndr(8.0, 200.0);
@@ -904,6 +1092,10 @@ class WASfxr {
 
     frequency = SoundUtilities.rndr(200.0, 500.0);
     
+    connectVibrato(false);
+    connectHighPass(false);
+    connectLowPass(true);
+
     enableTremolo();
     tremoloStrength = SoundUtilities.rndr(0.1, 2.0);
     tremoloFrequency = SoundUtilities.rndr(8.0, 100.0);
@@ -975,8 +1167,17 @@ class WASfxr {
 
       // Vibrato
       if (SoundUtilities.yes) {
-        vibratoStrength = SoundUtilities.rndr(2.0, 20.0);
-        vibratoFrequency = SoundUtilities.rndr(2.0, 20.0);
+        if (vibratoEnabled) {
+          vibratoStrength = SoundUtilities.rndr(2.0, 20.0);
+          vibratoFrequency = SoundUtilities.rndr(2.0, 20.0);
+          int wt = SoundUtilities.rnd(3.0);
+          switch (wt) {
+            case 0: vibrato.waveType = WASfxr.SINE; break;
+            case 1: vibrato.waveType = WASfxr.SQUARE; break;
+            case 2: vibrato.waveType = WASfxr.SAWTOOTH; break;
+            case 3: vibrato.waveType = WASfxr.TRIANGLE; break;
+          }
+        }
       }
     }
     
@@ -987,9 +1188,16 @@ class WASfxr {
     
     if (SoundUtilities.yes) {
       toggleTremolo();
-      if (tremolo.enabled) {
+      if (tremolo != null) {
         tremoloStrength = SoundUtilities.rndr(2.0, 10.0);
         tremoloFrequency = SoundUtilities.rndr(8.0, 100.0);
+        int wt = SoundUtilities.rnd(3.0);
+        switch (wt) {
+          case 0: tremolo.waveType = WASfxr.SINE; break;
+          case 1: tremolo.waveType = WASfxr.SQUARE; break;
+          case 2: tremolo.waveType = WASfxr.SAWTOOTH; break;
+          case 3: tremolo.waveType = WASfxr.TRIANGLE; break;
+        }
       }
     }
     
@@ -1023,7 +1231,7 @@ class WASfxr {
     // Flanger
     if (SoundUtilities.yes) {
       toggleFlanger();
-      if (flanger.enabled) {
+      if (flanger != null) {
         FlangerFrequency = SoundUtilities.rndr(0.0, 100.0);
         FlangerDelayScaler = SoundUtilities.rndr(0.0, 2.0);
         FlangerFeedback = SoundUtilities.rndr(0.4, 1.0);
@@ -1070,6 +1278,8 @@ class WASfxr {
     reset();
     OscillatorType = WASfxr.SINE;
     enableFrequency();
+    disableTremolo();
+    connectVibrato(false);
     frequency = 340.0;
   }
   
@@ -1154,19 +1364,24 @@ class WASfxr {
   void reset() {
     gain = DEFAULT_GAIN;
     
-    if (flanger.enabled)
+    if (flanger != null)
       disableFlanger();
     
     generator.reset();
     envelope.reset();
     arpeggio.reset();
     freq.reset();
-    vibrato.reset();
+    if (vibrato != null)
+      vibrato.reset();
     retriggerCount = 1;
-    flanger.reset();
-    tremolo.reset();
-    lowPass.reset();
-    highPass.reset();
+    if (flanger != null)
+      flanger.reset();
+    if (tremolo != null)
+      tremolo.reset();
+    if (lowPass != null)
+      lowPass.reset();
+    if (highPass != null)
+      highPass.reset();
   }
   
   // -------------------------------------------------------------
@@ -1204,9 +1419,12 @@ class WASfxr {
     arpeggio.update(frequency, now);
     freq.update(frequency, now);
     
-    lowPass.update(now);
-    highPass.update(now);
-    flanger.update(now);
+    if (lowPass != null)
+      lowPass.update(now);
+    if (highPass != null)
+      highPass.update(now);
+    if (flanger != null)
+      flanger.update(now);
     
     envelope.trigger(now);
   }
@@ -1250,13 +1468,19 @@ class WASfxr {
     
     Map mVib = m["Vibrato"];
     connectVibrato(toBool(mVib["Enabled"]));
-    vibratoStrength = toDouble(mVib["Depth"]);
-    vibratoFrequency = toDouble(mVib["Speed"]);
+    if (vibratoEnabled) {
+      vibratoStrength = toDouble(mVib["Depth"]);
+      vibratoFrequency = toDouble(mVib["Speed"]);
+      vibrato.waveType = jToString(mVib["waveType"]);
+    }
 
     Map mTre = m["Tremolo"];
     _connectTremolo(toBool(mTre["Enabled"]));
-    tremoloStrength = toDouble(mTre["Depth"]);
-    tremoloFrequency = toDouble(mTre["Speed"]);
+    if (tremoloEnabled) {
+      tremoloStrength = toDouble(mTre["Depth"]);
+      tremoloFrequency = toDouble(mTre["Speed"]);
+      tremolo.waveType = jToString(mTre["waveType"]);
+    }
 
     Map mArp = m["Arpreggiation"];
     arpeStepType = toInt(mArp["StepType"]);
@@ -1309,6 +1533,13 @@ class WASfxr {
     else {
       connectDistortion(false);
     }
+  }
+  
+  String jToString(Object o) {
+    if (o == null)
+      return "";
+    String d = o as String;
+    return d;
   }
   
   double toDouble(Object o) {
@@ -1366,13 +1597,15 @@ class WASfxr {
         },
       "Vibrato":
         {
-          "Enabled": vibrato.enabled,
+          "Enabled": vibrato == null ? false : vibrato.enabled,
+          "waveType": vibrato == null ? WASfxr.SINE : vibrato.waveType,
           "Depth": vibratoStrength,
           "Speed": vibratoFrequency
         },
       "Tremolo":
         {
-          "Enabled": tremolo.enabled,
+          "Enabled": tremolo == null ? false : tremolo.enabled,
+          "waveType": tremolo == null ? WASfxr.SINE : tremolo.waveType,
           "Depth": tremoloStrength,
           "Speed": tremoloFrequency
         },
@@ -1396,7 +1629,7 @@ class WASfxr {
         },
       "Flanger":
         {
-          "Enabled": flanger.enabled,
+          "Enabled": flanger == null ? false : flanger.enabled,
           "Frequency": FlangerFrequency,
           "DelayScaler": FlangerDelayScaler,
           "Feedback": FlangerFeedback,
@@ -1405,14 +1638,14 @@ class WASfxr {
         },
       "LowPass":
         {
-          "Enabled": lowPass.enabled,
+          "Enabled": lowPass == null ? false : lowPass.enabled,
           "Frequency": lowPassFrequency,
           "Sweep": lowPassSweep,
           "Resonance": lowPassResonance
         },
       "HighPass":
         {
-          "Enabled": highPass.enabled,
+          "Enabled": highPass == null ? false : highPass.enabled,
           "Frequency": highPassFrequency,
           "Sweep": highPassSweep,
           "Resonance": highPassResonance
