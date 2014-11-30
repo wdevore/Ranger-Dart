@@ -62,8 +62,7 @@ class WAVibrato {
   AudioNode get output => _gain;
 
   void reset() {
-    frequency = 0.0;
-    strength = 20.0;//Math.pow(s, 1.5)
+    configure(WASfxr.TRIANGLE, 8.0, 20.0);
     
     double now = _context.currentTime;
     _gain.gain.cancelScheduledValues(now);
@@ -73,10 +72,14 @@ class WAVibrato {
   }
   
   void configure(String type, double frequency, double strength) {
-    _gain.gain.value = strength;
-    _lfo.frequency.value = frequency;
+    _lfo.type = type;
+    this.strength = strength;
+    this.frequency = frequency;
   }
-  
+
+  String get waveType => _lfo.type;
+  set waveType(String f) => _lfo.type = f;
+
   double get frequency => _lfo.frequency.value;
   set frequency(double f) => _lfo.frequency.value = f;
   

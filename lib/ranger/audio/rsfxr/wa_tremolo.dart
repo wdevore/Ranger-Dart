@@ -67,6 +67,9 @@ class WATremolo {
     lfo.frequency.value = frequency;
   }
   
+  String get waveType => lfo.type;
+  set waveType(String f) => lfo.type = f;
+
   double get frequency => lfo.frequency.value;
   set frequency(double f) => lfo.frequency.value = f;
   
