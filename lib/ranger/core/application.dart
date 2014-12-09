@@ -316,6 +316,11 @@ class Application {
     return _instance;
   }
 
+  /**
+   * Use this factory if you need Ranger to fit within a container
+   * without any scaling. Typically used for desktop applications that
+   * want to "host" Ranger in a window area.
+   */
   factory Application.fitDesignToContainer(
       Html.Window window, 
       String surfaceElement,
@@ -371,6 +376,10 @@ class Application {
     return _instance;
   }
 
+  /**
+   * This factory is on desktops and mobiles. If on a desktop then the
+   * game surface DIV is used as the simulated physical device dimensions.
+   */
   factory Application.fitDesignToWindow(
       Html.Window window, 
       String surfaceElement,
