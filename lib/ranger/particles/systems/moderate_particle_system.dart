@@ -121,32 +121,47 @@ class ModerateParticleSystem extends ParticleSystem {
     }
   }
   
-  void activateByStyle(int emissionStyle, [double dt = 0.0]) {
+  bool activateByStyle(int emissionStyle, [double dt = 0.0]) {
+    int emitted = 0;
+    
     if (!delayParticles) {
-      if (!durationExpired)
-        emit(emissionStyle);
+      if (!durationExpired) {
+        bool e = emit(emissionStyle);
+        if (e)
+          emitted++;
+      }
     }
     else {
       // We are randomly delaying each particle.
       if (_delayCount > _delay) {
-        if (!durationExpired)
-          emit(emissionStyle);
+        if (!durationExpired) {
+          bool e = emit(emissionStyle);
+          if (e)
+            emitted++;
+        }
         _delayCount = 0.0;
         _delay = delay.value;
       }
     }
     
     _delayCount += dt;
+    
+    return emitted > 0;
   }
 
-  void emit(int emissionStyle) {
+  bool emit(int emissionStyle) {
+    int emitted = 0;
     do {
       // Continue to emit particles until count maxed.
       emissionRateCount++;
-      _activate(emissionStyle);
+      bool e = _activate(emissionStyle);
+      if (e)
+        emitted++;
     } while (emissionRateCount < emissionRate);
     
     emissionRateCount = 0;
+    
+    return emitted > 0;
   }
   
   set durationEnabled(bool enable) {
