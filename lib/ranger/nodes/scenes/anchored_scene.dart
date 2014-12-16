@@ -54,7 +54,7 @@ class AnchoredScene extends Scene with UTE.Tweenable {
       l.anchoredScene = this;
     }
     else {
-      print("AnchoredScene: warning! primary node tag:${primary.tag} is not of type Layer/BackgroundLayer. The scene will not be anchored to the node provided.");
+      //print("AnchoredScene: warning! primary node tag:${primary.tag} is not of type Layer/BackgroundLayer. The scene will not be anchored to the node provided.");
     }
     
     // Child the primary layer to the anchor.
