@@ -19,6 +19,8 @@ abstract class TransitionScene extends Scene {
     if (super.init()) {
       this.duration = duration;
       position.setValues(0.0, 0.0);
+      if (scene == null)
+        throw new Exception("Transitions require a destination Scene to transition to.");
       inScene = scene;
 
       SceneManager sm = Application.instance.sceneManager;
@@ -139,7 +141,8 @@ abstract class TransitionScene extends Scene {
     // only the onExitTransitionDidStart
     outScene.onExitTransitionDidStart();
 
-    inScene.onEnter();
+    if (inScene != null)
+      inScene.onEnter();
   }
   
   @override
