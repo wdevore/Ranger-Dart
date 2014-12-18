@@ -261,6 +261,6 @@ class CONFIG {
    * 0,0--------------> X
    * 
    */
-  static const bool base_coordinate_system = LEFT_HANDED_COORDSYSTEM;
+  static bool base_coordinate_system = LEFT_HANDED_COORDSYSTEM;
   
 }
