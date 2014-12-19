@@ -14,6 +14,7 @@ class BaseResources {
   // http://www.mobilefish.com/services/base64/base64.php
   // Input is SVG xml and output is base64 encoded. This can then be
   // embedded as shown here.
+  /// 32x32
   static const String spinner = '''PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0
 idXRmLTgiPz4KPCEtLSBHZW5lcmF0ZWQgYnkgSWNvTW9vbi5pbyAtLT4KPCFET0NUWVBFIHN
 2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmc
@@ -48,6 +49,7 @@ zLjI1NyAwLjQwNCA0LjczNiAxLjA2NCAxLjQ4IDAuNjU4IDIuODIgMS42MDkgMy45MjYgMi4
 wMzIgMC43ODEgMS44OCAxLjc4NCAxLjk4OC0wLjE5NSAxLjA4OC0wLjUxNyAyLjE1MS0wLjk
 2MiAzLjE1NnoiIGZpbGw9IiMwMDAwMDAiPjwvcGF0aD4KPC9zdmc+''';
   
+  /// 512x512
   static const String spinner2 = '''PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz
 0idXRmLTgiPz4KCjwhLS0gTGljZW5zZSBBZ3JlZW1lbnQgYXQgaHR0cDovL2ljb25tb2
 5zdHIuY29tL2xpY2Vuc2UvIC0tPgoKPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy
