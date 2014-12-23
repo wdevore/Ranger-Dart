@@ -28,6 +28,7 @@ class AnchoredScene extends Scene with UTE.Tweenable {
   double pauseFor = 0.0;
   double _pauseForCount = 0.0;
   bool _pauseComplete = false;
+  /// Defaults to disabled
   bool transitionEnabled = false;
   
   AnchoredScene();
