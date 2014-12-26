@@ -42,6 +42,7 @@ class TextNode extends Node with Color4Mixin {
     if (poolable.init()) {
       poolable.font = null;
       poolable.shadows = false;
+      poolable.visible = true;
       poolable.strokeColor = strokeColor;
       poolable.initWithColor(fillColor);
       poolable.initWithUniformScale(poolable, fromScale);
