@@ -59,6 +59,7 @@ class SpriteImage extends Node with Color4Mixin {
     imageHeight = imageElement.height;
     aabboxVisible = false;
     _inverseUniformScale = 1.0;
+    visible = true;
     
     _sourceBlitRectangle = new Html.Rectangle(0, 0, imageWidth, imageHeight);
 
