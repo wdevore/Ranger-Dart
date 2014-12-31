@@ -138,8 +138,10 @@ class BackgroundLayer extends LayerCascade with MouseInputMixin, KeyboardInputMi
   }
 
   void set color(Color4<int> color) {
-    super.color = color;
-    updateColor();
+    if (color != null) {
+      super.color = color;
+      updateColor();
+    }
   }
 
   @override
