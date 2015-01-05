@@ -66,6 +66,8 @@ class GroupNode extends Node with GroupingBehavior {
   
   @override
   void draw(DrawContext context) {
+    super.draw(context);
+    
     if (iconVisible) {
       context.save();
       context.drawColor = outlineColor;
