@@ -74,8 +74,7 @@ class UniversalParticle extends PositionalParticle with ParticleScaleBehavior, P
       activateWithVelocityAndLife(pd.velocity, pd.lifespan);
     }
     else {
-      // TODO throw exception
-      print("UniversalParticle: Error! Particle data not present.");
+      throw new Exception("UniversalParticle: Error! Particle data not present.");
     }
 
     super.activateAt(x, y);
