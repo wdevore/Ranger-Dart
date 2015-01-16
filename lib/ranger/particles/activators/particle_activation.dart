@@ -34,6 +34,8 @@ abstract class ParticleActivation {
     
   }
   
+  math.Random get randGen => _randGen;
+  
   void activate(Particle particle, int emissionStyle, double posX, double posY);
   void deactivate(Particle particle);
   
