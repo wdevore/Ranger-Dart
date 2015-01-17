@@ -7,6 +7,7 @@ part of ranger;
  */
 class EmptyNode extends Node {
   bool iconVisible = false;
+  String drawColor = "rgb(0,0,0)";
   
   // ----------------------------------------------------------
   // Poolable support and Factory
@@ -43,7 +44,7 @@ class EmptyNode extends Node {
   void draw(DrawContext context) {
     if (iconVisible) {
       context.save();
-      context.drawColor = "rgb(0,0,0)";
+      context.drawColor = drawColor;
       double invScale = 1.0 / calcUniformScaleComponent();
       context.lineWidth = invScale;
       context.drawLineByComp(-0.25, 0.25, 0.25, -0.25);
