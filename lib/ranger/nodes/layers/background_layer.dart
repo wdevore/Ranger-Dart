@@ -13,7 +13,7 @@ part of ranger;
  * remains true.
  * This allows [BackgroundLayer] to act like a backdrop for your game/application.
  */
-class BackgroundLayer extends LayerCascade with MouseInputMixin, KeyboardInputMixin, TouchInputMixin {
+abstract class BackgroundLayer extends LayerCascade with MouseInputMixin, KeyboardInputMixin, TouchInputMixin {
   
   // These functions are set according to the Render context type.
   // I wouldn't recommend this in general. It is only done in this
@@ -207,7 +207,7 @@ class BackgroundLayer extends LayerCascade with MouseInputMixin, KeyboardInputMi
       // TODO migrate to dirty method
       // Use the anchor to force the layer color back into center view.
       if (anchoredScene == null) {
-        print("BackgroundLayer ${tag} : Warning! anchor not set. Background will not be constrained to fill scene.");
+        //print("BackgroundLayer ${tag} : Warning! anchor not set. Background will not be constrained to fill scene.");
       }
       else {
         t.toIdentity();
@@ -313,6 +313,15 @@ class BackgroundLayer extends LayerCascade with MouseInputMixin, KeyboardInputMi
   void onExit() {
     super.onExit();
     disableInputs();
+  }
+  
+  void enable(bool enable) {
+    if (enable) {
+      enableInputs();    
+    }
+    else {
+      disableInputs();
+    }
   }
 }
 
