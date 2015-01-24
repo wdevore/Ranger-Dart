@@ -46,25 +46,6 @@ abstract class BackgroundLayer extends LayerCascade with MouseInputMixin, Keyboa
   Vector2 _ls = new Vector2.zero();
   Vector2 _le = new Vector2.zero();
 
-  BackgroundLayer();
-  
-  BackgroundLayer._();
-
-  /**
-   */
-  factory BackgroundLayer.withColor([Color4<int> color]) {
-    BackgroundLayer layer = new BackgroundLayer._();
-    if (layer.init()) {
-      if (color != null) {
-        layer.color = color;
-      }
-      
-      return layer;
-    }
-    
-    return null;
-  }
-  
   /**
    * [init] defaults to using the Design dimensions.
    * 
