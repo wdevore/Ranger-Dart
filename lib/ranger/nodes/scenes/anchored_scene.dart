@@ -217,4 +217,9 @@ class AnchoredScene extends Scene with UTE.Tweenable {
         break;
     }
   }
+  
+  void enable(bool enable) {
+    
+  }
+
 }
