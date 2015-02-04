@@ -99,6 +99,13 @@ class AnchoredScene extends Scene with UTE.Tweenable {
     }
   }
   
+  void addNode(Node node, [int zOrder = 0, int tag = 0]) {
+    if (primaryLayer is GroupingBehavior) {
+      GroupingBehavior gb = primaryLayer as GroupingBehavior;
+      gb.addChild(node, zOrder, tag);
+    }
+  }
+  
   /// Override, if necessary, to provide custom transition.
   void transition() {
     
