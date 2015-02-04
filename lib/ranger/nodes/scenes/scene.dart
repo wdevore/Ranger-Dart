@@ -48,4 +48,8 @@ abstract class Scene extends Node with GroupingBehavior {
   
   set primaryLayer(Node l) => _primaryLayer = l;
   Node get primaryLayer => _primaryLayer;
+  
+  void focus(bool gain) {
+    
+  }
 }
