@@ -275,14 +275,21 @@ class TweenAnimation extends TimingTarget implements UTE.TweenAccessor<Node> {
   }
   
   /**
+   * Call [stop] first then [untrack].
+   */
+  void untrack(BaseNode node, int tweenType) {
+    _Tween tw = _tweens.firstWhere((_Tween t) => t.node == node && t.tweenType == tweenType, orElse: () => null);
+    if (tw != null) {
+      //print("TweenAnimation.untrack removing ${tw.node.tag}, type:${tw.tweenType}");
+      _tweens.remove(tw);
+    }
+  }
+  
+  /**
    * Terminates any animations attached to [BaseNode]s.
    * Most likely they are [Tween.INFINITY] type animations. 
    */
   void flushAll() {
-//    for(_Tween t in _tweens) {
-//      print("TweenAnimation.flushAll killing ${t.node.tag}, type:${t.tweenType}");
-//      stop(t.node, t.tweenType);
-//    }
     _tweens.forEach((_Tween t) => stop(t.node, t.tweenType));
     _tweens.clear();
   }
@@ -295,16 +302,35 @@ class TweenAnimation extends TimingTarget implements UTE.TweenAccessor<Node> {
    * animations when you don't want/need them anymore. 
    */
   void flush(BaseNode node) {
-    _Tween tw = _tweens.firstWhere((_Tween t) => t.node == node, orElse: () => null);
-    if (tw != null) {
-      //print("TweenAnimation.flush killing ${tw.node.tag}, type:${tw.tweenType}");
-      stop(tw.node, tw.tweenType);
-      _tweens.remove(tw);
-    }
+    bool found = false;
+    do {
+      found = false;
+      for(_Tween t in _tweens) {
+        if (t.node == node) {
+          //print("TweenAnimation.flush stoping and removing ${t.node.tag}, type:${t.tweenType}");
+          stop(t.node, t.tweenType);
+          _tweens.remove(t);
+          found = true;
+          break;
+        }
+      }
+    } while (found);
   }
   
+  /**
+   * Literally "kill" animation in progress or one that didn't autoRemove.
+   */
   void stop(BaseNode node, int tweenType) {
+    //print("TweenAnimation.stop killing ${node.tag}, type:${tweenType}");
     tweenMan.killTarget(node, tweenType);
+  }
+
+  /**
+   * Stop and untrack animation associated with [node].
+   */
+  void stopAndUntrack(BaseNode node, int tweenType) {
+    stop(node, tweenType);
+    untrack(node, tweenType);
   }
   
   // ---------------------------------------------------------------
