@@ -40,12 +40,13 @@ class TextNode extends Node with Color4Mixin {
   factory TextNode.initWith(Color4<int> fillColor, [Color4<int> strokeColor, double fromScale = 1.0]) {
     TextNode poolable = new TextNode.pooled();
     if (poolable.init()) {
-      poolable.font = null;
-      poolable.shadows = false;
-      poolable.visible = true;
-      poolable.strokeColor = strokeColor;
-      poolable.initWithColor(fillColor);
-      poolable.initWithUniformScale(poolable, fromScale);
+      poolable..font = null
+        ..shadows = false
+        ..visible = true
+        ..text = ""
+        ..strokeColor = strokeColor
+        ..initWithColor(fillColor)
+        ..initWithUniformScale(poolable, fromScale);
       return poolable;
     }
     return null;
