@@ -22,11 +22,17 @@ abstract class BackgroundLayer extends LayerCascade with MouseInputMixin, Keyboa
   // The BackgroundLayer is here for completeness and as an 
   // example of a homogenous context type.
   // I would suggest you code for either WebGL or Canvas2D not both.
-  
   Function updateColor;
   Function _draw;
   Function _setContentSize;
 
+  /**
+   * Some [BackgroundLayer]s control their own inputs for example, popups
+   * and dialogs. Those types should set [autoInputs] to false and manage
+   * inputs state manually according to their flow.
+   */
+  bool autoInputs = true;
+  
   AffineTransform t = new AffineTransform.Identity();
   /**
    * Constrain the background color to within the [Layer] itself. This
@@ -286,14 +292,16 @@ abstract class BackgroundLayer extends LayerCascade with MouseInputMixin, Keyboa
    */
   @override
   void onEnter() {
-    enableInputs();    
+    if (autoInputs)
+      enableInputs();    
     super.onEnter();
   }
 
   @override
   void onExit() {
     super.onExit();
-    disableInputs();
+    if (autoInputs)
+      disableInputs();
   }
   
   void enable(bool enable) {
