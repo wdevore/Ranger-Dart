@@ -40,6 +40,9 @@ abstract class ScaleBehavior {
     node.dirty = true;
   }
 
+  get scaleX => _scale.x;
+  get scaleY => _scale.y;
+  
   void scaleTo(double x, double y) {
     _scale.setValues(x, y);
     node.dirty = true;
