@@ -45,6 +45,10 @@ class AudioEffects {
    */
   int loadEffect(String json) {
     Map m = JSON.decode(json);
+    return loadEffectByMap(m);
+  }
+  
+  int loadEffectByMap(Map map) {
     int id;
     
     // -------------------------------------------------------------
@@ -52,21 +56,21 @@ class AudioEffects {
     // -------------------------------------------------------------
     bool effectType = false;  // default to RSfxr
     
-    if (m["Format"] == null) {
+    if (map["Format"] == null) {
       throw new Exception("Format key missing.");
     }
     
-    String format = m["Format"] as String;
+    String format = map["Format"] as String;
     if (format != "RSfxr")
       effectType = true; // must be an Sfxr effect.
     
     if (effectType) {
       id = _sfxr_effectId++;
-      _loadSfxr(id, m);
+      _loadSfxr(id, map);
     }
     else {
       id = _rsfxr_effectId++;
-      _loadRSfxr(id, m);
+      _loadRSfxr(id, map);
     }
 
     return id;
@@ -87,7 +91,7 @@ class AudioEffects {
   }
   
   /**
-   * [eID] is a key you obtained when you called [loadEffect].
+   * [eID] is a key you obtained when you called [loadEffectByString].
    */
   void play(int eID) {
     if (eID >= 10000) {
