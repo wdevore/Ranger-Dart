@@ -188,11 +188,11 @@ class WASfxr {
       vibrato.configure(WASfxr.SINE, 8.0, 20.0);
       vibrato.start();
       vibrato.enabled = true;
-      print("Connecting Vibrato");
+      //print("Connecting Vibrato");
       vibrato.output.connectParam(generator.frequencyParam);
     }
     else if (!connect && vibrato != null) {
-      print("Disconnecting Vibrato");
+      //print("Disconnecting Vibrato");
       vibrato.output.disconnect(0);
       vibrato = null;
     }
@@ -246,27 +246,27 @@ class WASfxr {
       tremolo.start();
 
       // Connect Tremolo
-      print("--Connecting Tremolo");
+      //print("--Connecting Tremolo");
       _tremoloConnected = true;
       
       envelope.output.disconnect(0);
       
-      print("  Connecting envelope to tremolo");
+      //print("  Connecting envelope to tremolo");
       envelope.output.connectNode(tremolo.input);
-      print("  Connecting tremolo to masterGain");
+      //print("  Connecting tremolo to masterGain");
       tremolo.output.connectNode(_masterGain);
       tremolo.enabled = true;
     }
     else if (!connect && _tremoloConnected) {
       // Disconnect Tremolo
-      print("--Disconnecting Tremolo");
+      //print("--Disconnecting Tremolo");
       _tremoloConnected = false;
 
       tremolo.output.disconnect(0);
-      print("  Disconnecting envelope");
+      //print("  Disconnecting envelope");
       envelope.output.disconnect(0);
       
-      print("  Connecting envelope to masterGain");
+      //print("  Connecting envelope to masterGain");
       envelope.output.connectNode(_masterGain);
       
       tremolo = null;
@@ -345,7 +345,7 @@ class WASfxr {
     // forward until we reach the Envelope.
     if (connect && lowPass == null) {
       // lowPass isn't connected to anything. So we splice it in.
-      print("--Connecting lowPass");
+      //print("--Connecting lowPass");
       if (lowPass == null)
         lowPass = new WALowPassFilter.basic(_context);
 
@@ -354,28 +354,28 @@ class WASfxr {
       // Backward will be either the Flanger or Generator.
       if (flanger != null) {
         // Disconnect from whatever it is currently connected to.
-        print("  Redirecting Flanger to lowPass");
+        //print("  Redirecting Flanger to lowPass");
         flanger.output.disconnect(0);
         flanger.output.connectNode(lowPass.input);
       }
       else {
-        print("  Redirecting Generator to lowPass");
+        //print("  Redirecting Generator to lowPass");
         generator.output.disconnect(0);
         generator.output.connectNode(lowPass.input);
       }
       
       // Forward will be either highPass or Envelope
       if (highPass != null) {
-        print("  Connecting lowPass to highPass");
+        //print("  Connecting lowPass to highPass");
         lowPass.output.connectNode(highPass.input);
       }
       else {
-        print("  Connecting lowPass to envelope");
+        //print("  Connecting lowPass to envelope");
         lowPass.output.connectNode(envelope.input);
       }
     }
     else if (!connect && lowPass != null) {
-      print("--Disconnecting lowPass");
+      //print("--Disconnecting lowPass");
       lowPass.enabled = false;
       lowPass.output.disconnect(0);
 
@@ -384,27 +384,27 @@ class WASfxr {
       // If the Flanger is connected we want to redirect its output forward.
       // We either connect it to highPass or Envelope
       if (flanger != null) {
-        print("  Disconnecting flanger");
+        //print("  Disconnecting flanger");
         flanger.output.disconnect(0);
         if (highPass != null) {
-          print("  Connecting flanger to highPass");
+          //print("  Connecting flanger to highPass");
           flanger.output.connectNode(highPass.input);
         }
         else {
-          print("  Connecting flanger to envelope");
+          //print("  Connecting flanger to envelope");
           flanger.output.connectNode(envelope.input);
         }
       }
       else {
         // The Flanger is disconnected so redirect the Generator output.
-        print("  Disconnecting generator");
+        //print("  Disconnecting generator");
         generator.output.disconnect(0);
         if (highPass != null) {
-          print("  Connecting generator to highPass");
+          //print("  Connecting generator to highPass");
           generator.output.connectNode(highPass.input);
         }
         else {
-          print("  Connecting generator to envelope");
+          //print("  Connecting generator to envelope");
           generator.output.connectNode(envelope.input);
         }
       }
@@ -469,59 +469,59 @@ class WASfxr {
     if (connect && highPass == null) {
       highPass = new WAHighPassFilter.basic(_context);
       highPass.enabled = true;
-      print("--Connecting highPass");
+      //print("--Connecting highPass");
       
       if (lowPass != null) {
-        print("  Disconnecting lowPass");
+        //print("  Disconnecting lowPass");
         // Disconnect lowPass from whatever it is currently connected.
         lowPass.output.disconnect(0);
         // And reconnect it to highPass
-        print("  Connecting lowPass to highPass");
+        //print("  Connecting lowPass to highPass");
         lowPass.output.connectNode(highPass.input);
       }
       else {
         // Continue to check backwards.
         if (flanger != null) {
-          print("  Disconnecting flanger");
+          //print("  Disconnecting flanger");
           flanger.output.disconnect(0);
-          print("  Connecting flanger to highPass");
+          //print("  Connecting flanger to highPass");
           flanger.output.connectNode(highPass.input);
         }
         else {
           // Neither lowPass or Flanger are connected. So Generator needs
           // to be disconnected.
-          print("  Disconnecting generator");
+          //print("  Disconnecting generator");
           generator.output.disconnect(0);
-          print("  Connecting generator to highPass");
+          //print("  Connecting generator to highPass");
           generator.output.connectNode(highPass.input);
         }
       }
       
       // Now connect highPass forward.
-      print("  Connecting highPass to envelope");
+      //print("  Connecting highPass to envelope");
       highPass.output.connectNode(envelope.input);
     }
     else if (!connect && highPass != null) {
       // Disconnect highPass then route anything backward to envelope
-      print("--Disconnecting highPass");
+      //print("--Disconnecting highPass");
       highPass.enabled = false;
       highPass.output.disconnect(0);
 
       highPass = null;
 
       if (lowPass != null) {
-        print("  Redirecting lowPass to envelope");
+        //print("  Redirecting lowPass to envelope");
         lowPass.output.disconnect(0);
         lowPass.output.connectNode(envelope.input);
       }
       else {
         if (flanger != null) {
-          print("  Redirecting flanger to envelope");
+          //print("  Redirecting flanger to envelope");
           flanger.output.disconnect(0);
           flanger.output.connectNode(envelope.input);
         }
         else {
-          print("  Redirecting generator to envelope");
+          //print("  Redirecting generator to envelope");
           generator.output.disconnect(0);
           generator.output.connectNode(envelope.input);
         }
@@ -642,8 +642,8 @@ class WASfxr {
   
   void connectFlanger() {
     // Disconnect generator from lowpass
-    print("--Connecting flanger");
-    print("  Disconnecting generator");
+    //print("--Connecting flanger");
+    //print("  Disconnecting generator");
     generator.output.disconnect(0);
 
     if (flanger == null)
@@ -651,20 +651,20 @@ class WASfxr {
 
     flanger.enabled = true;
 
-    print("  Connecting generator to flanger");
+    //print("  Connecting generator to flanger");
     generator.output.connectNode(flanger.input);
     
     if (lowPass != null) {
-      print("  Connecting flanger to lowPass");
+      //print("  Connecting flanger to lowPass");
       flanger.output.connectNode(lowPass.input);
     }
     else {
       if (highPass != null) {
-        print("  Connecting flanger to highPass");
+        //print("  Connecting flanger to highPass");
         flanger.output.connectNode(highPass.input);
       }
       else {
-        print("  Connecting flanger to envelope");
+        //print("  Connecting flanger to envelope");
         flanger.output.connectNode(envelope.input);
       }
     }
@@ -673,25 +673,25 @@ class WASfxr {
   }
   
   void disconnectFlanger() {
-    print("--Disconnecting flanger");
+    //print("--Disconnecting flanger");
     flanger.output.disconnect(0);
     
     flanger = null;
     
-    print("  Disconnecting generator");
+    //print("  Disconnecting generator");
     generator.output.disconnect(0);
     
     if (lowPass != null) {
-      print("  Connecting to lowPass");
+      //print("  Connecting to lowPass");
       generator.output.connectNode(lowPass.input);
     }
     else {
       if (highPass != null) {
-        print("  Connecting to highPass");
+        //print("  Connecting to highPass");
         generator.output.connectNode(highPass.input);
       }
       else { 
-        print("  Connecting to envelope");
+        //print("  Connecting to envelope");
         generator.output.connectNode(envelope.input);
       }
     }
@@ -734,17 +734,17 @@ class WASfxr {
   void connectDistortion(bool connect) {
     if (connect && !generator.distortion.enabled) {
       generator.distortion.enabled = true;
-      print("--Connecting Distortion");
-      print("  Disconnecting generator");
+      //print("--Connecting Distortion");
+      //print("  Disconnecting generator");
       generator.output.disconnect(0);
       
       generator.connectDistortion();
       _connectGeneratorOutput();
     }
     else if (!connect && generator.distortion.enabled) {
-      print("--Disconnecting Distortion");
+      //print("--Disconnecting Distortion");
       generator.distortion.enabled = false;
-      print("  Disconnecting generator");
+      //print("  Disconnecting generator");
       generator.disconnectOutput();
       
       generator.configureOutput();
@@ -755,16 +755,16 @@ class WASfxr {
   
   void _connectGeneratorOutput() {
     if (lowPass != null) {
-      print("  Connecting generator to lowPass");
+      //print("  Connecting generator to lowPass");
       generator.output.connectNode(lowPass.input);
     }
     else {
       if (highPass != null) {
-        print("  Connecting generator to highPass");
+        //print("  Connecting generator to highPass");
         generator.output.connectNode(highPass.input);
       }
       else {
-        print("  Connecting generator to envelope");
+        //print("  Connecting generator to envelope");
         generator.output.connectNode(envelope.input);
       }
     }
