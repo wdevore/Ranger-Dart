@@ -301,13 +301,13 @@ class WAGenerator {
     _oscEnabled = b;
 
     if (_oscEnabled && _oscDisconnected) {
-      print("Connecting Oscillator");
+      //print("Connecting Oscillator");
       _oscDisconnected = false;
       _osc.connectNode(_inverter);
       _osc.connectNode(_mixer);
     }
     else if (!_oscEnabled && !_oscDisconnected) {
-      print("Disconnecting Oscillator");
+      //print("Disconnecting Oscillator");
       _oscDisconnected = true;
       _osc.disconnect(0);
     }
