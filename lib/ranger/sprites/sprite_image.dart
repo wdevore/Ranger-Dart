@@ -144,7 +144,22 @@ class SpriteImage extends Node with Color4Mixin {
     }
     
   }
-  
+
+  MutableRectangle<double> getLocalBounds() {
+    rect.bottom = _destinationRect.top;
+    rect.left = _destinationRect.left;
+    rect.width = _destinationRect.width;
+    rect.height = _destinationRect.height;
+    return rect;
+  }
+
+  /**
+   * To transfer this bbox into a MutableRectangle use:
+   * rect.bottom = localB.min.y;
+   * rect.left = localB.min.x;
+   * rect.width = (localB.max.x - localB.min.x).abs();
+   * rect.height = (localB.max.y - localB.min.y).abs();
+   */
   Aabb2 get localBounds {
     _aabbox.min.setValues(_destinationRect.left, _destinationRect.top);
     _aabbox.max.setValues(_destinationRect.right, _destinationRect.bottom);
