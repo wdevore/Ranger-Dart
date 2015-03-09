@@ -146,7 +146,10 @@ class SpriteImage extends Node with Color4Mixin {
   }
 
   MutableRectangle<double> getLocalBounds() {
-    rect.bottom = _destinationRect.top;
+    if (CONFIG.base_coordinate_system == CONFIG.LEFT_HANDED_COORDSYSTEM)
+      rect.bottom = _destinationRect.top;
+    else
+      rect.bottom = _destinationRect.bottom;
     rect.left = _destinationRect.left;
     rect.width = _destinationRect.width;
     rect.height = _destinationRect.height;
