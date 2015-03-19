@@ -185,6 +185,8 @@ Color4<int> get Color4IDarkBlue => new Color4<int>.withRGBA(10, 50, 100, 255);
 Color4<int> get Color4IDartBlue => new Color4<int>.withRGBA(109, 157, 235, 255);
 Color4<int> get Color4IOrange => new Color4<int>.withRGBA(255, 127, 0, 255);
 Color4<int> get Color4IGoldYellow => new Color4<int>.withRGBA(255, 200, 0, 255);
+Color4<int> get Color4IGreenYellow => new Color4<int>.withRGBA(173, 255, 47, 255);
+Color4<int> get Color4IYellowGreen => new Color4<int>.withRGBA(154, 205, 50, 255);
 
 // Pantone colors
 // http://damonbauer.github.io/Pantone-Sass/
