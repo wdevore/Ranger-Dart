@@ -34,6 +34,10 @@ class ObjectPool {
    * Adds a [poolable] to the [ObjectPool].
    */
   static void add(Poolable poolable) {
+    //print("ObjectPool.add: ${poolable.runtimeType}");
+    if (!_objectPools.containsKey(poolable.runtimeType))
+      throw new Exception("Ranger object pool doesn't contain [${poolable.runtimeType}] type."
+        " Make sure the first parameter of 'Poolable.of(...)' is (${poolable.runtimeType},...)");
     _objectPools[poolable.runtimeType].add(poolable);
   }
 
