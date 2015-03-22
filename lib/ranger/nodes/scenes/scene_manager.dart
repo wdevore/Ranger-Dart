@@ -45,7 +45,7 @@ class SceneManager {
   /// Indicating the app the core should begin shutting down.
   bool step(DrawContext context) {
     if (_scenes.isEmpty) {
-      Logging.warning("SceneManager.draw: no more scenes to draw.");
+      Logging.warning("SceneManager.step: no more scenes to visit.");
       return false;
     }
     
