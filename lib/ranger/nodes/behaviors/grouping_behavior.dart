@@ -61,6 +61,7 @@ abstract class GroupingBehavior {
   }
 
   void cleanUpNode([bool cleanUp = true]) {
+    //print("GroupingBehavior.cleanUpNode: $cleanUp --------------------------");
     if (_children != null && _children.isNotEmpty) {
       _children.forEach((BaseNode child) => child.cleanup(cleanUp));
       if (cleanUp)
@@ -230,7 +231,7 @@ abstract class GroupingBehavior {
    * [tag] is an integer to identify the [Node] easily.
    */
   void addChild(BaseNode child, [int zOrder = 0, int tag = 0]) {
-    if (child == this) {
+    if (child == _this) {
       Logging.error("GroupingBehavior.addChild: A node can't be added as a child to itself.");
       return;
     }
@@ -238,7 +239,9 @@ abstract class GroupingBehavior {
     if (child._parent != null) {
       // This node already has a parent which means it has been parented
       // to another node. This scenegraph is a DAG, hence no circular potentials.
-      Logging.error("GroupingBehavior.addChild: ${child} is already parented to ${child._parent}. This node is ${_this},P:${_this._parent}.");
+      Logging.error(
+        "GroupingBehavior.addChild: child:${child} is already parented to ${child._parent}."
+        " {_this} node is ${_this},P:${_this._parent}.");
       return;
     }
 
@@ -386,7 +389,7 @@ abstract class GroupingBehavior {
       if (cleanUp) {
         child.cleanup(cleanUp);
         if (child.pooled) {
-          //print("GroupingBehavior.removeAllChildren: moving ${child.tag} to pool.");
+          //print("GroupingBehavior.removeAllChildren: moving ${child} to pool.");
           child.moveToPool();
         }
       }
