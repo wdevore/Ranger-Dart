@@ -23,7 +23,7 @@ class SpriteImage extends Node with Color4Mixin {
   double _inverseUniformScale = 1.0;
   
   SpriteImage();
-  
+
   SpriteImage._();
   factory SpriteImage.pooled() {
     SpriteImage poolable = new Poolable.of(SpriteImage, _createPoolable);
@@ -33,6 +33,15 @@ class SpriteImage extends Node with Color4Mixin {
 
   static SpriteImage _createPoolable() => new SpriteImage._();
 
+  factory SpriteImage.basic(Html.ImageElement image, [bool centered = true]) {
+    SpriteImage si = new SpriteImage();
+    if (si.init()) {
+      si.initWithElement(image, centered);
+      return si;
+    }
+    return null;
+  }
+  
   /**
    * [image] is a resource previously loaded by a resource loader.
    * [centered] defaults to True.
