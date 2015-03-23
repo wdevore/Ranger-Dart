@@ -383,7 +383,8 @@ abstract class GroupingBehavior {
     for(BaseNode child in _children) {
       if (child.isRunning) {
         child.onExitTransitionDidStart();
-        child.onExit();
+        if (!child.hasExited)
+          child.onExit();
       }
       
       if (cleanUp) {

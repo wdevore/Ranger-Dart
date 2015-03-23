@@ -7,6 +7,7 @@ part of ranger;
 abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavior, RotationBehavior, PositionalBehavior {
   bool isTransitionFinished = true;
   bool _running = false;
+  bool _exited = false;
 
   Size<double> _contentSize = new Size<double>(0.0, 0.0);
 
@@ -77,6 +78,7 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
     _running = false;
     _transformDirty = _inverseDirty = true;
     tag = null;
+    _exited = false;
   }
   
   bool init() {
@@ -114,7 +116,8 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
   set parent(BaseNode node) => _parent = node;
   
   BaseNode get parent => _parent;
-  
+  bool get hasExited => _exited;
+
   void setContentSize(double width, double height) {
     if (!_contentSize.equalByWidthHeight(width, height)) {
       _contentSize.set(width, height);
