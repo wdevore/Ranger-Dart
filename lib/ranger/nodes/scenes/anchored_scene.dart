@@ -31,7 +31,9 @@ class AnchoredScene extends Scene with UTE.Tweenable {
   /// Defaults to disabled
   bool transitionEnabled = false;
   
-  AnchoredScene();
+  AnchoredScene() {
+    name = "AnchoredScene";
+  }
   
   AnchoredScene.withPrimaryLayer(Node primary, [Function completeVisit = null]) {
     completeVisitCallback = completeVisit;

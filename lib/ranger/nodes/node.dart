@@ -11,7 +11,7 @@ abstract class Node extends BaseNode {
 
   bool intersectsViewPort = false;
   
-//  Aabb2 aabbox = new Aabb2();
+  String name = "NoName";
 
   bool init() {
     if (super.init()) {
@@ -118,6 +118,7 @@ abstract class Node extends BaseNode {
 
   @override
   void onExit() {
+    _exited = true;
     onExitNode();
   }
 
@@ -200,6 +201,11 @@ abstract class Node extends BaseNode {
   @override
   bool pointInside(Vector2 point) {
     return false;
+  }
+
+  @override
+  String toString() {
+    return name;
   }
 }
 
