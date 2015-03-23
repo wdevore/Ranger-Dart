@@ -129,12 +129,13 @@ class SceneManager {
       sendCleanupToScene = true;
       
       BaseNode scene = _scenes.removeFirst();
-      //print("SceneManager.popScene popped scene: ${scene.tag}. Next scene is ${_scenes.first}");
+      //print("SceneManager.popScene popped scene: ${scene}. Next scene is ${_scenes.first}");
       
       if (_scenes.isNotEmpty) {
         _nextScene = _scenes.first;
       }
     }
+    //print("SceneManager.popScene " + this.toString());
   }
   
   /**
@@ -151,12 +152,13 @@ class SceneManager {
     sendCleanupToScene = false;
 
     //if (_scenes.length > 0)
-    //  print("SceneManager.pushScene pushing scene: ${scene.tag} on top of ${_scenes.first.tag}");
+    //  print("SceneManager.pushScene pushing scene: ${scene} above ${_scenes.first}");
     //else
-    //  print("SceneManager.pushScene pushing first scene: ${scene.tag}");
+    //  print("SceneManager.pushScene pushing ${scene} as first scene");
     
     _scenes.addFirst(scene);
     _nextScene = scene;
+    //print("SceneManager.pushScene " + this.toString());
   }
 
   /**
@@ -175,16 +177,17 @@ class SceneManager {
     }
 
     if (_scenes.isEmpty) {
-      //print("SceneManager.pushScene adding first scene: ${scene.tag}");
+      //print("SceneManager.replaceScene adding ${scene} as first scene");
       _scenes.add(scene);
     } else {
       BaseNode firstScene = _scenes.removeFirst();
-      //print("SceneManager.replaceScene replacing scene: ${scene.tag} over ${firstScene.tag}");
+      //print("SceneManager.replaceScene replacing ${firstScene} with ${scene}");
       _scenes.addFirst(scene);
     }
 
     _nextScene = scene;
     sendCleanupToScene = true;
+    //print("SceneManager.replaceScene " + this.toString());
   }
   
   /**
@@ -193,6 +196,7 @@ class SceneManager {
    */
   void popToRootScene() {
     popToSceneStackLevel(TO_ROOT);
+    //print("SceneManager.popToRootScene " + this.toString());
   }
   
   /**
@@ -253,6 +257,7 @@ class SceneManager {
       _nextScene = _scenes.first;
     
     sendCleanupToScene = false;
+    //print("SceneManager.popToSceneStackLevel " + this.toString());
   }
   
   /**
@@ -288,9 +293,18 @@ class SceneManager {
       _nextScene = _scenes.first;
     
     sendCleanupToScene = false;
+    //print("SceneManager.popToSceneTag " + this.toString());
   }
   
   void end() {
     popToSceneStackLevel(ALL);
+  }
+
+  @override
+  String toString() {
+    StringBuffer sb = new StringBuffer();
+    sb.write("Scene Stack: ");
+    _scenes.forEach((Scene s) => sb.write(s.toString() + ","));
+    return sb.toString();
   }
 }
