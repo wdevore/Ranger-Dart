@@ -674,6 +674,10 @@ class Application {
    */
   void _configureSurface() {
     //Logging.info("_configureSurface");
+    if (surface == null) {
+      throw new Exception("Surface DIV element appears to be missing.");
+    }
+
     Html.HtmlElement helement = surface;
 
     // Screen size is the window container's inner dimensions.
