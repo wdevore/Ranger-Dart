@@ -204,6 +204,11 @@ abstract class Node extends BaseNode {
   }
 
   @override
+  bool pointInsideByComp(double x, double y) {
+    return false;
+  }
+
+  @override
   String toString() {
     return name;
   }

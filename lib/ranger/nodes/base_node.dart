@@ -596,7 +596,9 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
    * Override to provide simply collision tests.
    */
   bool pointInside(Vector2 point);
-  
+
+  bool pointInsideByComp(double x, double y);
+
   /**
    * Returns a matrix that represents this [BaseNode]'s local-space
    * transform.
