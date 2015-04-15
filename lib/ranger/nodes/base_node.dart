@@ -555,6 +555,13 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
     return r;
   }
 
+  MutableRectangle<double> convertRectToWorldSpace(MutableRectangle<double> rect, [BaseNode pseudoRoot]) {
+    AffineTransform nwt = nodeToWorldTransform(pseudoRoot);
+    MutableRectangle<double> r = RectApplyAffineTransform(rect, nwt);
+    nwt.moveToPool();
+    return r;
+  }
+
   /**
    * Converts a local-space [Point] to world-space coordinates.
    * World-space = Root-space.
