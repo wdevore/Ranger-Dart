@@ -484,7 +484,22 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
 
     return comp;  // return pooled object
   }
-  
+
+  AffineTransform nodeToParentTransform() {
+    // Get a pooled transform to accumulate the parent transforms.
+    // child = comp
+    AffineTransform comp = new AffineTransform.withAffineTransformP(calcTransform());
+
+    // Iterate "upwards" starting with the child towards the parents
+    // starting with this child's parent.
+    BaseNode p = _parent;
+
+    AffineTransform parentT = p.calcTransform(); // Non-pooled object
+    affineTransformMultiplyFrom(comp, parentT);   // <--- correct
+
+    return comp;  // return pooled object
+  }
+
   double nodeToWorldScale() {
     double scale = uniformScale;
     
@@ -526,6 +541,13 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
     return invt; // return pooled object.
   }
 
+  AffineTransform parentToNodeTransform() {
+    AffineTransform nwt = nodeToParentTransform();
+    AffineTransform invt = AffineTransformInvert(nwt);
+    nwt.moveToPool();
+    return invt; // return pooled object.
+  }
+
   /**
    * Converts a [point] in world-space to [BaseNode] local-space coordinates.
    * You can pass a [Touch].getLocation() point as an example.
@@ -543,6 +565,13 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
    */
   Vector2P convertWorldToNodeSpace(Vector2 point, [BaseNode pseudoRoot]) {
     AffineTransform wnt = worldToNodeTransform(pseudoRoot);
+    Vector2P p = PointApplyAffineTransform(point, wnt);
+    wnt.moveToPool();
+    return p; // Remember to call moveToPool on "p"
+  }
+
+  Vector2P convertParentToNodeSpace(Vector2 point) {
+    AffineTransform wnt = parentToNodeTransform();
     Vector2P p = PointApplyAffineTransform(point, wnt);
     wnt.moveToPool();
     return p; // Remember to call moveToPool on "p"
@@ -581,6 +610,15 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
     
     Vector2P p = PointApplyAffineTransform(nodePoint, nwt);
     
+    nwt.moveToPool();
+    return p; // Caller should call moveToPool on "p"
+  }
+
+  Vector2P convertToParentSpace(Vector2 nodePoint) {
+    AffineTransform nwt = nodeToParentTransform();
+
+    Vector2P p = PointApplyAffineTransform(nodePoint, nwt);
+
     nwt.moveToPool();
     return p; // Caller should call moveToPool on "p"
   }
