@@ -1,6 +1,7 @@
 part of ranger;
 
 typedef MouseEventHandler(Html.MouseEvent event);
+typedef WheelEventHandler(Html.WheelEvent event);
 
 /** 
  * [MouseInputMixin] is a mixin for mouse streams.
@@ -27,7 +28,7 @@ abstract class MouseInputMixin {
   bool onMouseDown(Html.MouseEvent event) { return false; }
   bool onMouseMove(Html.MouseEvent event) { return false; }
   bool onMouseUp(Html.MouseEvent event) { return false; }
-  bool onMouseWheel(Html.MouseEvent event) { return false; }
+  bool onMouseWheel(Html.WheelEvent event) { return false; }
 
   StreamSubscription<Html.MouseEvent> bindMouseDownEvents(MouseEventHandler handler) {
     _mouseDownSubscription = Application.instance.window.onMouseDown.listen(handler);
@@ -44,7 +45,7 @@ abstract class MouseInputMixin {
     return _mouseMouseUpSubscription;
   }
   
-  StreamSubscription<Html.MouseEvent> bindMouseWheelEvents(MouseEventHandler handler) {
+  StreamSubscription<Html.MouseEvent> bindMouseWheelEvents(WheelEventHandler handler) {
     _mouseMouseWheelSubscription = Application.instance.window.onMouseWheel.listen(handler);
     return _mouseMouseWheelSubscription;
   }
