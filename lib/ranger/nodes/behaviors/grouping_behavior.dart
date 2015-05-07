@@ -368,8 +368,9 @@ abstract class GroupingBehavior {
     if (_children.contains(child)) {
       index = _detachChild(child, cleanUp);
     }
-    
-    _this.dirty = true;
+
+    if (!_this.managedTransform)
+      _this.dirty = true;
     
     return index;
   }
@@ -428,7 +429,8 @@ abstract class GroupingBehavior {
   void reorderChild(BaseNode child, int ZOrder) {
     child.drawOrder = ZOrder;
     _children.sort((BaseNode a, BaseNode b) => a.drawOrder.compareTo(b.drawOrder));
-    _this.dirty = true;
+    if (!_this.managedTransform)
+      _this.dirty = true;
   }
 
 }

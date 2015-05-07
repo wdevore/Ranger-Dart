@@ -27,6 +27,9 @@ abstract class BaseNode extends ComponentPoolable with TimingTarget, ScaleBehavi
   bool _transformDirty = true;
   bool _inverseDirty = true;
 
+  // Does this [Node] manage its own transform matrix.
+  bool managedTransform = false;
+
   /**
    * If this [Node] is invisible then the [draw] method is not called.
    */
