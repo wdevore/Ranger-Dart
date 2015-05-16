@@ -946,7 +946,7 @@ class Application {
     _container.style.backgroundColor = "#fce5cd";// peach/skin like color.
 
     _container.id = "gameSurface";
-    _container.style.zIndex = "100";
+    _container.style.zIndex = "1";
     
     // Use CSS instead
     //_container.style.margin = "0 auto";
