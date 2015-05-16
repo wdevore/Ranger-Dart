@@ -741,7 +741,7 @@ class Application {
   void _configureCanvas() {
     canvas = new Html.CanvasElement(width: viewSize.width, height: viewSize.height);
     canvas.id = "gameCanvas";
-    canvas.style.zIndex = "101";
+    canvas.style.zIndex = "2";
 
     drawContext.canvas = canvas;
     
