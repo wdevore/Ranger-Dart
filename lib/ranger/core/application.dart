@@ -844,8 +844,8 @@ class Application {
     
     // Configure viewport rectangle in view-space
     double shrinkBy = 1.0; // Mostly used for debugging.
-    viewPortAABB.left = viewSize.width / shrinkBy;
-    viewPortAABB.bottom = viewSize.height / shrinkBy;
+    viewPortAABB.left = 0.0;//viewSize.width / shrinkBy;
+    viewPortAABB.bottom = 0.0;//viewSize.height / shrinkBy;
     double top = viewSize.height - (viewSize.height / shrinkBy);
     double right = viewSize.width - (viewSize.width / shrinkBy);
     viewPortAABB.width = (right - viewPortAABB.left).abs();
