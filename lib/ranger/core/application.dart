@@ -848,8 +848,8 @@ class Application {
     viewPortAABB.bottom = viewSize.height / shrinkBy;
     double top = viewSize.height - (viewSize.height / shrinkBy);
     double right = viewSize.width - (viewSize.width / shrinkBy);
-    viewPortAABB.width = right - viewPortAABB.left;
-    viewPortAABB.height = top - viewPortAABB.bottom;
+    viewPortAABB.width = (right - viewPortAABB.left).abs();
+    viewPortAABB.height = (top - viewPortAABB.bottom).abs();
     //print("Application._configureViewSize: viewport view-space:\n$viewPortAABB");
 
   }
